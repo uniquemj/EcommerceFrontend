@@ -1,8 +1,11 @@
-import { addBusinessInfo, deleteSeller, getAllSeller, getSellerById, getSellerProfile, updateSellerInfo, updateSellerPassword, verifySeller, verifySellerEmail } from "@/services/seller.api"
+import { addBusinessInfo, deleteSeller, getAllSeller, getSellerById, getSellerProfile, resendVerificationEmail, updateSellerInfo, updateSellerPassword, verifySeller, verifySellerEmail } from "@/services/seller.api"
+import { useSellerState } from "@/store/seller.store"
 import type { PaginationField } from "@/types/pagination.types"
 import type { ErrorResponse, SuccessResponse } from "@/types/response.types"
-import type { UpdateSellerInfo,  Seller, BusinessInfo, PasswordUpdate } from "@/types/user.types"
+import type { UpdateSellerInfo,  Seller, PasswordUpdate } from "@/types/user.types"
+import type { BusinessInfoType } from "@/validations/seller.validate"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useNavigate } from "@tanstack/react-router"
 import toast from "react-hot-toast"
 
 
@@ -51,13 +54,18 @@ export const useDeleteSeller = () =>{
 }
 
 export const useVerifySellerEmail = () => {
+    const navigate = useNavigate()
     const query = useQueryClient()
     return useMutation<SuccessResponse<Seller>, ErrorResponse, string>({
         mutationFn: (code: string) => verifySellerEmail(code),
         onSuccess: (data) =>{
             query.setQueryData(['seller', data.data._id], data)
             query.invalidateQueries({queryKey: ['sellers']})
+            navigate({
+                to: '/auth/seller/login'
+            })
             toast.success("Seller Email Verified.")
+
         },
         onError:(error) =>{
             toast.error(error.response.data.message)
@@ -65,14 +73,43 @@ export const useVerifySellerEmail = () => {
     })
 }
 
+export const useResendVerificationEmail = () =>{
+    const navigate = useNavigate()
+    const query=useQueryClient()
+    return useMutation<SuccessResponse<Seller>, ErrorResponse, string>({
+        mutationFn: (email: string) => resendVerificationEmail(email),
+        onSuccess: (data) => {
+            query.setQueryData(['seller', data.data._id], data)
+            query.invalidateQueries({queryKey: ['sellers']})
+            navigate({
+                to: '/auth/seller/login'
+            })
+            toast.success("Resent Verification Email.")
+        },
+        onError: (error)=>{
+            toast.error(error.response.data.message)
+        }
+    })
+}
+
+
+
+
 export const useAddBusinessInfo = () =>{
+    const navigate = useNavigate()
     const query = useQueryClient()
-    return useMutation<SuccessResponse<Seller>, ErrorResponse,BusinessInfo>({
-        mutationFn: (businessInfo: BusinessInfo) => addBusinessInfo(businessInfo),
+    const {setAvatar} = useSellerState()
+
+    return useMutation<SuccessResponse<Seller>, ErrorResponse,BusinessInfoType>({
+        mutationFn: (businessInfo: BusinessInfoType) => addBusinessInfo(businessInfo),
         onSuccess: (data) =>{
             query.setQueryData(['seller', data.data._id], data)
             query.setQueryData(['seller','profile'], data)
             query.invalidateQueries({queryKey: ['sellers']})
+            setAvatar(data.data.store_logo[0].url)
+            navigate({
+                to: '/seller/profile'
+            })
             toast.success("Seller Business Info Added.")
         },
         onError: (error) =>{

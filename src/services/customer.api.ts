@@ -20,10 +20,14 @@ export const deleteCustomer = async(id: string): Promise<SuccessResponse<Custome
 }
 
 export const verifyCustomerEmail = async(code: string): Promise<SuccessResponse<Customer>> =>{
-    const repsonse = await api.post<SuccessResponse<Customer>>(`/customer/verify/${code}`)
-    return repsonse.data
+    const response = await api.post<SuccessResponse<Customer>>(`/customer/verify/${code}`)
+    return response.data
 }
 
+export const resendVerificationEmail = async(email: string): Promise<SuccessResponse<Customer>> =>{
+    const response = await api.post<SuccessResponse<Customer>>(`/customer/resend-verification`, {email})
+    return response.data
+}
 export const getCustomerProfile = async(): Promise<SuccessResponse<Customer>> =>{
     const response = await api.get<SuccessResponse<Customer>>('/customer/profile')
     return response.data

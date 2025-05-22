@@ -54,7 +54,8 @@ export interface Seller extends Omit<User,'password'>{
     store_logo: Array<ImageInfo>,
     address: string,
     city: string,
-    country: string
+    country: string,
+    is_verified: boolean
 }
 
 export interface Admin extends Omit<User,'password'>{

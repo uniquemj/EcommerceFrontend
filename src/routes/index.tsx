@@ -1,9 +1,24 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { useAuth } from '@/store/auth.store'
+import { UserRole } from '@/types/enum.types'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
+  beforeLoad: ({context}) =>{
+    const {role} = context.auth.getState()
+    const allowedRole: string[] = [UserRole.ANONYMOUS, UserRole.CUSTOMER]
+    
+    if(!allowedRole.includes(role)){
+      useAuth.persist.clearStorage()
+      useAuth.setState({
+        isAuthenticated: false,
+        role: UserRole.ANONYMOUS
+      })
+      throw redirect({to: '/login'})
+    }
+  }
 })
 
 function RouteComponent() {
-  return <div>Hello "/"!</div>
+  return <div>Hello Product</div>
 }

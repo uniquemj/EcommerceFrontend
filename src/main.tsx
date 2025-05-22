@@ -5,8 +5,16 @@ import './index.css'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 import {routeTree} from './routeTree.gen'
+import { useAuth } from './store/auth.store'
 
-const router = createRouter({routeTree})
+
+
+const router = createRouter({
+  routeTree,
+  context: {
+    auth: useAuth,
+  }
+})
 
 declare module '@tanstack/react-router' {
   interface Register{

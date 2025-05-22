@@ -54,6 +54,7 @@ export const login = async<TInput, TOutput>(userType: string, credential: TInput
 
 export const register = async<TInput, TOutput>(userType: string, registerInfo: TInput): Promise<SuccessResponse<TOutput>> =>{
     const response = await api.post<SuccessResponse<TOutput>>(`/auth/${userType}/register`, registerInfo)
+    console.log(response.data)
     return response.data
 }
 

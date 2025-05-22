@@ -11,13 +11,105 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SellerRouteImport } from './routes/seller/route'
+import { Route as AdminRouteImport } from './routes/admin/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as SellerProfileIndexImport } from './routes/seller/profile/index'
+import { Route as SellerDashboardIndexImport } from './routes/seller/dashboard/index'
+import { Route as AdminDashboardIndexImport } from './routes/admin/dashboard/index'
+import { Route as SellerDashboardBusinessInformationImport } from './routes/seller/dashboard/business-information'
+import { Route as AuthSellerRegisterImport } from './routes/auth/seller/register'
+import { Route as AuthSellerLoginImport } from './routes/auth/seller/login'
+import { Route as AuthAdminLoginImport } from './routes/auth/admin/login'
+import { Route as AuthcustomerRegisterImport } from './routes/auth/(customer)/register'
+import { Route as AuthcustomerLoginImport } from './routes/auth/(customer)/login'
+import { Route as AuthSellerVerifyCodeImport } from './routes/auth/seller/verify/$code'
+import { Route as AuthcustomerVerifyCodeImport } from './routes/auth/(customer)/verify/$code'
 
 // Create/Update Routes
+
+const SellerRouteRoute = SellerRouteImport.update({
+  id: '/seller',
+  path: '/seller',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AdminRouteRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SellerProfileIndexRoute = SellerProfileIndexImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => SellerRouteRoute,
+} as any)
+
+const SellerDashboardIndexRoute = SellerDashboardIndexImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => SellerRouteRoute,
+} as any)
+
+const AdminDashboardIndexRoute = AdminDashboardIndexImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const SellerDashboardBusinessInformationRoute =
+  SellerDashboardBusinessInformationImport.update({
+    id: '/dashboard/business-information',
+    path: '/dashboard/business-information',
+    getParentRoute: () => SellerRouteRoute,
+  } as any)
+
+const AuthSellerRegisterRoute = AuthSellerRegisterImport.update({
+  id: '/auth/seller/register',
+  path: '/auth/seller/register',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthSellerLoginRoute = AuthSellerLoginImport.update({
+  id: '/auth/seller/login',
+  path: '/auth/seller/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthAdminLoginRoute = AuthAdminLoginImport.update({
+  id: '/auth/admin/login',
+  path: '/auth/admin/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthcustomerRegisterRoute = AuthcustomerRegisterImport.update({
+  id: '/auth/(customer)/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthcustomerLoginRoute = AuthcustomerLoginImport.update({
+  id: '/auth/(customer)/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthSellerVerifyCodeRoute = AuthSellerVerifyCodeImport.update({
+  id: '/auth/seller/verify/$code',
+  path: '/auth/seller/verify/$code',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthcustomerVerifyCodeRoute = AuthcustomerVerifyCodeImport.update({
+  id: '/auth/(customer)/verify/$code',
+  path: '/auth/verify/$code',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,39 +124,259 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/seller': {
+      id: '/seller'
+      path: '/seller'
+      fullPath: '/seller'
+      preLoaderRoute: typeof SellerRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/(customer)/login': {
+      id: '/auth/(customer)/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthcustomerLoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/(customer)/register': {
+      id: '/auth/(customer)/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthcustomerRegisterImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/admin/login': {
+      id: '/auth/admin/login'
+      path: '/auth/admin/login'
+      fullPath: '/auth/admin/login'
+      preLoaderRoute: typeof AuthAdminLoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/seller/login': {
+      id: '/auth/seller/login'
+      path: '/auth/seller/login'
+      fullPath: '/auth/seller/login'
+      preLoaderRoute: typeof AuthSellerLoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/seller/register': {
+      id: '/auth/seller/register'
+      path: '/auth/seller/register'
+      fullPath: '/auth/seller/register'
+      preLoaderRoute: typeof AuthSellerRegisterImport
+      parentRoute: typeof rootRoute
+    }
+    '/seller/dashboard/business-information': {
+      id: '/seller/dashboard/business-information'
+      path: '/dashboard/business-information'
+      fullPath: '/seller/dashboard/business-information'
+      preLoaderRoute: typeof SellerDashboardBusinessInformationImport
+      parentRoute: typeof SellerRouteImport
+    }
+    '/admin/dashboard/': {
+      id: '/admin/dashboard/'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardIndexImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/seller/dashboard/': {
+      id: '/seller/dashboard/'
+      path: '/dashboard'
+      fullPath: '/seller/dashboard'
+      preLoaderRoute: typeof SellerDashboardIndexImport
+      parentRoute: typeof SellerRouteImport
+    }
+    '/seller/profile/': {
+      id: '/seller/profile/'
+      path: '/profile'
+      fullPath: '/seller/profile'
+      preLoaderRoute: typeof SellerProfileIndexImport
+      parentRoute: typeof SellerRouteImport
+    }
+    '/auth/(customer)/verify/$code': {
+      id: '/auth/(customer)/verify/$code'
+      path: '/auth/verify/$code'
+      fullPath: '/auth/verify/$code'
+      preLoaderRoute: typeof AuthcustomerVerifyCodeImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/seller/verify/$code': {
+      id: '/auth/seller/verify/$code'
+      path: '/auth/seller/verify/$code'
+      fullPath: '/auth/seller/verify/$code'
+      preLoaderRoute: typeof AuthSellerVerifyCodeImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
+interface AdminRouteRouteChildren {
+  AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminDashboardIndexRoute: AdminDashboardIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
+interface SellerRouteRouteChildren {
+  SellerDashboardBusinessInformationRoute: typeof SellerDashboardBusinessInformationRoute
+  SellerDashboardIndexRoute: typeof SellerDashboardIndexRoute
+  SellerProfileIndexRoute: typeof SellerProfileIndexRoute
+}
+
+const SellerRouteRouteChildren: SellerRouteRouteChildren = {
+  SellerDashboardBusinessInformationRoute:
+    SellerDashboardBusinessInformationRoute,
+  SellerDashboardIndexRoute: SellerDashboardIndexRoute,
+  SellerProfileIndexRoute: SellerProfileIndexRoute,
+}
+
+const SellerRouteRouteWithChildren = SellerRouteRoute._addFileChildren(
+  SellerRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/seller': typeof SellerRouteRouteWithChildren
+  '/auth/login': typeof AuthcustomerLoginRoute
+  '/auth/register': typeof AuthcustomerRegisterRoute
+  '/auth/admin/login': typeof AuthAdminLoginRoute
+  '/auth/seller/login': typeof AuthSellerLoginRoute
+  '/auth/seller/register': typeof AuthSellerRegisterRoute
+  '/seller/dashboard/business-information': typeof SellerDashboardBusinessInformationRoute
+  '/admin/dashboard': typeof AdminDashboardIndexRoute
+  '/seller/dashboard': typeof SellerDashboardIndexRoute
+  '/seller/profile': typeof SellerProfileIndexRoute
+  '/auth/verify/$code': typeof AuthcustomerVerifyCodeRoute
+  '/auth/seller/verify/$code': typeof AuthSellerVerifyCodeRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/seller': typeof SellerRouteRouteWithChildren
+  '/auth/login': typeof AuthcustomerLoginRoute
+  '/auth/register': typeof AuthcustomerRegisterRoute
+  '/auth/admin/login': typeof AuthAdminLoginRoute
+  '/auth/seller/login': typeof AuthSellerLoginRoute
+  '/auth/seller/register': typeof AuthSellerRegisterRoute
+  '/seller/dashboard/business-information': typeof SellerDashboardBusinessInformationRoute
+  '/admin/dashboard': typeof AdminDashboardIndexRoute
+  '/seller/dashboard': typeof SellerDashboardIndexRoute
+  '/seller/profile': typeof SellerProfileIndexRoute
+  '/auth/verify/$code': typeof AuthcustomerVerifyCodeRoute
+  '/auth/seller/verify/$code': typeof AuthSellerVerifyCodeRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/seller': typeof SellerRouteRouteWithChildren
+  '/auth/(customer)/login': typeof AuthcustomerLoginRoute
+  '/auth/(customer)/register': typeof AuthcustomerRegisterRoute
+  '/auth/admin/login': typeof AuthAdminLoginRoute
+  '/auth/seller/login': typeof AuthSellerLoginRoute
+  '/auth/seller/register': typeof AuthSellerRegisterRoute
+  '/seller/dashboard/business-information': typeof SellerDashboardBusinessInformationRoute
+  '/admin/dashboard/': typeof AdminDashboardIndexRoute
+  '/seller/dashboard/': typeof SellerDashboardIndexRoute
+  '/seller/profile/': typeof SellerProfileIndexRoute
+  '/auth/(customer)/verify/$code': typeof AuthcustomerVerifyCodeRoute
+  '/auth/seller/verify/$code': typeof AuthSellerVerifyCodeRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/seller'
+    | '/auth/login'
+    | '/auth/register'
+    | '/auth/admin/login'
+    | '/auth/seller/login'
+    | '/auth/seller/register'
+    | '/seller/dashboard/business-information'
+    | '/admin/dashboard'
+    | '/seller/dashboard'
+    | '/seller/profile'
+    | '/auth/verify/$code'
+    | '/auth/seller/verify/$code'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/seller'
+    | '/auth/login'
+    | '/auth/register'
+    | '/auth/admin/login'
+    | '/auth/seller/login'
+    | '/auth/seller/register'
+    | '/seller/dashboard/business-information'
+    | '/admin/dashboard'
+    | '/seller/dashboard'
+    | '/seller/profile'
+    | '/auth/verify/$code'
+    | '/auth/seller/verify/$code'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/seller'
+    | '/auth/(customer)/login'
+    | '/auth/(customer)/register'
+    | '/auth/admin/login'
+    | '/auth/seller/login'
+    | '/auth/seller/register'
+    | '/seller/dashboard/business-information'
+    | '/admin/dashboard/'
+    | '/seller/dashboard/'
+    | '/seller/profile/'
+    | '/auth/(customer)/verify/$code'
+    | '/auth/seller/verify/$code'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
+  SellerRouteRoute: typeof SellerRouteRouteWithChildren
+  AuthcustomerLoginRoute: typeof AuthcustomerLoginRoute
+  AuthcustomerRegisterRoute: typeof AuthcustomerRegisterRoute
+  AuthAdminLoginRoute: typeof AuthAdminLoginRoute
+  AuthSellerLoginRoute: typeof AuthSellerLoginRoute
+  AuthSellerRegisterRoute: typeof AuthSellerRegisterRoute
+  AuthcustomerVerifyCodeRoute: typeof AuthcustomerVerifyCodeRoute
+  AuthSellerVerifyCodeRoute: typeof AuthSellerVerifyCodeRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
+  SellerRouteRoute: SellerRouteRouteWithChildren,
+  AuthcustomerLoginRoute: AuthcustomerLoginRoute,
+  AuthcustomerRegisterRoute: AuthcustomerRegisterRoute,
+  AuthAdminLoginRoute: AuthAdminLoginRoute,
+  AuthSellerLoginRoute: AuthSellerLoginRoute,
+  AuthSellerRegisterRoute: AuthSellerRegisterRoute,
+  AuthcustomerVerifyCodeRoute: AuthcustomerVerifyCodeRoute,
+  AuthSellerVerifyCodeRoute: AuthSellerVerifyCodeRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +389,71 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/admin",
+        "/seller",
+        "/auth/(customer)/login",
+        "/auth/(customer)/register",
+        "/auth/admin/login",
+        "/auth/seller/login",
+        "/auth/seller/register",
+        "/auth/(customer)/verify/$code",
+        "/auth/seller/verify/$code"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/admin": {
+      "filePath": "admin/route.tsx",
+      "children": [
+        "/admin/dashboard/"
+      ]
+    },
+    "/seller": {
+      "filePath": "seller/route.tsx",
+      "children": [
+        "/seller/dashboard/business-information",
+        "/seller/dashboard/",
+        "/seller/profile/"
+      ]
+    },
+    "/auth/(customer)/login": {
+      "filePath": "auth/(customer)/login.tsx"
+    },
+    "/auth/(customer)/register": {
+      "filePath": "auth/(customer)/register.tsx"
+    },
+    "/auth/admin/login": {
+      "filePath": "auth/admin/login.tsx"
+    },
+    "/auth/seller/login": {
+      "filePath": "auth/seller/login.tsx"
+    },
+    "/auth/seller/register": {
+      "filePath": "auth/seller/register.tsx"
+    },
+    "/seller/dashboard/business-information": {
+      "filePath": "seller/dashboard/business-information.tsx",
+      "parent": "/seller"
+    },
+    "/admin/dashboard/": {
+      "filePath": "admin/dashboard/index.tsx",
+      "parent": "/admin"
+    },
+    "/seller/dashboard/": {
+      "filePath": "seller/dashboard/index.tsx",
+      "parent": "/seller"
+    },
+    "/seller/profile/": {
+      "filePath": "seller/profile/index.tsx",
+      "parent": "/seller"
+    },
+    "/auth/(customer)/verify/$code": {
+      "filePath": "auth/(customer)/verify/$code.tsx"
+    },
+    "/auth/seller/verify/$code": {
+      "filePath": "auth/seller/verify/$code.tsx"
     }
   }
 }

@@ -1,8 +1,9 @@
-import { deleteCustomer, getAllCustomers, getCustomerById, getCustomerProfile, updateCustomerInfo, updateCustomerPassword, verifyCustomerEmail } from "@/services/customer.api";
+import { deleteCustomer, getAllCustomers, getCustomerById, getCustomerProfile, resendVerificationEmail, updateCustomerInfo, updateCustomerPassword, verifyCustomerEmail } from "@/services/customer.api";
 import type { PaginationField } from "@/types/pagination.types";
 import type { ErrorResponse, SuccessResponse } from "@/types/response.types";
 import type { PasswordUpdate, UpdateCustomerInfo,  Customer } from "@/types/user.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 
 
@@ -36,11 +37,15 @@ export const useDeleteCustomer = () =>{
 
 export const useVerifyCustomerEmail = () =>{
     const query = useQueryClient()
+    const navigate = useNavigate()
     return useMutation<SuccessResponse<Customer>, ErrorResponse, string>({
         mutationFn: (code: string) => verifyCustomerEmail(code),
         onSuccess: (data) =>{
             query.setQueryData(['customer', data.data._id], data)
             query.invalidateQueries({queryKey: ['customers']})
+            navigate({
+                to: '/login'
+            })
             toast.success("Customer Email Verified.")
         },
         onError: (error)=>{
@@ -49,12 +54,30 @@ export const useVerifyCustomerEmail = () =>{
     })
 }
 
-export const useGetCustomerProfile = () =>{
-    return useQuery<SuccessResponse<Customer>, ErrorResponse>(({
-        queryKey: ['customer', 'profile'],
-        queryFn: () => getCustomerProfile()
-    }))
+export const useResendVerificationEmail = () =>{
+    const query=useQueryClient()
+    return useMutation<SuccessResponse<Customer>, ErrorResponse, string>({
+        mutationFn: (email: string) => resendVerificationEmail(email),
+        onSuccess: (data) => {
+            query.setQueryData(['customer', data.data._id], data)
+            query.invalidateQueries({queryKey: ['customers']})
+            toast.success("Resent Verification Email.")
+        },
+        onError: (error)=>{
+            toast.error(error.response.data.message)
+        }
+    })
 }
+
+export const useGetCustomerProfile = () =>{
+    const {data: user, isLoading, isError} = useQuery<SuccessResponse<Customer>, ErrorResponse>(({
+        queryKey: ['customer', 'profile'],
+        queryFn: () => getCustomerProfile(),
+        retry: false
+    }))
+    return {user, isLoading, isError}
+}
+
 
 export const useUpdateCustomerInfo = () =>{
     const query = useQueryClient()
