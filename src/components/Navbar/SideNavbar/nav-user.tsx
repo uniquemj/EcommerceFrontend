@@ -17,6 +17,9 @@ const NavUser = ({
     const {isMobile} = useSidebar()
     const {isPending, mutate} = useLogout()
 
+    const route = `/${user.role}/profile`
+    const updatePasswordRoute = `/${user.role}/dashboard/update-password`
+
     const handleLogout = () =>{
         mutate(user.role as string)
     }
@@ -43,9 +46,14 @@ const NavUser = ({
                    </DropdownMenuLabel>
                    <DropdownMenuSeparator />
                    <DropdownMenuGroup className="flex flex-col gap-0.5 pb-3">
-                    <Link to="/seller/dashboard" className="hover:bg-red-300 hover:text-amber-50 rounded-xl p-3">
-                      <DropdownMenuItem className="text-sm text-center">
+                    <Link to={route} className="">
+                      <DropdownMenuItem className="text-sm text-center hover:bg-red-300 hover:text-amber-50 rounded-xl p-3">
                         Account
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link to={updatePasswordRoute} className="">
+                      <DropdownMenuItem className="text-sm text-center hover:bg-red-300 hover:text-amber-50 rounded-xl p-3">
+                        Update Password
                       </DropdownMenuItem>
                     </Link>
                       <DropdownMenuItem onClick={handleLogout} className="hover:bg-red-300 hover:text-amber-50 rounded-xl p-3 text-sm text-center">

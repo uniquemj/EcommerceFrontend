@@ -34,33 +34,38 @@ function RouteComponent() {
           <div className=''>
             <div className='flex flex-col space-y-1'>
               <h1 className='text-xl min-[460px]:text-2xl font-semibold text-center'>{fullname}</h1>
-              <h1 className='text-md min-[460px]:text-xl font-medium text-gray-400'>{email}</h1>
+              <h1 className='text-sm min-[460px]:text-md font-medium text-gray-400'>{email}</h1>
             </div>
           </div>
         </div>
         <Separator/>
-        <CardContent className=''>
-          <div className='p-0 w-full text-center'>
-            <div className='flex justify-center max-[78rem]:gap-10 md:justify-evenly w-full'>
-              <h1 className='max-[365px]:text-sm font-semibold '>Store Name:</h1>
-              <h2 className='max-[365px]:text-sm  font-medium'>{seller?.data.store_name}</h2>
-            </div>
-            <div className='flex justify-center max-[78rem]:gap-10 md:justify-evenly w-full'>
-              <h1 className='max-[365px]:text-sm font-semibold'>City:</h1>
-              <h2 className='max-[365px]:text-sm  font-medium'>{seller?.data.city}</h2>
-            </div>
-            <div className='flex justify-center max-[78rem]:gap-10 md:justify-evenly  w-full'>
-              <h1 className='max-[365px]:text-sm font-semibold'>County:</h1>
-              <h2 className='max-[365px]:text-sm  font-medium'>{seller?.data.country}</h2>
-            </div>
-            <div className='flex justify-center max-[78rem]:gap-10 md:justify-evenly w-full'>
-              <h1 className='max-[365px]:text-sm font-semibold'>Address:</h1>
-              <h2 className='max-[365px]:text-sm  font-medium'>{seller?.data.address}</h2>
-            </div>
-            <div className='flex justify-center max-[78rem]:gap-10 md:justify-evenly w-full'>
-              <h1 className='max-[365px]:text-sm font-semibold'>Phone Number:</h1>
-              <h2 className='max-[365px]:text-sm  font-medium'>{seller?.data.phone_number}</h2>
-            </div>
+        <CardContent className='w-full flex flex-col justify-center items-center'>
+          <div className=' w-full min-[550px]:w-4/5 min-[950px]:w-2/5 flex flex-col justify-center items-center gap-10'>
+              <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
+                <h1 className='w-[50%] max-[365px]:text-sm font-semibold text-left'>Store Name:</h1>
+                <h2 className='w-[50%] max-[365px]:text-sm  font-medium text-right'>{seller?.data.store_name}</h2>
+              </div>
+
+              <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
+                <h1 className='w-[50%] max-[365px]:text-sm font-semibold text-left'>City:</h1>
+                <h2 className='w-[50%] max-[365px]:text-sm  font-medium text-right'>{seller?.data.city}</h2>
+              </div>
+
+              <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
+                <h1 className='w-[50%] max-[365px]:text-sm font-semibold text-left'>County:</h1>
+                <h2 className='w-[50%] max-[365px]:text-sm  font-medium text-right'>{seller?.data.country}</h2>
+              </div>
+
+              <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
+                <h1 className='w-[50%] max-[365px]:text-sm font-semibold text-left'>Address:</h1>
+                <h2 className='w-[50%] max-[365px]:text-sm  font-medium text-right'>{seller?.data.address}</h2>
+              </div>
+
+              <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
+                <h1 className='w-[50%] max-[365px]:text-sm font-semibold text-left'>Phone Number:</h1>
+                <h2 className='w-[50%] max-[365px]:text-sm  font-medium text-right'>{seller?.data.phone_number}</h2>
+              </div>
+
           </div>
         </CardContent>
         <Separator/>

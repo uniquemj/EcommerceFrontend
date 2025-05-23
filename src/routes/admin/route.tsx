@@ -1,6 +1,7 @@
 import SideLayout from '@/components/Layout/SideNavbar/SideLayout'
 import { navRoute } from '@/config/route.constant'
 import { useAuth } from '@/store/auth.store'
+import { useSellerState } from '@/store/seller.store'
 import { UserRole } from '@/types/enum.types'
 import type { DataType } from '@/types/navbar.typs'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
@@ -18,7 +19,7 @@ export const Route = createFileRoute('/admin')({
 
 function RouteComponent() {
   const {fullname, email, role,  initials} = useAuth()
-
+  const {avatar} = useSellerState()
   const adminRoute = navRoute.admin
 
   const data: DataType = {
@@ -28,11 +29,14 @@ function RouteComponent() {
       name: fullname as string,
       email: email as string,
       role: role as string,
-      initials: initials
+      initials: initials,
+      avatar: avatar
     }
   }
   return (
   <SideLayout data = {data}>
-    <Outlet/>
+    <div className='my-2 mx-8'>
+      <Outlet/>
+    </div>
   </SideLayout>)
 }

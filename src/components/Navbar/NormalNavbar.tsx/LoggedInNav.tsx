@@ -54,8 +54,9 @@ const LoggedInNav = () => {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <Link to="/customer/profile">
+              <DropdownMenuItem>Manage Profile</DropdownMenuItem>
+            </Link>
             <DropdownMenuItem
               className="hover:bg-red-400 hover:text-amber-50"
               onClick={handleLogout}

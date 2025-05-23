@@ -1,9 +1,10 @@
 import { addBusinessInfo, deleteSeller, getAllSeller, getSellerById, getSellerProfile, resendVerificationEmail, updateSellerInfo, updateSellerPassword, verifySeller, verifySellerEmail } from "@/services/seller.api"
+import { useAuth } from "@/store/auth.store"
 import { useSellerState } from "@/store/seller.store"
 import type { PaginationField } from "@/types/pagination.types"
 import type { ErrorResponse, SuccessResponse } from "@/types/response.types"
-import type { UpdateSellerInfo,  Seller, PasswordUpdate } from "@/types/user.types"
-import type { BusinessInfoType } from "@/validations/seller.validate"
+import type { Seller, PasswordUpdate } from "@/types/user.types"
+import type { BusinessInfoType, SellerAccountType } from "@/validations/seller.validate"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import toast from "react-hot-toast"
@@ -119,20 +120,29 @@ export const useAddBusinessInfo = () =>{
 }
 
 export const useGetSellerProfile = () =>{
+    const {isAuthenticated} = useAuth()
     return useQuery<SuccessResponse<Seller>, ErrorResponse>({
         queryKey: ['seller', 'profile'],
-        queryFn: () => getSellerProfile()
+        queryFn: () => getSellerProfile(),
+        enabled: Boolean(isAuthenticated)
     })
 }
 
 export const useUpdateSellerInfo = () =>{
     const query = useQueryClient()
-    return useMutation<SuccessResponse<Seller>,ErrorResponse, Partial<UpdateSellerInfo>>({
-        mutationFn: (updateInfo: Partial<UpdateSellerInfo>) => updateSellerInfo(updateInfo),
+    const navigate = useNavigate()
+    
+    return useMutation<SuccessResponse<Seller>,ErrorResponse,SellerAccountType>({
+        mutationFn: (updateInfo: SellerAccountType) => updateSellerInfo(updateInfo),
         onSuccess: (data) =>{
             query.setQueryData(['seller', data.data._id], data)
             query.setQueryData(['seller','profile'], data)
             query.invalidateQueries({queryKey: ['sellers']})
+
+            navigate({
+                to: '/seller/profile'
+            })
+            
             toast.success("Seller Info Updated.")
         },
         onError: (error) =>{
@@ -142,9 +152,14 @@ export const useUpdateSellerInfo = () =>{
 }
 
 export const useUpdateSellerPassword = () =>{
+    const navigate = useNavigate()
+
     return useMutation<SuccessResponse<Seller>, ErrorResponse, PasswordUpdate>({
         mutationFn: (updatePassword: PasswordUpdate) => updateSellerPassword(updatePassword),
         onSuccess: ()=>{
+            navigate({
+                to: '/seller/profile'
+            })        
             toast.success("Seller Password Updated.")
         },
         onError: (error)=>{

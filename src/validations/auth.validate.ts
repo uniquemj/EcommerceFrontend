@@ -36,3 +36,24 @@ export const sellerRegisterSchema = z.object({
 export const resendEmailSchema = z.object({
     email: z.string().email()
 }).strict()
+
+
+export const updatePasswordSchema = z.object({
+    old_password: z.string().min(8, "Minimum of 8 character is required."),
+    new_password: z.string().min(8, "Minimum of 8 character is required."),
+    confirm_password: z.string().min(8, "Minimum of 8 character is required.")
+}).strict().refine((data)=> data.new_password===data.confirm_password, {
+    message: "New password and confirm password doesn't match.",
+    path: ['new_password']
+})
+
+export type UpdatePasswordType = z.infer<typeof updatePasswordSchema>
+
+export const updateAdminPasswordSchema = z.object({
+    old_password: z.string().min(5, "Minimum of 5 character is required."),
+    new_password: z.string().min(5, "Minimum of 5 character is required."),
+    confirm_password: z.string().min(5, "Minimum of 5 character is required.")
+}).strict().refine((data)=> data.new_password===data.confirm_password, {
+    message: "New password and confirm password doesn't match.",
+    path: ['new_password']
+})

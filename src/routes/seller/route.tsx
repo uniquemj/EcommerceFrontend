@@ -21,7 +21,6 @@ function RouteComponent() {
   const {avatar} = useSellerState()
   const sellerRoute = navRoute.seller
 
-  console.log(avatar)
   const data: DataType = {
     heading: "BajarHub Seller",
     menu: sellerRoute,

@@ -62,6 +62,6 @@ export const updateSellerInfo = async(updateInfo: Partial<UpdateSellerInfo>) : P
 }
 
 export const updateSellerPassword = async(updatePassword: PasswordUpdate): Promise<SuccessResponse<Seller>> =>{
-    const response = await api.put<SuccessResponse<Seller>>('/seller/profile', updatePassword)
+    const response = await api.put<SuccessResponse<Seller>>('/seller/password', updatePassword)
     return response.data
 }

@@ -45,7 +45,7 @@ interface User{
 }
 
 export interface Customer extends Omit<User,'password'>{
-    date_of_birth: Date,
+    date_of_birth: string,
 }
 
 export interface Seller extends Omit<User,'password'>{

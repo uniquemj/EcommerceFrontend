@@ -7,6 +7,7 @@ import { useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 import { useAuth } from "@/store/auth.store";
 import { useSellerState } from "@/store/seller.store";
+import { useAdminState } from "@/store/admin.store";
 
 export const useCustomerLogin = () => {
     const navigate = useNavigate()
@@ -37,7 +38,7 @@ export const useCustomerLogin = () => {
 export const useSellerLogin = () => {
     const navigate = useNavigate()
     const { setIsAuthenticated, setRole, setFullName, setInitials, setEmail } = useAuth()
-    const { setIsVerified} = useSellerState()
+    const { setIsVerified, setAvatar} = useSellerState()
 
     return useMutation<SuccessResponse<LoginResponse<Seller>>, ErrorResponse, LoginCredentials>({
         mutationFn: (credential: LoginCredentials) => login<LoginCredentials, LoginResponse<Seller>>(UserRole.SELLER, credential),
@@ -48,6 +49,11 @@ export const useSellerLogin = () => {
             setEmail(data.data.user.email)
             setInitials(data.data.user.fullname)
             setIsVerified(data.data.user.is_verified)
+
+            if(data.data.user.store_logo.length > 0){
+                setAvatar(data.data.user.store_logo[0].url)
+            }
+
             navigate({
                 to: '/seller/dashboard'
             })
@@ -63,6 +69,8 @@ export const useSellerLogin = () => {
 export const useAdminLogin = () => {
     const navigate = useNavigate()
     const { setIsAuthenticated, setRole, setFullName, setInitials, setEmail } = useAuth()
+    const {setUsername, setIsSuperAdmin} = useAdminState()
+
     return useMutation<SuccessResponse<LoginResponse<Admin>>, ErrorResponse, LoginCredentials>({
         mutationFn: (credential: LoginCredentials) => login<LoginCredentials, LoginResponse<Admin>>(UserRole.ADMIN, credential),
         onSuccess: (data) => {
@@ -71,6 +79,8 @@ export const useAdminLogin = () => {
             setFullName(data.data.user.fullname)
             setEmail(data.data.user.email)
             setInitials(data.data.user.fullname)
+            setUsername(data.data.user.username)
+            setIsSuperAdmin(data.data.user.isSuperAdmin)
 
             navigate({
                 to: '/admin/dashboard'
@@ -155,6 +165,11 @@ export const useLogout = () => {
                 })
                 toast.success("Seller Logged out.")
             } else if (role === UserRole.ADMIN) {
+                useAdminState.setState({
+                    username: "",
+                    isSuperAdmin: false
+                })
+                useAdminState.persist.clearStorage()
                 navigate({
                     to: '/auth/admin/login'
                 })

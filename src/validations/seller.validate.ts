@@ -25,3 +25,21 @@ export const BusinessInfoSchema = z.object({
 }).strict();
 
 export type BusinessInfoType = z.infer<typeof BusinessInfoSchema>
+
+
+export const updateSellerAccountSchema = z.object({
+  store_name: z.string().min(3, "Store name must be at least 3 character").max(20, "Store name must be at most 20 character.").trim().regex(/^[A-Za-z ]+$/, { message: "Only Alphabets allowed." }).optional(),
+  address: z.string().min(1, "Address is required").optional(),
+  city: z.string().min(1, "City is required").regex(/^[A-Za-z ]+$/, { message: "Only Alphabets allowed." }).optional(),
+  country: z.string().min(1, "Country is required").regex(/^[A-Za-z ]+$/, { message: "Only Alphabets allowed." }).optional(),
+  phone_number: z
+    .string()
+    .regex(/^9[0-9]{9}$/, {
+      message: "Only numbers are allowed and should be of length 10 and should start from 9.",
+    }).optional(),
+}).strict().refine((data) => Object.keys(data).length > 0, {
+  message:
+    "At least one field must be provided to update. Available fields: store_name, address, city, country, phone_number.",
+})
+
+export type SellerAccountType = z.infer<typeof updateSellerAccountSchema>

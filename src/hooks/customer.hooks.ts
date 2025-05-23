@@ -1,4 +1,5 @@
 import { deleteCustomer, getAllCustomers, getCustomerById, getCustomerProfile, resendVerificationEmail, updateCustomerInfo, updateCustomerPassword, verifyCustomerEmail } from "@/services/customer.api";
+import { useAuth } from "@/store/auth.store";
 import type { PaginationField } from "@/types/pagination.types";
 import type { ErrorResponse, SuccessResponse } from "@/types/response.types";
 import type { PasswordUpdate, UpdateCustomerInfo,  Customer } from "@/types/user.types";
@@ -44,7 +45,7 @@ export const useVerifyCustomerEmail = () =>{
             query.setQueryData(['customer', data.data._id], data)
             query.invalidateQueries({queryKey: ['customers']})
             navigate({
-                to: '/login'
+                to: '/auth/login'
             })
             toast.success("Customer Email Verified.")
         },
@@ -70,23 +71,32 @@ export const useResendVerificationEmail = () =>{
 }
 
 export const useGetCustomerProfile = () =>{
-    const {data: user, isLoading, isError} = useQuery<SuccessResponse<Customer>, ErrorResponse>(({
+    const {isAuthenticated} = useAuth()
+    return useQuery<SuccessResponse<Customer>, ErrorResponse>(({
         queryKey: ['customer', 'profile'],
         queryFn: () => getCustomerProfile(),
-        retry: false
+        enabled: isAuthenticated
     }))
-    return {user, isLoading, isError}
+
 }
 
 
 export const useUpdateCustomerInfo = () =>{
     const query = useQueryClient()
+    const {setFullName, setInitials} = useAuth()
+    const navigate = useNavigate()
+
     return useMutation<SuccessResponse<Customer>, ErrorResponse, Partial<UpdateCustomerInfo>>({
         mutationFn: (updateInfo: Partial<UpdateCustomerInfo>) => updateCustomerInfo(updateInfo),
         onSuccess: (data) =>{
+            setFullName(data.data.fullname)
+            setInitials(data.data.fullname)
             query.setQueryData(['customer', 'profile'], data)
             query.setQueryData(['customer', data.data._id], data)
             query.invalidateQueries({queryKey: ['customers']})
+            navigate({
+                to: '/customer/profile'
+            })
             toast.success("Customer Info Updated.")
         },
         onError: (error) =>{
@@ -96,9 +106,13 @@ export const useUpdateCustomerInfo = () =>{
 }
 
 export const useUpdateCustomerPassword = () =>{
+    const navigate =useNavigate()
     return useMutation<SuccessResponse<Customer>, ErrorResponse, PasswordUpdate>({
         mutationFn: (updatePassword: PasswordUpdate) => updateCustomerPassword(updatePassword),
         onSuccess: () =>{
+            navigate({
+                to: '/customer/profile'
+            })
             toast.success("Customer Password Updated.")
         },
         onError: (error) =>{

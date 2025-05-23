@@ -14,8 +14,11 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Link } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
 import { useSellerState } from '@/store/seller.store'
+import { useAuth } from '@/store/auth.store'
+import { UserRole } from '@/types/enum.types'
 
 const NavMain = ({items}: {items: NavMetaData[]}) => {
+    const {role} = useAuth()
     const {isVerified} = useSellerState()
   return (
     <SidebarGroup>
@@ -42,7 +45,7 @@ const NavMain = ({items}: {items: NavMetaData[]}) => {
                                         <SidebarMenuSub>
                                             {item.subItems?.map((subItem)=>(
                                                  <SidebarMenuSubItem key={subItem.title}>
-                                                    {subItem.title == "Add Business Information" && isVerified ? null:
+                                                    {isVerified == !subItem.include && role== UserRole.SELLER ? null:
                                                     <SidebarMenuSubButton asChild>
                                                     <Link to={subItem.url}>
                                                     <span>{subItem.title}</span>

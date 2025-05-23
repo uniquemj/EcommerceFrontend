@@ -14,7 +14,7 @@ export const Route = createFileRoute('/')({
         isAuthenticated: false,
         role: UserRole.ANONYMOUS
       })
-      throw redirect({to: '/login'})
+      throw redirect({to: '/auth/login'})
     }
   }
 })
