@@ -15,7 +15,7 @@ function RouteComponent() {
 
   return (
     <>
-     <TableLayout header="Manage Customers" columns={customerColumns} data={customer?.data as Customer[]}/>
+     <TableLayout header="Manage Customers" columns={customerColumns} data={customer?.data as Customer[]} buttons={[]}/>
     </>
   );
 }

@@ -1,3 +1,4 @@
+import DashboardHeader from "@/components/Layout/DashboardHeader/DashboardHeader";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,7 +7,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import Spinner from "@/components/ui/spinner";
 import { useAddBusinessInfo } from "@/hooks/seller.hooks";
 import {
@@ -63,13 +63,7 @@ function RouteComponent() {
 
   if(isPending) return <Spinner/>
   return (
-    <div className="">
-      <div className="flex flex-col gap-3 mb-4">
-        <h1 className="max-[410px]:text-2xl text-3xl font-bold">
-          Add Business Information
-        </h1>
-        <Separator className="bg-[rgba(0,0,0,0.3)]" />
-      </div>
+    <DashboardHeader header="Add Business Information" buttons={[]}>
       <form encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
         <Card>
           <CardContent>
@@ -84,7 +78,7 @@ function RouteComponent() {
                     placeholder="Your Store City"
                   />
                   {errors.city ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.city.message}
                     </p>
                   ) : (
@@ -100,7 +94,7 @@ function RouteComponent() {
                     placeholder="Your Store Country"
                   />
                   {errors.country ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.country.message}
                     </p>
                   ) : (
@@ -116,7 +110,7 @@ function RouteComponent() {
                     placeholder="Your Store Address"
                   />
                   {errors.address ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.address.message}
                     </p>
                   ) : (
@@ -135,7 +129,7 @@ function RouteComponent() {
                     placeholder="Your Phone Number"
                   />
                   {errors.phone_number ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.phone_number.message}
                     </p>
                   ) : (
@@ -160,7 +154,7 @@ function RouteComponent() {
                     ):<Image/>}
                   </div>
                   {errors.legal_document ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.legal_document.message}
                     </p>
                   ) : (
@@ -183,7 +177,7 @@ function RouteComponent() {
                     ):<Image/>}
                   </div>
                   {errors.legal_document ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.legal_document.message}
                     </p>
                   ) : (
@@ -211,7 +205,7 @@ function RouteComponent() {
                   )}
                 </div>
                 {errors.store_logo ? (
-                  <p className="text-red-400 max-[600px]:text-sm">
+                  <p className="text-error-color text-error-msg">
                     {errors.store_logo.message}
                   </p>
                 ) : (
@@ -221,10 +215,10 @@ function RouteComponent() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button type="submit" className="bg-red-400 hover:cursor-pointer">Submit</Button>
+            <Button type="submit" className="bg-secondary-color hover:cursor-pointer">Submit</Button>
           </CardFooter>
         </Card>
       </form>
-    </div>
+    </DashboardHeader>
   );
 }

@@ -2,7 +2,7 @@ import { logout, login, register } from "@/services/auth.api";
 import type { Admin, AdminRegisterInfo, Customer, CustomerRegisterInfo, LoginCredentials, LoginResponse, Seller, SellerRegisterInfo } from "@/types/user.types";
 import { UserRole } from "@/types/enum.types";
 import type { ErrorResponse, SuccessResponse } from "@/types/response.types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 import { useAuth } from "@/store/auth.store";
@@ -127,8 +127,22 @@ export const useSellerRegister = () => {
 }
 
 export const useAdminRegister = () => {
+    const query = useQueryClient()
+    const navigate = useNavigate()
     return useMutation<SuccessResponse<Admin>, ErrorResponse, AdminRegisterInfo>({
-        mutationFn: (registerInfo: AdminRegisterInfo) => register<AdminRegisterInfo, Admin>(UserRole.ADMIN, registerInfo)
+        mutationFn: (registerInfo: AdminRegisterInfo) => register<AdminRegisterInfo, Admin>(UserRole.ADMIN, registerInfo),
+        onSuccess: (data) => {
+            query.setQueryData(['admin', data.data._id], data)
+            query.invalidateQueries({ queryKey: ['admins'] })
+
+            navigate({
+                to: '/admin/dashboard/admins'
+            })
+            toast.success("Admin Created.")
+        },
+        onError: (error) => {
+            toast.error(error.response.data.message)
+        }
     })
 }
 

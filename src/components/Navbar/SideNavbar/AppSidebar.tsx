@@ -13,14 +13,15 @@ type AppSidebarType = React.ComponentProps<typeof Sidebar> & {
 const AppSidebar = ({ data, ...props}: AppSidebarType) => {
   return (
     <Sidebar variant="inset" {...props} >
-      <SidebarHeader >
+      <SidebarHeader className="flex flex-col gap-2 mb-2" >
         <SidebarMenu>
-          <SidebarMenuItem className="bg-red-400 rounded-xl p-4 flex">
+          <SidebarMenuItem className="rounded-xl px-2 flex line-clamp-4">
             <div className="grid flex-1 text-left text-xl leading-tight">
-              <span className="truncate font-semibold text-amber-50">{data.heading}</span>
+              <span className="truncate font-extrabold text-2xl text-primary-color">{data.heading}</span>
             </div>
           </SidebarMenuItem>
         </SidebarMenu>
+        {/* <Separator className="bg-primary-color"/> */}
       </SidebarHeader>
       <SidebarContent className=" rounded-xl">
         <NavMain items={data.menu}/>

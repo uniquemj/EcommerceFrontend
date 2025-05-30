@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar/Navbar";
 import { useAuth } from "@/store/auth.store";
 import { UserRole } from "@/types/enum.types";
+import Footer from "@/components/Layout/Footer/Footer";
 
 interface MyRouterContext{
   auth: typeof useAuth
@@ -22,10 +23,11 @@ function RootComponent() {
     <>
       <QueryClientProvider client={queryClient}>
         <Navbar/>
-        <div className={role==UserRole.CUSTOMER || role == UserRole.ANONYMOUS ? "w-full h-screen-minus": ""}>
+        <div className={role==UserRole.CUSTOMER || role == UserRole.ANONYMOUS ? "w-full h-screen": ""}>
         <Outlet />
-        <Toaster position="top-right" containerStyle = {{top: '80px'}} toastOptions={{duration: 2500}}/>
         </div>
+        {role == UserRole.CUSTOMER || role == UserRole.ANONYMOUS ? <Footer/> : null}
+        <Toaster position="top-center" containerStyle = {{top: '80px'}} toastOptions={{duration: 2500}}/>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>

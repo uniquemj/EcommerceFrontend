@@ -1,9 +1,9 @@
-import { addBusinessInfo, deleteSeller, getAllSeller, getSellerById, getSellerProfile, resendVerificationEmail, updateSellerInfo, updateSellerPassword, verifySeller, verifySellerEmail } from "@/services/seller.api"
+import { addBusinessInfo, deleteSeller, getAllSeller, getSellerById, getSellerProfile, resendVerificationEmail, updateSellerInfo, updateSellerPassword, updateSellerVerification, verifySeller, verifySellerEmail } from "@/services/seller.api"
 import { useAuth } from "@/store/auth.store"
 import { useSellerState } from "@/store/seller.store"
 import type { PaginationField } from "@/types/pagination.types"
 import type { ErrorResponse, SuccessResponse } from "@/types/response.types"
-import type { Seller, PasswordUpdate } from "@/types/user.types"
+import { type Seller, type PasswordUpdate, VerificationStatus } from "@/types/user.types"
 import type { BusinessInfoType, SellerAccountType } from "@/validations/seller.validate"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
@@ -26,16 +26,37 @@ export const useGetSellerById = (id: string) =>{
 
 export const useVerifySeller = () =>{
     const query = useQueryClient()
-
+    const navigate = useNavigate()
+    
     return useMutation<SuccessResponse<Seller>, ErrorResponse, string>({
         mutationFn: (id: string) => verifySeller(id),
         onSuccess: (data) =>{
             query.setQueryData(['seller', data.data._id], data)
             query.invalidateQueries({queryKey: ['sellers']})
+            navigate({
+                to: '/admin/dashboard/sellers'
+            })
             toast.success("Seller verified.")
         },
         onError: (error) =>{
             toast.error(error.response.data.message)
+        }
+    })
+}
+
+export const useRejectSeller = () =>{
+    const query = useQueryClient()
+    const navigate = useNavigate()
+
+    return useMutation<SuccessResponse<Seller>, ErrorResponse, {id:string, reason: string}>({
+        mutationFn: ({id, reason}) => updateSellerVerification(id, {status: VerificationStatus.REJECTED, rejection_reason: reason}),
+        onSuccess: (data) => {
+            query.setQueryData(['seller', data.data._id], data)
+            query.invalidateQueries({queryKey: ['sellers']})
+            navigate({
+                to: '/admin/dashboard/sellers'
+            })
+            toast.success("Seller Verification Rejected.")
         }
     })
 }

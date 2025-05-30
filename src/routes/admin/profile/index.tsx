@@ -22,15 +22,15 @@ function RouteComponent() {
       </div>
       <Card className='p-5'>
         <div className='w-full flex flex-col items-center gap-6'>
-          <Avatar className='p-20 bg-gray-300 flex justify-center items-center'>
-            <AvatarFallback className="rounded-lg text-red-400 font-semibold text-2xl">{initials}</AvatarFallback>
+          <Avatar className='p-20 bg-ternary-color flex justify-center items-center'>
+            <AvatarFallback className="rounded-lg text-text-color font-semibold text-2xl">{initials}</AvatarFallback>
           </Avatar>
           <div className=''>
             <div className='flex flex-col space-y-1 text-center gap-4'>
               <h1 className='text-sm min-[460px]:text-md font-medium '>@{username}</h1>
               <h1 className='text-xl min-[460px]:text-2xl font-semibold text-center'>{fullname}</h1>
               <h1 className='text-sm min-[460px]:text-md font-medium text-gray-400'>{email}</h1>
-              <h1 className='text-sm min-[460px]:text-md font-medium text-gray-400'>{isSuperAdmin ? (<span className='rounded-lg bg-red-400 py-1 px-2 text-amber-50'>Super Admin</span>): (<span className='rounded-lg bg-gray-400 py-1 px-2 text-red-400'>Normal Admin</span>)}</h1>
+              <h1 className='text-sm min-[460px]:text-md font-medium text-gray-400'>{isSuperAdmin ? (<span className='rounded-lg bg-secondary-color py-1 px-2 text-amber-50'>Super Admin</span>): (<span className='rounded-lg bg-ternary-color py-1 px-2 text-amber-50'>Normal Admin</span>)}</h1>
             </div>
           </div>
         </div>

@@ -46,18 +46,18 @@ export const useDeleteAdmin = () => {
     })
 }
 
-export const useUpdateOtherAdmin = () => {
+export const useUpdateOtherAdmin = (id: string) => {
     const query = useQueryClient()
     const navigate = useNavigate()
 
-    return useMutation<SuccessResponse<Admin>, ErrorResponse, { id: string, updateInfo: Partial<OtherAdminUpdate> }>({
-        mutationFn: ({ id, updateInfo }: { id: string, updateInfo: Partial<OtherAdminUpdate> }) => updateOtherAdmin(id, updateInfo),
+    return useMutation<SuccessResponse<Admin>, ErrorResponse, Partial<OtherAdminUpdate>>({
+        mutationFn: (updateInfo : Partial<OtherAdminUpdate> ) => updateOtherAdmin(id, updateInfo),
         onSuccess: (data) => {
             query.setQueryData(['admin', data.data._id], data)
             query.invalidateQueries({ queryKey: ['admins'] })
 
             navigate({
-                to: '/admin/profile'
+                to: '/admin/dashboard/admins'
             })
             toast.success("Admin Updated.")
         },

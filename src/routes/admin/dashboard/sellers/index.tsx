@@ -15,7 +15,7 @@ function RouteComponent() {
 
   return (
     <>
-     <TableLayout header="Manage Sellers" columns={sellerColumns} data={seller?.data as Seller[]}/>
+     <TableLayout header="Manage Sellers" columns={sellerColumns} data={seller?.data as Seller[]} buttons={[]}/>
     </>
   );
 }

@@ -55,7 +55,9 @@ export interface Seller extends Omit<User,'password'>{
     address: string,
     city: string,
     country: string,
-    is_verified: boolean
+    is_verified: boolean,
+    verification_status: string,
+    rejection_reason: string
 }
 
 export interface Admin extends Omit<User,'password'>{
@@ -94,4 +96,35 @@ export interface UpdateCustomerInfo{
     fullname: string,
     phone_number: string,
     date_of_birth: string
+}
+
+export interface DropDownUserInfo{
+    id: string,
+    role: string
+}
+
+export interface SellerProfileInfo {
+  initials: string,
+  avatar: string,
+  fullname: string,
+  email: string,
+  store_name: string,
+  city: string,
+  country: string,
+  address: string,
+  phone_number: string,
+  legal_documents: ImageInfo[],
+  verification_status: string,
+  rejection_reason: string
+}
+
+export enum VerificationStatus{
+    PENDING="pending",
+    VERIFIED="verified",
+    REJECTED="rejected"
+}
+
+export interface UpdateVerificationInfo{
+    status: string,
+    rejection_reason: string
 }

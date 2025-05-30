@@ -9,9 +9,38 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { UserRole } from "@/types/enum.types";
+import { useDeleteAdmin } from "@/hooks/admin.hooks";
+import { useDeleteCustomer } from "@/hooks/customer.hooks";
+import { useDeleteSeller } from "@/hooks/seller.hooks";
+import { useDeleteCategory } from "@/hooks/category.hooks";
 
 
-const TableDropdown = () => {
+const TableDropdown = ({URL, id, option}: {URL: string, id: string, option: string}) => {
+  let deleteHook;
+
+  switch(option){
+    case UserRole.ADMIN:
+      deleteHook = useDeleteAdmin
+      break
+    case UserRole.CUSTOMER:
+      deleteHook = useDeleteCustomer
+      break
+    case UserRole.SELLER:
+      deleteHook = useDeleteSeller
+      break
+    case "category":
+      deleteHook = useDeleteCategory
+      break
+    default:
+      throw Error("Invalid")
+  }
+
+  const {mutate} = deleteHook()
+
+  const handleDelete = () =>{
+    mutate(id)
+  }
 
   return (
     <DropdownMenu>
@@ -24,12 +53,21 @@ const TableDropdown = () => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link to="#">
+        {
+            option == UserRole.ADMIN || option == "category" ?
+          <Link to={URL} params={{id:id}} className="hover:cursor-pointer">
           <DropdownMenuItem>Edit</DropdownMenuItem>
-        </Link>
-        <DropdownMenuItem >
-          Delete
-        </DropdownMenuItem>
+        </Link>: null
+        }
+        {
+          option == UserRole.SELLER ? 
+          <Link to={URL} params={{id:id}} className="hover:cursor-pointer">
+          <DropdownMenuItem>Review & Verfiy</DropdownMenuItem>
+        </Link>: null
+        }
+          <DropdownMenuItem onClick={handleDelete} className="hover:cursor-pointer">
+            Delete
+          </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

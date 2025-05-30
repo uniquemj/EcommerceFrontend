@@ -38,7 +38,7 @@ function RouteComponent() {
   }
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <Card className="p-6 w-[250px] md:max-w-md text-center">
+      <Card className="p-6 w-[350px] md:max-w-md text-center">
         <CardContent>
           <h1 className="text-2xl font-bold mb-4">Verify Your Email</h1>
           <p className="mb-4">

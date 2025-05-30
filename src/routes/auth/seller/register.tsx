@@ -56,7 +56,7 @@ function RouteComponent() {
   return (
     <AuthLayout>
       <Card className="w-[320px] min-[500px]:w-[500px] ">
-        <CardHeader className="text-center space-y-1.5">
+        <CardHeader className="text-center space-y-0.4">
           <CardTitle className="text-2xl font-bold">Sign up as Seller</CardTitle>
           <CardDescription className="font-semibold">Create Your Account.</CardDescription>
         </CardHeader>
@@ -73,7 +73,7 @@ function RouteComponent() {
                     placeholder="Your Frist Name"
                   />
                   {errors.firstname ? (
-                    <p className="text-red-400 max-[600px]:text-sm">{errors.firstname.message}</p>
+                    <p className="text-error-color text-error-msg">{errors.firstname.message}</p>
                   ) : (
                     ""
                   )}
@@ -87,7 +87,7 @@ function RouteComponent() {
                     placeholder="Your Last Name"
                   />
                   {errors.lastname ? (
-                    <p className="text-red-400">{errors.lastname.message}</p>
+                    <p className="text-error-color text-error-msg">{errors.lastname.message}</p>
                   ) : (
                     ""
                   )}
@@ -102,7 +102,7 @@ function RouteComponent() {
                   placeholder="Your Store Name..."
                 />
                 {errors.store_name ? (
-                  <p className="text-red-400">{errors.store_name.message}</p>
+                  <p className="text-error-color text-error-msg">{errors.store_name.message}</p>
                 ) : (
                   ""
                 )}
@@ -116,7 +116,7 @@ function RouteComponent() {
                   placeholder="Your Email..."
                 />
                 {errors.email ? (
-                  <p className="text-red-400">{errors.email.message}</p>
+                  <p className="text-error-color text-error-msg">{errors.email.message}</p>
                 ) : (
                   ""
                 )}
@@ -140,7 +140,7 @@ function RouteComponent() {
                     placeholder="Your Password..."
                   />
                   {errors.password ? (
-                    <p className="text-red-400">{errors.password.message}</p>
+                    <p className="text-error-color text-error-msg">{errors.password.message}</p>
                   ) : (
                     ""
                   )}
@@ -151,7 +151,7 @@ function RouteComponent() {
           <CardFooter className="mt-7 flex flex-col space-y-5">
             <Button
               type="submit"
-              className="w-full bg-red-400 hover:cursor-pointer hover:bg-transparent hover:text-red-400 hover:border hover:border-red-400"
+              className="w-full bg-secondary-color hover:cursor-pointer hover:bg-transparent hover:text-secondary-color hover:border hover:border-secondary-color"
             >
               {isPending ? (
                 <Loader2 className="animate-spin w-4 h-4 mr-2" />
@@ -161,7 +161,7 @@ function RouteComponent() {
             </Button>
             <CardDescription>
               Already have account?{" "}
-              <Link to="/auth/seller/login" className="text-red-400 font-medium">
+              <Link to="/auth/seller/login" className="text-secondary-color font-medium">
                 Log in
               </Link>
             </CardDescription>

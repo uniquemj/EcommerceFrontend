@@ -49,6 +49,26 @@ html, body{
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Custom Tailwind Varianble */
+
+    /* Color */
+    --color-primary-color: var(--primary-color);
+    --color-secondary-color: var(--secondary-color);
+    --color-ternary-color: var(--ternary-color);
+    --color-multed-blue: var(--multed-blue-color);
+    --color-text-color: var(--text-color);
+    --color-light-tan: var(--light-tan);
+    --color-success-color: var(--success-color);
+    --color-error-color: var(--error-color);
+    --color-footer-color: var(--footer-color);
+    /* Background Image */
+    --background-image-seller-auth: url('/src/assets/Auth/SellerAuthTransparency.png');
+    --background-image-customer-auth: url('/src/assets/Auth/LoginTransparency.png');
+
+    /* Text Size */
+    --text-error-msg: 0.8rem;
+
 }
 
 :root {
@@ -84,7 +104,23 @@ html, body{
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+
+    /*  Custom Variables */
+    --primary-color: #151515;
+    --secondary-color: #C75B39;
+    /* --secondary-color: #774b53; */
+    /* --secondary-color: #4e242c; */
+    --ternary-color: #A8B0B9;
+    --multed-blue-color: #6B7B8C;
+    --light-tan: #D9CAB3;
+    --text-color: #FFFBEB;
+
+    --footer-color: #161B22;
+    
+    --success-color: var(--color-blue-400);
+    --error-color: var(--color-red-700)
 }
+
 
 .dark {
     --background: oklch(0.145 0 0);

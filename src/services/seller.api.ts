@@ -1,12 +1,20 @@
 import type { PaginationField } from "@/types/pagination.types";
 import type { SuccessResponse } from "@/types/response.types";
-import type {  PasswordUpdate, Seller, UpdateSellerInfo } from "@/types/user.types";
+import type {  PasswordUpdate, Seller, UpdateSellerInfo, UpdateVerificationInfo } from "@/types/user.types";
 import { api } from "@/utils/api";
 import type { BusinessInfoType } from "@/validations/seller.validate";
 
 
 export const getAllSeller = async(paginationField: PaginationField):Promise<SuccessResponse<Seller[]>> =>{
-    const response = await api.get<SuccessResponse<Seller[]>>(`/seller/?page=${paginationField.page}&limit=${paginationField.limit}`)
+    let route = ""
+
+    if(paginationField.page > 0 && paginationField.limit > 0){
+        route = `/seller/?page=${paginationField.page}&limit=${paginationField.limit}`
+    }else{
+        route = `/seller/?page=&limit=`
+    }
+    
+    const response = await api.get<SuccessResponse<Seller[]>>(route)
     return response.data
 }
 
@@ -17,6 +25,11 @@ export const getSellerById = async(id: string): Promise<SuccessResponse<Seller>>
 
 export const verifySeller = async(id:string): Promise<SuccessResponse<Seller>> =>{
     const response = await api.post<SuccessResponse<Seller>>(`/seller/verify-seller/${id}`)
+    return response.data
+}
+
+export const updateSellerVerification = async(id: string, verificationInfo: UpdateVerificationInfo): Promise<SuccessResponse<Seller>> =>{
+    const response = await api.post<SuccessResponse<Seller>>(`/seller/verify-seller/update/${id}`, verificationInfo)
     return response.data
 }
 

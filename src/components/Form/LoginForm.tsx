@@ -8,6 +8,7 @@ import { adminLoginSchema, loginSchema } from '@/validations/auth.validate'
 import { Button } from '../ui/button'
 import { Link } from '@tanstack/react-router'
 import { UserRole } from '@/types/enum.types'
+import { upperCase } from '@/utils/helper'
 
 const LoginForm = ({userType, handleLogin, registerLink}:LoginFormProps ) => {
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -18,9 +19,9 @@ const LoginForm = ({userType, handleLogin, registerLink}:LoginFormProps ) => {
         resolver: zodResolver(userType === UserRole.ADMIN? adminLoginSchema : loginSchema)
     })
   return (
-      <Card className=" w-[330px] min-[380px]:w-[350px]">
-        <CardHeader className="text-center space-y-1.5">
-          <CardTitle className="text-xl font-bold">Login as {userType.toUpperCase()}</CardTitle>
+      <Card className=" w-[330px] min-[380px]:w-[450px]">
+        <CardHeader className="text-center space-y-0.4">
+          <CardTitle className="text-xl font-bold">Login as {upperCase(userType)}</CardTitle>
           <CardDescription>Log in into BajarHub.</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit(handleLogin)}>
@@ -35,7 +36,7 @@ const LoginForm = ({userType, handleLogin, registerLink}:LoginFormProps ) => {
                   placeholder="Your Email..."
                 />
                 {errors.email ? (
-                  <p className="text-red-400">{errors.email.message}</p>
+                  <p className="text-error-color text-error-msg">{errors.email.message}</p>
                 ) : (
                   ""
                 )}
@@ -49,7 +50,7 @@ const LoginForm = ({userType, handleLogin, registerLink}:LoginFormProps ) => {
                   placeholder="Your Password..."
                 />
                 {errors.password ? (
-                  <p className="text-red-400">{errors.password.message}</p>
+                  <p className="text-error-color text-error-msg">{errors.password.message}</p>
                 ) : (
                   ""
                 )}
@@ -59,14 +60,14 @@ const LoginForm = ({userType, handleLogin, registerLink}:LoginFormProps ) => {
           <CardFooter className="mt-7 flex flex-col space-y-5">
             <Button
               type="submit"
-              className="w-full bg-red-400 hover:cursor-pointer hover:bg-transparent hover:text-red-400 hover:border hover:border-red-400"
+              className="w-full bg-secondary-color hover:cursor-pointer hover:bg-transparent hover:text-secondary-color hover:border hover:border-secondary-color"
             >
               Log In
             </Button>
 
             {userType === UserRole.ADMIN ? "": (<CardDescription>
               Don't have account?{" "}
-              <Link to={registerLink} className="text-red-400 font-medium">
+              <Link to={registerLink} className="text-secondary-color font-medium">
                 Sign Up
               </Link>
             </CardDescription>)}

@@ -1,7 +1,6 @@
-import type {NavMetaData} from '@/types/navbar.typs'
+import type { NavMetaData } from "@/types/navbar.typs";
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuButton,
@@ -9,63 +8,91 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Link } from '@tanstack/react-router'
-import { ChevronRight } from 'lucide-react'
-import { useSellerState } from '@/store/seller.store'
-import { useAuth } from '@/store/auth.store'
-import { UserRole } from '@/types/enum.types'
+} from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { Link } from "@tanstack/react-router";
+import { ChevronRight } from "lucide-react";
+import { useSellerState } from "@/store/seller.store";
+import { useAuth } from "@/store/auth.store";
+import { UserRole } from "@/types/enum.types";
 
-const NavMain = ({items}: {items: NavMetaData[]}) => {
-    const {role} = useAuth()
-    const {isVerified} = useSellerState()
+const NavMain = ({ items }: { items: NavMetaData[] }) => {
+  const { role } = useAuth();
+  const { isVerified } = useSellerState();
   return (
     <SidebarGroup>
-        <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
-        <SidebarMenu>
-            {
-                items.map((item)=>(
-                    <Collapsible key={item.title} asChild>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton asChild tooltip={item.title}>
-                                <Link to={item.url}>
-                                    <span>{item.title}</span>
-                                </Link>
-                            </SidebarMenuButton>
-                            {item.subItems?.length ? (
-                                <>
-                                    <CollapsibleTrigger asChild>
-                                      <SidebarMenuAction className='data-[state=open]:rotate-90'>
-                                        <ChevronRight/>
-                                        <span className='sr-only'>Toggle</span>
-                                      </SidebarMenuAction>
-                                    </CollapsibleTrigger>
-                                    <CollapsibleContent>
-                                        <SidebarMenuSub>
-                                            {item.subItems?.map((subItem)=>(
-                                                 <SidebarMenuSubItem key={subItem.title}>
-                                                    {isVerified == !subItem.include && role== UserRole.SELLER ? null:
-                                                    <SidebarMenuSubButton asChild>
-                                                    <Link to={subItem.url}>
-                                                    <span>{subItem.title}</span>
-                                                    </Link>
-                                                    </SidebarMenuSubButton>
-                                                    }
-                                                </SidebarMenuSubItem>
-                                               
-                                            ))}
-                                        </SidebarMenuSub>
-                                    </CollapsibleContent>
-                                </>
-                            ): null}
-                        </SidebarMenuItem>
-                    </Collapsible>
-                ))
-            }
-        </SidebarMenu>
-    </SidebarGroup>
-  )
-}
+      <SidebarMenu>
+        {items.map((item) => (
+          <Collapsible key={item.title} asChild>
+            <SidebarMenuItem>
+              {item.subItems?.length ? (
+                <>
+                  <CollapsibleTrigger asChild>
+                    <div>
+                      <SidebarMenuButton
+                        tooltip={item.title}
+                        className="flex items-end gap-4"
+                      >
+                        <span>{item.icons}</span>
+                        <span>{item.title}</span>
+                      </SidebarMenuButton>
+                      <SidebarMenuAction className="data-[state=open]:rotate-90">
+                        <ChevronRight />
+                        <span className="sr-only">Toggle</span>
+                      </SidebarMenuAction>
+                    </div>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="px-2">
+                    <SidebarMenuSub>
+                      {item.subItems?.map((subItem) => (
+                        <SidebarMenuSubItem key={subItem.title}>
+                          {role == UserRole.SELLER ? (isVerified == subItem.include ? (
 
-export default NavMain
+                            <SidebarMenuSubButton
+                              asChild
+                              className="[&.active]:text-secondary-color [&.active]:font-medium"
+                            >
+                              <Link to={subItem.url} activeOptions={{ exact: true }}>
+                                <span>{subItem.title}</span>
+                              </Link>
+                            </SidebarMenuSubButton>
+                          ): null): <SidebarMenuSubButton
+                              asChild
+                              className="[&.active]:text-secondary-color [&.active]:font-medium"
+                            >
+                              <Link to={subItem.url} activeOptions={{ exact: true }}>
+                                <span>{subItem.title}</span>
+                              </Link>
+                            </SidebarMenuSubButton>}
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </>
+              ) : (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuSubButton>
+                    <Link
+                      to={item.url}
+                      activeOptions={{ exact: true }}
+                      className="flex items-end gap-4 [&.active]:text-secondary-color [&.active]:font-medium p-0"
+                    >
+                      <span>{item.icons}</span>
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuSubButton>
+                </SidebarMenuItem>
+              )}
+            </SidebarMenuItem>
+          </Collapsible>
+        ))}
+      </SidebarMenu>
+    </SidebarGroup>
+  );
+};
+
+export default NavMain;

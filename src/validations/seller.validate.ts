@@ -43,3 +43,9 @@ export const updateSellerAccountSchema = z.object({
 })
 
 export type SellerAccountType = z.infer<typeof updateSellerAccountSchema>
+
+export const rejectReasonSchema = z.object({
+  rejection_reason: z.string().trim().min(20, "Reason shouldn't be less than 10 character.")
+})
+
+export type RejectReasonType = z.infer<typeof rejectReasonSchema>

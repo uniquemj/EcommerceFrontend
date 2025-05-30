@@ -20,7 +20,7 @@ function RouteComponent() {
   if(isPending) return <Spinner/>
 
   return (
-    <div className='w-full h-full flex justify-center items-center'>
+    <div className='w-full h-full flex justify-center items-center bg-customer-auth bg-cover bg-center'>
       <LoginForm userType={UserRole.ADMIN} handleLogin={handleLogin} registerLink='' />
     </div>
   )

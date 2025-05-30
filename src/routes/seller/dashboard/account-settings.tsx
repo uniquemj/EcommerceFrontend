@@ -65,7 +65,7 @@ function RouteComponent() {
                     placeholder="Your Store Name"
                   />
                   {errors.store_name ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.store_name.message}
                     </p>
                   ) : (
@@ -81,7 +81,7 @@ function RouteComponent() {
                     placeholder="Your Store City"
                   />
                   {errors.city ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.city.message}
                     </p>
                   ) : (
@@ -97,7 +97,7 @@ function RouteComponent() {
                     placeholder="Your Store Country"
                   />
                   {errors.country ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.country.message}
                     </p>
                   ) : (
@@ -113,7 +113,7 @@ function RouteComponent() {
                     placeholder="Your Store Address"
                   />
                   {errors.address ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.address.message}
                     </p>
                   ) : (
@@ -132,7 +132,7 @@ function RouteComponent() {
                     placeholder="Your Phone Number"
                   />
                   {errors.phone_number ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.phone_number.message}
                     </p>
                   ) : (
@@ -144,7 +144,7 @@ function RouteComponent() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button type="submit" className="bg-red-400 hover:cursor-pointer">Submit</Button>
+            <Button type="submit" className="bg-secondary-color hover:cursor-pointer">Submit</Button>
           </CardFooter>
         </Card>
       </form>

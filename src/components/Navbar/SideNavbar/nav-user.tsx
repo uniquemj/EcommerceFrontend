@@ -6,7 +6,7 @@ import type { UserInfo } from "@/types/navbar.typs";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Link } from "@tanstack/react-router";
-import { ChevronsUpDown, Loader2} from "lucide-react";
+import { ChevronsUpDown, Key, Loader2, Lock, LogOut, User2Icon} from "lucide-react";
 
 
 const NavUser = ({
@@ -31,7 +31,7 @@ const NavUser = ({
                     <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                         <Avatar className="h-8 w-8 rounded-lg">
                             <AvatarImage src={user.avatar as string} alt={user.initials}/>
-                            <AvatarFallback className="rounded-lg text-red-400 font-semibold">{user.initials}</AvatarFallback>
+                            <AvatarFallback className="rounded-lg text-text-color bg-ternary-color font-semibold">{user.initials}</AvatarFallback>
                         </Avatar>
                         <div className="grid flex-1 text-left text-sm leading-tight">
                            <span className="truncate font-semibold">{user.name}</span>
@@ -40,24 +40,26 @@ const NavUser = ({
                         <ChevronsUpDown className="ml-auto size-4"/>
                     </SidebarMenuButton>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-[#e3e2e2] w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg flex flex-col" side={isMobile?"bottom": "right"} align="end" sideOffset={4}>
+                <DropdownMenuContent className="bg-footer-color text-text-color w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg flex flex-col" side={isMobile?"bottom": "right"} align="end" sideOffset={4}>
                    <DropdownMenuLabel className="py-3 font-normal">
                         <h1 className="text-center text-sm font-semibold">Your Account</h1>
                    </DropdownMenuLabel>
-                   <DropdownMenuSeparator />
+                   <div className="flex justify-center">
+                   <DropdownMenuSeparator className="bg-text-color w-4/5"/>
+                   </div>
                    <DropdownMenuGroup className="flex flex-col gap-0.5 pb-3">
                     <Link to={route} className="">
-                      <DropdownMenuItem className="text-sm text-center hover:bg-red-300 hover:text-amber-50 rounded-xl p-3">
-                        Account
+                      <DropdownMenuItem className="flex  items-center gap-5 text-sm text-center hover:underline hover:text-amber-50 rounded-xl p-3">
+                        <User2Icon size={16}/> Account
                       </DropdownMenuItem>
                     </Link>
                     <Link to={updatePasswordRoute} className="">
-                      <DropdownMenuItem className="text-sm text-center hover:bg-red-300 hover:text-amber-50 rounded-xl p-3">
-                        Update Password
+                      <DropdownMenuItem className="flex items-center gap-5 text-sm text-center hover:underline hover:text-amber-50 rounded-xl p-3">
+                        <Lock size={16}/>Update Password
                       </DropdownMenuItem>
                     </Link>
-                      <DropdownMenuItem onClick={handleLogout} className="hover:bg-red-300 hover:text-amber-50 rounded-xl p-3 text-sm text-center">
-                        {isPending ?<Loader2 className="animate-spin w-4 h-4 mr-2" /> :"Log out"}
+                      <DropdownMenuItem onClick={handleLogout} className="hover:underline hover:text-amber-50 rounded-xl p-3 text-sm text-center cursor-pointer">
+                        {isPending ?<Loader2 className="animate-spin w-4 h-4 mr-2" /> :(<div className="flex items-center gap-4"><LogOut size={16}/> Log out</div>)}
                       </DropdownMenuItem>
                    </DropdownMenuGroup>
                 </DropdownMenuContent>

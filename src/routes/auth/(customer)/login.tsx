@@ -21,7 +21,7 @@ function RouteComponent() {
   if (isPending) return <Spinner />;
 
   return (
-    <div className="flex justify-center items-center h-full">
+    <div className="flex justify-center items-center h-full bg-customer-auth bg-cover bg-center">
       <LoginForm userType={UserRole.CUSTOMER} handleLogin={handleLogin} registerLink="/auth/register"/>
     </div>
   );

@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback } from "../../ui/avatar";
 // import { UserRole } from "@/types/enum.types";
 import { useAuth } from "@/store/auth.store";
 import { useLogout } from "@/hooks/auth.hooks";
+import { LogOut, UserCogIcon } from "lucide-react";
 
 
 const LoggedInNav = () => {
@@ -43,24 +44,25 @@ const LoggedInNav = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar>
-            <AvatarFallback className="bg-red-200 text-red-400 hover:cursor-pointer">
+            <AvatarFallback className="bg-ternary-color text-text-color hover:cursor-pointer">
               {initials}
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
+        <DropdownMenuContent className="w-56 bg-footer-color text-text-color">
           <DropdownMenuLabel className="text-center">
             My Account
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
+          <DropdownMenuSeparator className="bg-text-color" />
+          <DropdownMenuGroup className="text-text-color">
             <Link to="/customer/profile">
-              <DropdownMenuItem>Manage Profile</DropdownMenuItem>
+              <DropdownMenuItem> <UserCogIcon size={16}/> Manage Profile</DropdownMenuItem>
             </Link>
             <DropdownMenuItem
               className="hover:bg-red-400 hover:text-amber-50"
               onClick={handleLogout}
             >
+              <LogOut size={16}/>
               Logout
             </DropdownMenuItem>
           </DropdownMenuGroup>

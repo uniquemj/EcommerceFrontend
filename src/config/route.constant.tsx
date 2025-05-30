@@ -1,21 +1,29 @@
 import type { NavRoute } from "@/types/navbar.typs";
-
+import { LayoutDashboard, ShieldCheck, User, Store, Package, Clipboard, Tag, UserCog } from "lucide-react";
 
 export const navRoute: NavRoute = {
     seller: [
         {
+            title: "Dashboard",
+            icons: (<LayoutDashboard size={18}/>),
+            url: '/seller/dashboard',
+            include: true,
+            subItems: []
+        },
+        {
             title: "Products",
             url: "#",
+            icons: (<Package size={18}/>),
             include: true,
             subItems: [
                 {
                     title: "Manage Products",
-                    url: "#",
+                    url: "/seller/dashboard/products",
                     include: true,
                 },
                 {
                     title: "Add product",
-                    url: "#",
+                    url: "/seller/dashboard/products/create",
                     include: true,
                 }
             ]
@@ -23,6 +31,7 @@ export const navRoute: NavRoute = {
         {
             title: "Orders",
             url: "#",
+            icons: (<Clipboard size={18} />),
             include: true,
             subItems:[
                 {
@@ -35,6 +44,7 @@ export const navRoute: NavRoute = {
         {
             title: "Account Information",
             url: "/seller/profile",
+            icons: (<UserCog size={18}/>),
             include: true,
             subItems: [
                 {
@@ -52,8 +62,16 @@ export const navRoute: NavRoute = {
     ],
     admin: [
         {
+            title: "Dashboard",
+            icons: (<LayoutDashboard size={18}/>),
+            url: '/admin/dashboard',
+            include: true,
+            subItems: []
+        },
+        {
             title: "Admins",
             url: "#",
+            icons: (<ShieldCheck size={18}/>),
             include: true,
             subItems: [
                 {
@@ -66,6 +84,7 @@ export const navRoute: NavRoute = {
         {
             title: "Sellers",
             url: "#",
+            icons: (<Store size={16}/>),
             include: true,
             subItems: [
                 {
@@ -78,6 +97,7 @@ export const navRoute: NavRoute = {
         {
             title: "Customers",
             url: "#",
+            icons: (<User size={18}/>),
             include: true,
             subItems: [
                 {
@@ -88,18 +108,34 @@ export const navRoute: NavRoute = {
             ]
         },
         {
+            title: "Category",
+            url: "#",
+            icons: (<Tag size={18}/>),
+            include: true,
+            subItems: [
+                {
+                    title: "Manage Category",
+                    url: "/admin/dashboard/categories",
+                    include: true
+                }
+            ]
+        },
+        {
             title: "Products",
+            icons: (<Package size={18}/>),
             url: '#',
             include: true,
         },
         {
             title: "Orders",
+            icons: (<Clipboard size={18}/>),
             url: "#",
             include: true,
         },
         {
             title: "Account Information",
             url: "/admin/profile",
+            icons: (<UserCog size={18}/>),
             include: true,
             subItems: [
                 {

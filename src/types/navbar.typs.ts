@@ -1,6 +1,7 @@
 export interface NavMetaData{
     title: string,
     url: string,
+    icons?: React.ReactNode,
     include: boolean,
     subItems?: NavMetaData[]
 }
