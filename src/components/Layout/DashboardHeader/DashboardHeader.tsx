@@ -27,7 +27,7 @@ const DashboardHeader = ({header, children, buttons}:DashboardHeaderProps) => {
         </div>
       </div>
     <Separator className="bg-[rgba(0,0,0,0.3)]" />
-      <div className="container mx-auth py-10">
+      <div className="container mx-auth py-8">
         {children}
       </div>
     </>

@@ -60,6 +60,7 @@ html, body{
     --color-text-color: var(--text-color);
     --color-light-tan: var(--light-tan);
     --color-success-color: var(--success-color);
+    --color-green-color: var(--color-green-400);
     --color-error-color: var(--error-color);
     --color-footer-color: var(--footer-color);
     /* Background Image */
@@ -111,6 +112,7 @@ html, body{
     /* --secondary-color: #774b53; */
     /* --secondary-color: #4e242c; */
     --ternary-color: #A8B0B9;
+    --little-dark: #313131;
     --multed-blue-color: #6B7B8C;
     --light-tan: #D9CAB3;
     --text-color: #FFFBEB;

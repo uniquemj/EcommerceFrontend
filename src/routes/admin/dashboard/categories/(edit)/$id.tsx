@@ -1,3 +1,4 @@
+import BackButton from "@/components/Button/BackButton";
 import DashboardHeader from "@/components/Layout/DashboardHeader/DashboardHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -23,8 +24,8 @@ import {
   updateCategorySchema,
 } from "@/validations/category.validate";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { createFileRoute} from "@tanstack/react-router";
+import { Loader2 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 
 export const Route = createFileRoute("/admin/dashboard/categories/(edit)/$id")({
@@ -65,7 +66,7 @@ function RouteComponent() {
     mutate({id: id, info: data})
   };
 
-  const button = <Link to='/admin/dashboard/categories' className="flex gap-2 items-center hover:underline"><ArrowLeft/> Back</Link>
+  const button = <BackButton URL = {'/admin/dashboard/categories'}/>
 
   return (
     <DashboardHeader header="Edit Category" buttons={[button]}>
