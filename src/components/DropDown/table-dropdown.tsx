@@ -8,15 +8,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { Link } from "@tanstack/react-router";
 import { UserRole } from "@/types/enum.types";
 import { useDeleteAdmin } from "@/hooks/admin.hooks";
 import { useDeleteCustomer } from "@/hooks/customer.hooks";
 import { useDeleteSeller } from "@/hooks/seller.hooks";
 import { useDeleteCategory } from "@/hooks/category.hooks";
+import { useDeleteProduct } from "@/hooks/product.hooks";
 
 
-const TableDropdown = ({URL, id, option}: {URL: string, id: string, option: string}) => {
+const TableDropdown = ({id, menuOptions ,option}: {id: string, menuOptions: React.ReactNode[], option: string}) => {
   let deleteHook;
 
   switch(option){
@@ -32,6 +32,9 @@ const TableDropdown = ({URL, id, option}: {URL: string, id: string, option: stri
     case "category":
       deleteHook = useDeleteCategory
       break
+    case "product":
+      deleteHook = useDeleteProduct
+      break
     default:
       throw Error("Invalid")
   }
@@ -44,7 +47,7 @@ const TableDropdown = ({URL, id, option}: {URL: string, id: string, option: stri
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger className="hover:cursor-pointer" asChild>
         <Button variant="ghost" className="h-8 w-8 p-0">
           <span className="sr-only">Open menu</span>
           <MoreHorizontal className="h-4 w-4" />
@@ -54,16 +57,7 @@ const TableDropdown = ({URL, id, option}: {URL: string, id: string, option: stri
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {
-            option == UserRole.ADMIN || option == "category" ?
-          <Link to={URL} params={{id:id}} className="hover:cursor-pointer">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-        </Link>: null
-        }
-        {
-          option == UserRole.SELLER ? 
-          <Link to={URL} params={{id:id}} className="hover:cursor-pointer">
-          <DropdownMenuItem>Review & Verfiy</DropdownMenuItem>
-        </Link>: null
+          menuOptions.map((option)=>(option))
         }
           <DropdownMenuItem onClick={handleDelete} className="hover:cursor-pointer">
             Delete

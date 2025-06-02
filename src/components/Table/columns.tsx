@@ -4,7 +4,8 @@ import TableDropdown from "../DropDown/table-dropdown"
 import { Badge } from "../ui/badge"
 import type { Category } from "@/types/category.types"
 import { UserRole } from "@/types/enum.types"
-import { ArchieveStatus, type ProductInfo } from "@/types/product.types"
+import { DropdownMenuItem } from "../ui/dropdown-menu"
+import { Link } from "@tanstack/react-router"
 
 export const sellerColumns: ColumnDef<Seller>[] = [
     {
@@ -38,8 +39,11 @@ export const sellerColumns: ColumnDef<Seller>[] = [
         header: "Actions",
         cell: ({row}) =>{
             const seller = row.original
+            const menuOptions = [<Link to={'/admin/dashboard/sellers/$id'} params={{id:seller._id}} className="hover:cursor-pointer">
+          <DropdownMenuItem>Review & Verfiy</DropdownMenuItem>
+        </Link>]
             return(
-                <TableDropdown URL={'/admin/dashboard/sellers/$id'} id={seller._id} option={UserRole.SELLER}/>
+                <TableDropdown id={seller._id} menuOptions={menuOptions} option={UserRole.SELLER}/>
             )
         }
     }
@@ -74,8 +78,9 @@ export const customerColumns: ColumnDef<Customer>[] = [
         id: "action",
         header: "Actions",
         cell: ({row}) =>{
+
             return <>
-                <TableDropdown URL="" id={row.original._id} option={UserRole.CUSTOMER}/>
+                <TableDropdown id={row.original._id} menuOptions={[]} option={UserRole.CUSTOMER}/>
             </>
         }
     }
@@ -108,8 +113,11 @@ export const superAdminColumns: ColumnDef<Admin>[] =[
         header: "Actions",
         cell: ({row}) =>{
             const admin = row.original
+            const menuOptions = [<Link to={`/admin/dashboard/admins/$id`} params={{id:admin._id}} className="hover:cursor-pointer">
+          <DropdownMenuItem>Edit</DropdownMenuItem>
+        </Link>]
             return <>
-                <TableDropdown URL={`/admin/dashboard/admins/$id`} id={admin._id} option={UserRole.ADMIN}/>
+                <TableDropdown id={admin._id} menuOptions={menuOptions} option={UserRole.ADMIN}/>
                 </> 
         }
     }
@@ -158,41 +166,12 @@ export const categoryColumns: ColumnDef<Category>[] =[
         header: "Actions",
         cell: ({row}) =>{
             const category = row.original
-
+            const menuOptions = [<Link to={`/admin/dashboard/categories/$id`} params={{id:category._id}} className="hover:cursor-pointer">
+          <DropdownMenuItem>Edit</DropdownMenuItem>
+        </Link>]
             return <>
-                <TableDropdown URL={`/admin/dashboard/categories/$id`} id={category._id} option={"category"}/>
+                <TableDropdown id={category._id} menuOptions={menuOptions} option={"category"}/>
                 </> 
-        }
-    }
-]
-
-export const productColumns: ColumnDef<ProductInfo>[] =[
-    {
-        accessorKey: 'name',
-        header: 'Product Name'
-    },
-    {
-        accessorKey: 'category',
-        header: 'Category',
-        cell: ({row}) => {
-            const category = row.original.category
-            return <Badge className="bg-secondary-color">{category.title}</Badge>
-        }
-    },
-    {
-        accessorKey: 'variants',
-        header: 'Variant Count',
-        cell: ({row})=>{
-            const variant = row.original.variants
-            return variant.length
-        }
-    },
-    {
-        accessorKey: 'archieveStatus',
-        header: 'Archieve Status',
-        cell: ({row})=>{
-            const archieveStatus = row.original.archieveStatus
-            return archieveStatus == ArchieveStatus.Archieve ? <Badge className="bg-ternary-color"></Badge> : <Badge className="bg-green-400"></Badge>
         }
     }
 ]

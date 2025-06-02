@@ -39,6 +39,7 @@ import { Route as AdminDashboardCustomersIndexImport } from './routes/admin/dash
 import { Route as AdminDashboardCategoriesIndexImport } from './routes/admin/dashboard/categories/index'
 import { Route as AdminDashboardAdminsIndexImport } from './routes/admin/dashboard/admins/index'
 import { Route as SellerDashboardProductsCreateImport } from './routes/seller/dashboard/products/create'
+import { Route as SellerDashboardProductsIdImport } from './routes/seller/dashboard/products/$id'
 import { Route as AuthSellerVerifyCodeImport } from './routes/auth/seller/verify/$code'
 import { Route as AuthcustomerVerifyCodeImport } from './routes/auth/(customer)/verify/$code'
 import { Route as AdminDashboardSellersIdImport } from './routes/admin/dashboard/sellers/$id'
@@ -227,6 +228,12 @@ const SellerDashboardProductsCreateRoute =
     path: '/dashboard/products/create',
     getParentRoute: () => SellerRouteRoute,
   } as any)
+
+const SellerDashboardProductsIdRoute = SellerDashboardProductsIdImport.update({
+  id: '/dashboard/products/$id',
+  path: '/dashboard/products/$id',
+  getParentRoute: () => SellerRouteRoute,
+} as any)
 
 const AuthSellerVerifyCodeRoute = AuthSellerVerifyCodeImport.update({
   id: '/seller/verify/$code',
@@ -469,6 +476,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSellerVerifyCodeImport
       parentRoute: typeof AuthRouteImport
     }
+    '/seller/dashboard/products/$id': {
+      id: '/seller/dashboard/products/$id'
+      path: '/dashboard/products/$id'
+      fullPath: '/seller/dashboard/products/$id'
+      preLoaderRoute: typeof SellerDashboardProductsIdImport
+      parentRoute: typeof SellerRouteImport
+    }
     '/seller/dashboard/products/create': {
       id: '/seller/dashboard/products/create'
       path: '/dashboard/products/create'
@@ -612,6 +626,7 @@ interface SellerRouteRouteChildren {
   SellerDashboardUpdatePasswordRoute: typeof SellerDashboardUpdatePasswordRoute
   SellerDashboardIndexRoute: typeof SellerDashboardIndexRoute
   SellerProfileIndexRoute: typeof SellerProfileIndexRoute
+  SellerDashboardProductsIdRoute: typeof SellerDashboardProductsIdRoute
   SellerDashboardProductsCreateRoute: typeof SellerDashboardProductsCreateRoute
   SellerDashboardProductsIndexRoute: typeof SellerDashboardProductsIndexRoute
 }
@@ -623,6 +638,7 @@ const SellerRouteRouteChildren: SellerRouteRouteChildren = {
   SellerDashboardUpdatePasswordRoute: SellerDashboardUpdatePasswordRoute,
   SellerDashboardIndexRoute: SellerDashboardIndexRoute,
   SellerProfileIndexRoute: SellerProfileIndexRoute,
+  SellerDashboardProductsIdRoute: SellerDashboardProductsIdRoute,
   SellerDashboardProductsCreateRoute: SellerDashboardProductsCreateRoute,
   SellerDashboardProductsIndexRoute: SellerDashboardProductsIndexRoute,
 }
@@ -659,6 +675,7 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard/sellers/$id': typeof AdminDashboardSellersIdRoute
   '/auth/verify/$code': typeof AuthcustomerVerifyCodeRoute
   '/auth/seller/verify/$code': typeof AuthSellerVerifyCodeRoute
+  '/seller/dashboard/products/$id': typeof SellerDashboardProductsIdRoute
   '/seller/dashboard/products/create': typeof SellerDashboardProductsCreateRoute
   '/admin/dashboard/admins': typeof AdminDashboardAdminsIndexRoute
   '/admin/dashboard/categories': typeof AdminDashboardCategoriesIndexRoute
@@ -697,6 +714,7 @@ export interface FileRoutesByTo {
   '/admin/dashboard/sellers/$id': typeof AdminDashboardSellersIdRoute
   '/auth/verify/$code': typeof AuthcustomerVerifyCodeRoute
   '/auth/seller/verify/$code': typeof AuthSellerVerifyCodeRoute
+  '/seller/dashboard/products/$id': typeof SellerDashboardProductsIdRoute
   '/seller/dashboard/products/create': typeof SellerDashboardProductsCreateRoute
   '/admin/dashboard/admins': typeof AdminDashboardAdminsIndexRoute
   '/admin/dashboard/categories': typeof AdminDashboardCategoriesIndexRoute
@@ -736,6 +754,7 @@ export interface FileRoutesById {
   '/admin/dashboard/sellers/$id': typeof AdminDashboardSellersIdRoute
   '/auth/(customer)/verify/$code': typeof AuthcustomerVerifyCodeRoute
   '/auth/seller/verify/$code': typeof AuthSellerVerifyCodeRoute
+  '/seller/dashboard/products/$id': typeof SellerDashboardProductsIdRoute
   '/seller/dashboard/products/create': typeof SellerDashboardProductsCreateRoute
   '/admin/dashboard/admins/': typeof AdminDashboardAdminsIndexRoute
   '/admin/dashboard/categories/': typeof AdminDashboardCategoriesIndexRoute
@@ -776,6 +795,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard/sellers/$id'
     | '/auth/verify/$code'
     | '/auth/seller/verify/$code'
+    | '/seller/dashboard/products/$id'
     | '/seller/dashboard/products/create'
     | '/admin/dashboard/admins'
     | '/admin/dashboard/categories'
@@ -813,6 +833,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard/sellers/$id'
     | '/auth/verify/$code'
     | '/auth/seller/verify/$code'
+    | '/seller/dashboard/products/$id'
     | '/seller/dashboard/products/create'
     | '/admin/dashboard/admins'
     | '/admin/dashboard/categories'
@@ -850,6 +871,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard/sellers/$id'
     | '/auth/(customer)/verify/$code'
     | '/auth/seller/verify/$code'
+    | '/seller/dashboard/products/$id'
     | '/seller/dashboard/products/create'
     | '/admin/dashboard/admins/'
     | '/admin/dashboard/categories/'
@@ -943,6 +965,7 @@ export const routeTree = rootRoute
         "/seller/dashboard/update-password",
         "/seller/dashboard/",
         "/seller/profile/",
+        "/seller/dashboard/products/$id",
         "/seller/dashboard/products/create",
         "/seller/dashboard/products/"
       ]
@@ -1034,6 +1057,10 @@ export const routeTree = rootRoute
     "/auth/seller/verify/$code": {
       "filePath": "auth/seller/verify/$code.tsx",
       "parent": "/auth"
+    },
+    "/seller/dashboard/products/$id": {
+      "filePath": "seller/dashboard/products/$id.tsx",
+      "parent": "/seller"
     },
     "/seller/dashboard/products/create": {
       "filePath": "seller/dashboard/products/create.tsx",

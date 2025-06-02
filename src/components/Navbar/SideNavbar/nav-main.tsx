@@ -27,7 +27,7 @@ const NavMain = ({ items }: { items: NavMetaData[] }) => {
     <SidebarGroup>
       <SidebarMenu>
         {items.map((item) => (
-          <Collapsible key={item.title} asChild>
+          <Collapsible key={item.title} className="group/collapsible" asChild>
             <SidebarMenuItem>
               {item.subItems?.length ? (
                 <>
@@ -35,13 +35,13 @@ const NavMain = ({ items }: { items: NavMetaData[] }) => {
                     <div>
                       <SidebarMenuButton
                         tooltip={item.title}
-                        className="flex items-end gap-4"
+                        className="flex items-end gap-4 hover:text-secondary-color hover:cursor-pointer"
                       >
-                        <span>{item.icons}</span>
+                        <span className="group-data-[state=open]/collapsible:text-secondary-color">{item.icons}</span>
                         <span>{item.title}</span>
                       </SidebarMenuButton>
-                      <SidebarMenuAction className="data-[state=open]:rotate-90">
-                        <ChevronRight />
+                      <SidebarMenuAction className="group-data-[state=open]/collapsible:rotate-90">
+                        <ChevronRight/>
                         <span className="sr-only">Toggle</span>
                       </SidebarMenuAction>
                     </div>
@@ -56,13 +56,13 @@ const NavMain = ({ items }: { items: NavMetaData[] }) => {
                               asChild
                               className="[&.active]:text-secondary-color [&.active]:font-medium"
                             >
-                              <Link to={subItem.url} activeOptions={{ exact: true }}>
+                              <Link to={subItem.url} activeOptions={{ exact: true }} className="hover:text-secondary-color">
                                 <span>{subItem.title}</span>
                               </Link>
                             </SidebarMenuSubButton>
                           ): null): <SidebarMenuSubButton
                               asChild
-                              className="[&.active]:text-secondary-color [&.active]:font-medium"
+                              className="[&.active]:text-secondary-color [&.active]:font-medium hover:text-secondary-color hover:cursor-pointer"
                             >
                               <Link to={subItem.url} activeOptions={{ exact: true }}>
                                 <span>{subItem.title}</span>
@@ -75,7 +75,7 @@ const NavMain = ({ items }: { items: NavMetaData[] }) => {
                 </>
               ) : (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuSubButton>
+                  <SidebarMenuSubButton className="hover:text-secondary-color hover:cursor-pointer">
                     <Link
                       to={item.url}
                       activeOptions={{ exact: true }}

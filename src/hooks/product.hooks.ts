@@ -1,4 +1,4 @@
-import { createProduct, editProduct, editProductVariant, getAllProductList, getProductById, getProductList, getSellerProductById, getSellerProductList, getVariantListOfProduct } from "@/services/product.api"
+import { createProduct, deleteProduct, editProduct, editProductVariant, getAllProductList, getProductById, getProductList, getSellerProductById, getSellerProductList, getVariantListOfProduct } from "@/services/product.api"
 import type { PaginationField } from "@/types/pagination.types"
 import { type ProductInfo } from "@/types/product.types"
 import { type SuccessResponse, type ErrorResponse } from "@/types/response.types"
@@ -118,6 +118,24 @@ export const useEditProductVariant = () =>{
             toast.success("Product Variant Updated.")
         },
 
+        onError: (error)=>{
+            toast.error(error.response.data.message)
+        }
+    })
+}
+
+export const useDeleteProduct = () =>{
+    const query = useQueryClient()
+    
+    return useMutation<SuccessResponse<ProductInfo>, ErrorResponse, string>({
+        mutationFn: (id: string) => deleteProduct(id),
+        onSuccess: () => {
+            query.invalidateQueries({queryKey: ['products']})
+            query.invalidateQueries({queryKey: ['products', 'seller']})
+            query.invalidateQueries({queryKey: ['products', 'admin']})
+
+            toast.success("Product Deleted.")
+        },
         onError: (error)=>{
             toast.error(error.response.data.message)
         }

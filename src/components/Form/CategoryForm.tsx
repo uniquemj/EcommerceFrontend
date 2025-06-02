@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useForm, Controller } from "react-hook-form";
 import {
   Select,
@@ -31,7 +31,12 @@ import {
   type CategorySchemaType,
 } from "@/validations/category.validate";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, Plus } from "lucide-react";
+import {Loader2, Plus } from "lucide-react";
+import CategoryCombobox from "../Combobox/CategoryCombobox";
+import type { Category } from "@/types/category.types";
+// import CategoryCombobox from "../Combobox/CategoryCombobox";
+// import type { Category } from "@/types/category.types";
+
 
 const CategoryForm = () => {
   const { isPending, mutate } = useCreateCategory();
@@ -69,9 +74,7 @@ const CategoryForm = () => {
         <SheetContent className="flex flex-col">
           <SheetHeader>
             <SheetTitle>Create Category</SheetTitle>
-            <SheetDescription>
-              Provide Category Information
-            </SheetDescription>
+            <SheetDescription>Provide Category Information</SheetDescription>
           </SheetHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-7 px-3">
@@ -91,6 +94,10 @@ const CategoryForm = () => {
                   ""
                 )}
               </div>
+              <div>
+                <Label htmlFor="parent_category">Parent Category</Label>
+                
+              </div>
               <Controller
                 name="parent_category"
                 control={control}
@@ -104,9 +111,10 @@ const CategoryForm = () => {
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Select Category" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="max-h-[250px]">
                         <SelectGroup>
                           <SelectLabel>Parent Categories</SelectLabel>
+
                           {categories?.data.map((category) => (
                             <SelectItem value={category._id} key={category._id}>
                               {category.title}
@@ -143,6 +151,7 @@ const CategoryForm = () => {
           </form>
         </SheetContent>
       </Sheet>
+
       {/* <DashboardHeader header="Create Category" buttons={[]}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>

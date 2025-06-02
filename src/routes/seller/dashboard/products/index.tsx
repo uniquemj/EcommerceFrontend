@@ -1,5 +1,5 @@
 import TableLayout from '@/components/Layout/TableUserManagement/TableLayout'
-import { productColumns } from '@/components/Table/columns'
+import { productColumns } from '@/components/Table/Columns/product.columns'
 import Spinner from '@/components/ui/spinner'
 import { useGetSellerProductList } from '@/hooks/product.hooks'
 import type { ProductInfo } from '@/types/product.types'

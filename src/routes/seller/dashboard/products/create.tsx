@@ -1,3 +1,4 @@
+import CategoryCombobox from "@/components/Combobox/CategoryCombobox";
 import DashboardHeader from "@/components/Layout/DashboardHeader/DashboardHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,6 +26,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useGetAllCategory } from "@/hooks/category.hooks";
 import { useCreateProduct } from "@/hooks/product.hooks";
+import type { Category } from "@/types/category.types";
 import {
   ColorType,
   DangerousGoods,
@@ -50,7 +52,7 @@ function RouteComponent() {
   const dangerousGoods = Object.values(DangerousGoods);
   const warrantyType = Object.values(WarrantyType);
 
-  const { data: categories } = useGetAllCategory({ page: 0, limit: 0 });
+  const { isLoading, data: categories } = useGetAllCategory({ page: 0, limit: 0 });
 
   const {
     register,
@@ -131,44 +133,15 @@ function RouteComponent() {
                     ""
                   )}
                 </div>
-                <Controller
-                  name="category"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="flex flex-col space-y-3">
+                <Controller name="category" control={control} 
+                render = {({field})=>(
+                  <div className="flex flex-col space-y-3">
                       <Label htmlFor="category" className="text-xl">
                         Category
                       </Label>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <SelectTrigger className="w-[180px]">
-                          <SelectValue placeholder="Select Category" />
-                        </SelectTrigger>
-                        <SelectContent className="h-[200px]">
-                          <SelectGroup>
-                            <SelectLabel>Categories</SelectLabel>
-                            {categories?.data.map((category) => (
-                              <SelectItem
-                                value={category._id}
-                                key={category._id}
-                              >
-                                {category.title}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                      {errors.category ? (
-                        <p className="text-error-color text-error-msg">
-                          {errors.category.message}
-                        </p>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  )}
+                  <CategoryCombobox categories={categories?.data as Category[]} isLoading={isLoading} value={field.value as string} onChange={field.onChange}/>
+                  </div>
+                )}
                 />
                 <div className="flex flex-col space-y-3">
                   <Label htmlFor="productDescription" className="text-xl">

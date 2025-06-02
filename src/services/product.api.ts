@@ -41,6 +41,7 @@ export const createProduct = async (productInfo: ProductSchemaType): Promise<Suc
 
     formData.append("name", productInfo.name)
     formData.append("category", productInfo.category)
+    console.log(productInfo.productDescription)
     formData.append("productDescription", productInfo.productDescription as string)
     formData.append("productHighlights", productInfo.productHighlights as string)
     formData.append("dangerousGoods", productInfo.dangerousGoods as string)
