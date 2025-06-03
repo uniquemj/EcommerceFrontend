@@ -25,14 +25,14 @@ const CategoryCombobox = ({categories, isLoading, value, onChange}: CategoryComb
         variant={"outline"}
         role="combobox"
         aria-expanded={open}
-        className="w-[200px] justify-between font-normal text-gray-500"
+        className=" justify-between font-normal text-gray-500"
         >
           {selectedCategory ? selectedCategory.title : "Select parent category"}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 h-[250px]">
-        <Command>
+        <Command className="z-1000">
           <CommandInput placeholder="Search Categories . . ." value={searchItem} onValueChange={setSearchItem}/>
           <CommandEmpty>No Categories found.</CommandEmpty>
           <CommandGroup className="overflow-y-scroll">

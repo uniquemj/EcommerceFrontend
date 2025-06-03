@@ -34,7 +34,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="rounded-md border h-[400px] overflow-y-scroll p-4">
+      <div className="rounded-md border max-h-[400px] overflow-y-scroll p-0">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -58,7 +58,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="even:bg-gray-100"
+                  className="even:bg-secondary-shade-lightest"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

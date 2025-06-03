@@ -1,53 +1,34 @@
-import CategoryCombobox from "@/components/Combobox/CategoryCombobox";
-import DashboardHeader from "@/components/Layout/DashboardHeader/DashboardHeader";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import Spinner from "@/components/ui/spinner";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
-import { useGetAllCategory } from "@/hooks/category.hooks";
-import { useCreateProduct } from "@/hooks/product.hooks";
-import type { Category } from "@/types/category.types";
-import {
-  ColorType,
-  DangerousGoods,
-  SizeType,
-  WarrantyType,
-} from "@/types/product.types";
-import {
-  productSchema,
-  type ProductSchemaType,
-} from "@/validations/product.validate";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute } from "@tanstack/react-router";
-import { Plus, Trash2 } from "lucide-react";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import CategoryCombobox from '@/components/Combobox/CategoryCombobox';
+import DashboardHeader from '@/components/Layout/DashboardHeader/DashboardHeader';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import Spinner from '@/components/ui/spinner';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Textarea } from '@/components/ui/textarea';
+import { useGetAllCategory } from '@/hooks/category.hooks';
+import { useEditProduct, useGetProductById } from '@/hooks/product.hooks';
+import type { Category } from '@/types/category.types';
+import { ColorType, DangerousGoods, SizeType, WarrantyType } from '@/types/product.types';
+import type { VariantInfo } from '@/types/variant.types';
+import { productSchema, updateProductSchema, type ProductSchemaType } from '@/validations/product.validate';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createFileRoute } from '@tanstack/react-router'
+import { Plus, Trash2 } from 'lucide-react';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 
-export const Route = createFileRoute("/seller/dashboard/products/create")({
+export const Route = createFileRoute('/seller/dashboard/products/$id_/edit')({
   component: RouteComponent,
-});
+})
 
 function RouteComponent() {
+
+  const {id} = Route.useParams()
+
   const colors = Object.values(ColorType);
   const sizes = Object.values(SizeType);
   const dangerousGoods = Object.values(DangerousGoods);
@@ -57,7 +38,9 @@ function RouteComponent() {
     page: 0,
     limit: 0,
   });
-
+  
+  const {isPending:ProductPending, data: product} = useGetProductById(id)
+  
   const {
     register,
     handleSubmit,
@@ -65,7 +48,27 @@ function RouteComponent() {
     watch,
     formState: { errors },
     control,
-  } = useForm<ProductSchemaType>({
+  } = useForm<Partial<ProductSchemaType>>({
+    values: {
+     name: product?.data.name,
+     category: product?.data.category._id,
+     productDescription: product?.data.productDescription,
+     productHighlights: product?.data.productHighlights,
+     dangerousGoods: product?.data.dangerousGoods,
+     warrantyType: product?.data.warrantyType,
+     warrantyPeriod: String(product?.data.warrantyPeriod),
+     warrantyPolicy: product?.data.warrantyPolicy,
+     variants: product?.data.variants.map((variant)=>({
+      color: variant.color,
+      size: variant.size,
+      price: String(variant.price),
+      stock: String(variant.stock),
+      availability: variant.availability,
+      packageWeight: String(variant.packageWeight),
+      packageLength: variant.packageLength,
+      images: variant.images
+     })),
+    },
     defaultValues: {
       variants: [
         {
@@ -80,19 +83,19 @@ function RouteComponent() {
       ],
       variantImages: [undefined],
     },
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(updateProductSchema),
   });
 
   const {
     fields: variantFields,
     append: variantAppend,
     remove: variantRemove,
-  } = useFieldArray<ProductSchemaType, "variants">({
+  } = useFieldArray<Partial<ProductSchemaType>, "variants">({
     control,
     name: "variants",
   });
 
-  const { isPending, mutate } = useCreateProduct();
+  const { isPending, mutate } = useEditProduct();
 
   const handleAppendVariant = () => {
     variantAppend({
@@ -113,13 +116,14 @@ function RouteComponent() {
     updatedImages.splice(index, 1);
     setValue("variantImages", updatedImages);
   };
-  const handleProductCreate = (data: ProductSchemaType) => {
+  const handleProductUpdate = (data: Partial<ProductSchemaType>) => {
     console.log("from component", data);
     console.log("clicked");
-    mutate(data);
+    mutate({id: id, productInfo: data});
   };
 
   if (isPending) return <Spinner />;
+  if (ProductPending) return <Spinner />;
   return (
     <DashboardHeader header="Add Product" buttons={[]}>
       <div className="">
@@ -159,7 +163,7 @@ function RouteComponent() {
             </TabsList>
           </div>
 
-          <form onSubmit={handleSubmit(handleProductCreate)}>
+          <form onSubmit={handleSubmit(handleProductUpdate)}>
             <TabsContent value="product-detail" className="w-full">
               <Card>
                 <CardContent className="grid gap-6">
@@ -258,7 +262,7 @@ function RouteComponent() {
                             defaultValue={field.value}
                           >
                             <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Select if any" />
+                              <SelectValue placeholder={field.value? field.value: `Select if any`}/>
                             </SelectTrigger>
                             <SelectContent className="h-[150px]">
                               <SelectGroup>
@@ -538,28 +542,31 @@ function RouteComponent() {
                                   />
                                 </TableCell>
                                 <TableCell>
-                                  <Controller
-                                    control={control}
-                                    name={`variantImages.${index}`}
-                                    render={({ field }) => (
-                                      <Input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={(e) => {
-                                          const file = e.target.files?.[0];
-                                          field.onChange(file);
+                                   
+                                     <Controller
+                                     control={control}
+                                     name={`variantImages.${index}`}
+                                     render={({ field }) => (
+                                       <Input
+                                       type="file"
+                                       accept="image/*"
+                                       onChange={(e) => {
+                                         const file = e.target.files?.[0];
+                                         field.onChange(file);
                                         }}
+                                        />
+                                      )}
                                       />
-                                    )}
-                                  />
                                   {errors.variantImages?.[index] && (
                                     <p className="text-error-color text-error-msg">
-                                      {
-                                        errors.variantImages[index]
-                                          ?.message as string
-                                      }
+                                    {
+                                      errors.variantImages[index]
+                                      ?.message as string
+                                    }
                                     </p>
                                   )}
+                            
+                                
                                 </TableCell>
                               </TableRow>
                             </TableBody>

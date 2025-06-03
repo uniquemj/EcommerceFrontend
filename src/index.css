@@ -63,12 +63,21 @@ html, body{
     --color-green-color: var(--color-green-400);
     --color-error-color: var(--error-color);
     --color-footer-color: var(--footer-color);
+    --color-secondary-shade-lightest: var(--shade-secondary-color-lightest);
+    --color-secondary-shade-light: var(--shade-secondary-color-light);
+    --color-secondary-shade-normal: var(--shade-secondary-color-normal);
+    --color-secondary-shade-dark: var(--shade-secondary-color-dark);
     /* Background Image */
     --background-image-seller-auth: url('/src/assets/Auth/SellerAuthTransparency.png');
     --background-image-customer-auth: url('/src/assets/Auth/LoginTransparency.png');
 
     /* Text Size */
     --text-error-msg: 0.8rem;
+    --text-label-size: var(--label-size);
+    --text-11: 11px;
+    --text-12: 12px;
+    --text-13: 13px;
+    --text-14: 14px;
 
 }
 
@@ -109,18 +118,22 @@ html, body{
     /*  Custom Variables */
     --primary-color: #151515;
     --secondary-color: #C75B39;
+    --shade-secondary-color-lightest: #f9efeb;
+    --shade-secondary-color-light: #eecec4;
+    --shade-secondary-color-normal: #d27c61;
+    --shade-secondary-color-dark: #3c1b11;
     /* --secondary-color: #774b53; */
     /* --secondary-color: #4e242c; */
     --ternary-color: #A8B0B9;
-    --little-dark: #313131;
+    --little-dark: #2a2a2a;
     --multed-blue-color: #6B7B8C;
     --light-tan: #D9CAB3;
-    --text-color: #FFFBEB;
-
+    --text-color: #f9efeb;
     --footer-color: #161B22;
-    
     --success-color: var(--color-blue-400);
-    --error-color: var(--color-red-700)
+    --error-color: var(--color-red-700);
+    /* size */
+    --label-size: 16px;
 }
 
 
@@ -171,4 +184,8 @@ html, body{
     .h-screen-minus{
         height: calc(100vh - 72px);
     }
+}
+
+label{
+    font-size: 16px;
 }

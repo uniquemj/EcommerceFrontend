@@ -5,6 +5,8 @@ import type { DataType } from '@/types/navbar.typs'
 import { useAuth } from '@/store/auth.store'
 import { UserRole } from '@/types/enum.types'
 import { useSellerState } from '@/store/seller.store'
+import { useEffect } from 'react'
+import { useGetSellerProfile } from '@/hooks/seller.hooks'
 
 export const Route = createFileRoute('/seller')({
   component: RouteComponent,
@@ -20,6 +22,16 @@ function RouteComponent() {
   const {fullname, email, role,  initials} = useAuth()
   const {avatar} = useSellerState()
   const sellerRoute = navRoute.seller
+  const { data: seller } = useGetSellerProfile();
+  const {setRole} = useAuth()
+  const { setIsVerified } = useSellerState();
+
+  useEffect(() => {
+    if (seller) {
+      setIsVerified(seller?.data.is_verified);
+      setRole(seller.data.role)
+    }
+  }, [seller, setIsVerified, setRole]);
 
   const data: DataType = {
     heading: "BajarHub Seller",

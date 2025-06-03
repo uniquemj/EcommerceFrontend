@@ -45,6 +45,7 @@ import { Route as AuthcustomerVerifyCodeImport } from './routes/auth/(customer)/
 import { Route as AdminDashboardSellersIdImport } from './routes/admin/dashboard/sellers/$id'
 import { Route as AdminDashboardCategoriesCreateImport } from './routes/admin/dashboard/categories/create'
 import { Route as AdminDashboardAdminsCreateImport } from './routes/admin/dashboard/admins/create'
+import { Route as SellerDashboardProductsIdEditImport } from './routes/seller/dashboard/products/$id_.edit'
 import { Route as AdminDashboardCategorieseditIdImport } from './routes/admin/dashboard/categories/(edit)/$id'
 import { Route as AdminDashboardAdminseditIdImport } from './routes/admin/dashboard/admins/(edit)/$id'
 
@@ -267,6 +268,13 @@ const AdminDashboardAdminsCreateRoute = AdminDashboardAdminsCreateImport.update(
     getParentRoute: () => AdminRouteRoute,
   } as any,
 )
+
+const SellerDashboardProductsIdEditRoute =
+  SellerDashboardProductsIdEditImport.update({
+    id: '/dashboard/products/$id_/edit',
+    path: '/dashboard/products/$id/edit',
+    getParentRoute: () => SellerRouteRoute,
+  } as any)
 
 const AdminDashboardCategorieseditIdRoute =
   AdminDashboardCategorieseditIdImport.update({
@@ -539,6 +547,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardCategorieseditIdImport
       parentRoute: typeof AdminRouteImport
     }
+    '/seller/dashboard/products/$id_/edit': {
+      id: '/seller/dashboard/products/$id_/edit'
+      path: '/dashboard/products/$id/edit'
+      fullPath: '/seller/dashboard/products/$id/edit'
+      preLoaderRoute: typeof SellerDashboardProductsIdEditImport
+      parentRoute: typeof SellerRouteImport
+    }
   }
 }
 
@@ -629,6 +644,7 @@ interface SellerRouteRouteChildren {
   SellerDashboardProductsIdRoute: typeof SellerDashboardProductsIdRoute
   SellerDashboardProductsCreateRoute: typeof SellerDashboardProductsCreateRoute
   SellerDashboardProductsIndexRoute: typeof SellerDashboardProductsIndexRoute
+  SellerDashboardProductsIdEditRoute: typeof SellerDashboardProductsIdEditRoute
 }
 
 const SellerRouteRouteChildren: SellerRouteRouteChildren = {
@@ -641,6 +657,7 @@ const SellerRouteRouteChildren: SellerRouteRouteChildren = {
   SellerDashboardProductsIdRoute: SellerDashboardProductsIdRoute,
   SellerDashboardProductsCreateRoute: SellerDashboardProductsCreateRoute,
   SellerDashboardProductsIndexRoute: SellerDashboardProductsIndexRoute,
+  SellerDashboardProductsIdEditRoute: SellerDashboardProductsIdEditRoute,
 }
 
 const SellerRouteRouteWithChildren = SellerRouteRoute._addFileChildren(
@@ -684,6 +701,7 @@ export interface FileRoutesByFullPath {
   '/seller/dashboard/products': typeof SellerDashboardProductsIndexRoute
   '/admin/dashboard/admins/$id': typeof AdminDashboardAdminseditIdRoute
   '/admin/dashboard/categories/$id': typeof AdminDashboardCategorieseditIdRoute
+  '/seller/dashboard/products/$id/edit': typeof SellerDashboardProductsIdEditRoute
 }
 
 export interface FileRoutesByTo {
@@ -723,6 +741,7 @@ export interface FileRoutesByTo {
   '/seller/dashboard/products': typeof SellerDashboardProductsIndexRoute
   '/admin/dashboard/admins/$id': typeof AdminDashboardAdminseditIdRoute
   '/admin/dashboard/categories/$id': typeof AdminDashboardCategorieseditIdRoute
+  '/seller/dashboard/products/$id/edit': typeof SellerDashboardProductsIdEditRoute
 }
 
 export interface FileRoutesById {
@@ -763,6 +782,7 @@ export interface FileRoutesById {
   '/seller/dashboard/products/': typeof SellerDashboardProductsIndexRoute
   '/admin/dashboard/admins/(edit)/$id': typeof AdminDashboardAdminseditIdRoute
   '/admin/dashboard/categories/(edit)/$id': typeof AdminDashboardCategorieseditIdRoute
+  '/seller/dashboard/products/$id_/edit': typeof SellerDashboardProductsIdEditRoute
 }
 
 export interface FileRouteTypes {
@@ -804,6 +824,7 @@ export interface FileRouteTypes {
     | '/seller/dashboard/products'
     | '/admin/dashboard/admins/$id'
     | '/admin/dashboard/categories/$id'
+    | '/seller/dashboard/products/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -842,6 +863,7 @@ export interface FileRouteTypes {
     | '/seller/dashboard/products'
     | '/admin/dashboard/admins/$id'
     | '/admin/dashboard/categories/$id'
+    | '/seller/dashboard/products/$id/edit'
   id:
     | '__root__'
     | '/'
@@ -880,6 +902,7 @@ export interface FileRouteTypes {
     | '/seller/dashboard/products/'
     | '/admin/dashboard/admins/(edit)/$id'
     | '/admin/dashboard/categories/(edit)/$id'
+    | '/seller/dashboard/products/$id_/edit'
   fileRoutesById: FileRoutesById
 }
 
@@ -967,7 +990,8 @@ export const routeTree = rootRoute
         "/seller/profile/",
         "/seller/dashboard/products/$id",
         "/seller/dashboard/products/create",
-        "/seller/dashboard/products/"
+        "/seller/dashboard/products/",
+        "/seller/dashboard/products/$id_/edit"
       ]
     },
     "/customer/update-password": {
@@ -1093,6 +1117,10 @@ export const routeTree = rootRoute
     "/admin/dashboard/categories/(edit)/$id": {
       "filePath": "admin/dashboard/categories/(edit)/$id.tsx",
       "parent": "/admin"
+    },
+    "/seller/dashboard/products/$id_/edit": {
+      "filePath": "seller/dashboard/products/$id_.edit.tsx",
+      "parent": "/seller"
     }
   }
 }

@@ -40,7 +40,7 @@ import type { Category } from "@/types/category.types";
 
 const CategoryForm = () => {
   const { isPending, mutate } = useCreateCategory();
-  const { data: categories } = useGetAllCategory({ page: 0, limit: 0 });
+  const { isLoading, data: categories } = useGetAllCategory({ page: 0, limit: 0 });
 
   // let optionCategories:Category[] = []
 
@@ -71,7 +71,7 @@ const CategoryForm = () => {
             <Plus /> Category
           </Button>
         </SheetTrigger>
-        <SheetContent className="flex flex-col">
+        <SheetContent className="flex flex-col z-50">
           <SheetHeader>
             <SheetTitle>Create Category</SheetTitle>
             <SheetDescription>Provide Category Information</SheetDescription>
@@ -94,17 +94,14 @@ const CategoryForm = () => {
                   ""
                 )}
               </div>
-              <div>
-                <Label htmlFor="parent_category">Parent Category</Label>
-                
-              </div>
               <Controller
                 name="parent_category"
                 control={control}
                 render={({ field }) => (
                   <div className="flex flex-col space-y-3">
                     <Label htmlFor="parent_category">Parent Categories</Label>
-                    <Select
+                    <CategoryCombobox categories={categories?.data as Category[]} isLoading={isLoading} value={field.value as string} onChange={field.onChange}/>
+                    {/* <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
@@ -122,7 +119,7 @@ const CategoryForm = () => {
                           ))}
                         </SelectGroup>
                       </SelectContent>
-                    </Select>
+                    </Select> */}
                     {errors.parent_category ? (
                       <p className="text-primary-color text-error-msg">
                         {errors.parent_category.message}

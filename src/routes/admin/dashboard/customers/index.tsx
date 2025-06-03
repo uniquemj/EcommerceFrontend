@@ -1,5 +1,6 @@
-import TableLayout from '@/components/Layout/TableUserManagement/TableLayout';
+import DashboardHeader from '@/components/Layout/DashboardHeader/DashboardHeader';
 import { customerColumns } from '@/components/Table/columns';
+import { DataTable } from '@/components/Table/data-table';
 import Spinner from '@/components/ui/spinner';
 import { useGetAllCustomer } from '@/hooks/customer.hooks';
 import type { Customer } from '@/types/user.types';
@@ -14,8 +15,8 @@ function RouteComponent() {
   if (isPending) return <Spinner />;
 
   return (
-    <>
-     <TableLayout header="Manage Customers" columns={customerColumns} data={customer?.data as Customer[]} buttons={[]}/>
-    </>
+    <DashboardHeader header ="Manage Customers" buttons={[]}>
+      <DataTable columns={customerColumns} data={customer?.data as Customer[]}/>
+    </DashboardHeader>
   );
 }

@@ -52,22 +52,24 @@ const NavMain = ({ items }: { items: NavMetaData[] }) => {
                         <SidebarMenuSubItem key={subItem.title}>
                           {role == UserRole.SELLER ? (isVerified == subItem.include ? (
 
+                            <Link to={subItem.url} activeOptions={{ exact: true }} className="hover:text-secondary-color">
                             <SidebarMenuSubButton
                               asChild
                               className="[&.active]:text-secondary-color [&.active]:font-medium"
                             >
-                              <Link to={subItem.url} activeOptions={{ exact: true }} className="hover:text-secondary-color">
                                 <span>{subItem.title}</span>
-                              </Link>
                             </SidebarMenuSubButton>
-                          ): null): <SidebarMenuSubButton
+                              </Link>
+                          ): null):
+                          <Link to={subItem.url} activeOptions={{ exact: true }}>
+                           <SidebarMenuSubButton
                               asChild
                               className="[&.active]:text-secondary-color [&.active]:font-medium hover:text-secondary-color hover:cursor-pointer"
                             >
-                              <Link to={subItem.url} activeOptions={{ exact: true }}>
                                 <span>{subItem.title}</span>
+                            </SidebarMenuSubButton>
                               </Link>
-                            </SidebarMenuSubButton>}
+                            }
                         </SidebarMenuSubItem>
                       ))}
                     </SidebarMenuSub>

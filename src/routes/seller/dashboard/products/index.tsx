@@ -1,5 +1,6 @@
-import TableLayout from '@/components/Layout/TableUserManagement/TableLayout'
+import DashboardHeader from '@/components/Layout/DashboardHeader/DashboardHeader'
 import { productColumns } from '@/components/Table/Columns/product.columns'
+import { DataTable } from '@/components/Table/data-table'
 import Spinner from '@/components/ui/spinner'
 import { useGetSellerProductList } from '@/hooks/product.hooks'
 import type { ProductInfo } from '@/types/product.types'
@@ -14,8 +15,8 @@ function RouteComponent() {
   if(isPending) return <Spinner/>
   const data = sellerProducts?.data
   return (
-    <div>
-      <TableLayout header="Manage Product" columns={productColumns} data={data as ProductInfo[]} buttons={[]}/>
-    </div>
+    <DashboardHeader header ="Manage Product" buttons={[]}>
+      <DataTable columns = {productColumns} data={data as ProductInfo[]}/>
+    </DashboardHeader>
   )
 }

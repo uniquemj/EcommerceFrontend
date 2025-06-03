@@ -1,5 +1,6 @@
-import TableLayout from '@/components/Layout/TableUserManagement/TableLayout';
+import DashboardHeader from '@/components/Layout/DashboardHeader/DashboardHeader';
 import { adminColumns, superAdminColumns } from '@/components/Table/columns';
+import { DataTable } from '@/components/Table/data-table';
 import { Button } from '@/components/ui/button';
 import Spinner from '@/components/ui/spinner';
 import { useGetAllAdmin } from '@/hooks/admin.hooks';
@@ -19,15 +20,13 @@ function RouteComponent() {
   if (isPending) return <Spinner />;
   const columns = isSuperAdmin ? superAdminColumns : adminColumns
 
-  return (
-    <div className=''>
-      <div className='flex w-full justify-end'>
-        
-      </div>
-     <TableLayout header="Manage Admins" columns={columns} data={admin?.data as Admin[]} buttons={[<Link to='/admin/dashboard/admins/create'>
+  const buttons = [<Link to='/admin/dashboard/admins/create'>
           <Button className="bg-secondary-color hover:cursor-pointer hover"><Plus/>Admin</Button>
-        </Link>]}/>
-    </div>
+        </Link>]
+  return (
+    <DashboardHeader header="Manage Admins" buttons={buttons}>
+        <DataTable columns={columns} data={admin?.data as Admin[]} />
+    </DashboardHeader>
   );
 }
 

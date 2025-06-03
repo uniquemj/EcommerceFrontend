@@ -14,7 +14,7 @@ const DashboardHeader = ({header, children, buttons}:DashboardHeaderProps) => {
         <h1 className="max-[410px]:text-2xl text-3xl font-bold">
           {header}
         </h1>
-        <div className='flex gap-3'>
+        <div className='flex gap-3 items-center'>
             {
                 buttons.length > 0 ? (
                     buttons.map((button, index)=>(
