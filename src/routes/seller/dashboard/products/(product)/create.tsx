@@ -1,34 +1,53 @@
-import CategoryCombobox from '@/components/Combobox/CategoryCombobox';
-import DashboardHeader from '@/components/Layout/DashboardHeader/DashboardHeader';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
-import Spinner from '@/components/ui/spinner';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Textarea } from '@/components/ui/textarea';
-import { useGetAllCategory } from '@/hooks/category.hooks';
-import { useEditProduct, useGetProductById } from '@/hooks/product.hooks';
-import type { Category } from '@/types/category.types';
-import { ColorType, DangerousGoods, SizeType, WarrantyType } from '@/types/product.types';
-import type { VariantInfo } from '@/types/variant.types';
-import { productSchema, updateProductSchema, type ProductSchemaType } from '@/validations/product.validate';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { createFileRoute } from '@tanstack/react-router'
-import { Plus, Trash2 } from 'lucide-react';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import CategoryCombobox from "@/components/Combobox/CategoryCombobox";
+import DashboardHeader from "@/components/Layout/DashboardHeader/DashboardHeader";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import Spinner from "@/components/ui/spinner";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { useGetAllCategory } from "@/hooks/category.hooks";
+import { useCreateProduct } from "@/hooks/product.hooks";
+import type { Category } from "@/types/category.types";
+import {
+  ColorType,
+  DangerousGoods,
+  SizeType,
+  WarrantyType,
+} from "@/types/product.types";
+import {
+  productSchema,
+  type ProductSchemaType,
+} from "@/validations/product.validate";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createFileRoute } from "@tanstack/react-router";
+import { Plus, Trash2 } from "lucide-react";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 
-export const Route = createFileRoute('/seller/dashboard/products/$id_/edit')({
+export const Route = createFileRoute("/seller/dashboard/products/(product)/create")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-
-  const {id} = Route.useParams()
-
   const colors = Object.values(ColorType);
   const sizes = Object.values(SizeType);
   const dangerousGoods = Object.values(DangerousGoods);
@@ -38,9 +57,7 @@ function RouteComponent() {
     page: 0,
     limit: 0,
   });
-  
-  const {isPending:ProductPending, data: product} = useGetProductById(id)
-  
+
   const {
     register,
     handleSubmit,
@@ -48,27 +65,7 @@ function RouteComponent() {
     watch,
     formState: { errors },
     control,
-  } = useForm<Partial<ProductSchemaType>>({
-    values: {
-     name: product?.data.name,
-     category: product?.data.category._id,
-     productDescription: product?.data.productDescription,
-     productHighlights: product?.data.productHighlights,
-     dangerousGoods: product?.data.dangerousGoods,
-     warrantyType: product?.data.warrantyType,
-     warrantyPeriod: String(product?.data.warrantyPeriod),
-     warrantyPolicy: product?.data.warrantyPolicy,
-     variants: product?.data.variants.map((variant)=>({
-      color: variant.color,
-      size: variant.size,
-      price: String(variant.price),
-      stock: String(variant.stock),
-      availability: variant.availability,
-      packageWeight: String(variant.packageWeight),
-      packageLength: variant.packageLength,
-      images: variant.images
-     })),
-    },
+  } = useForm<ProductSchemaType>({
     defaultValues: {
       variants: [
         {
@@ -83,19 +80,19 @@ function RouteComponent() {
       ],
       variantImages: [undefined],
     },
-    resolver: zodResolver(updateProductSchema),
+    resolver: zodResolver(productSchema),
   });
 
   const {
     fields: variantFields,
     append: variantAppend,
     remove: variantRemove,
-  } = useFieldArray<Partial<ProductSchemaType>, "variants">({
+  } = useFieldArray<ProductSchemaType, "variants">({
     control,
     name: "variants",
   });
 
-  const { isPending, mutate } = useEditProduct();
+  const { isPending, mutate } = useCreateProduct();
 
   const handleAppendVariant = () => {
     variantAppend({
@@ -116,16 +113,13 @@ function RouteComponent() {
     updatedImages.splice(index, 1);
     setValue("variantImages", updatedImages);
   };
-  const handleProductUpdate = (data: Partial<ProductSchemaType>) => {
-    console.log("from component", data);
-    console.log("clicked");
-    mutate({id: id, productInfo: data});
+  const handleProductCreate = (data: ProductSchemaType) => {
+    mutate(data);
   };
 
   if (isPending) return <Spinner />;
-  if (ProductPending) return <Spinner />;
   return (
-    <DashboardHeader header="Add Product" buttons={[]}>
+    <DashboardHeader header="Add Product" buttons={[]} backurl="/seller/dashboard">
       <div className="">
         <Tabs defaultValue="product-detail" className="flex flex-col gap-5">
           <div className="w-full flex justify-center">
@@ -163,7 +157,7 @@ function RouteComponent() {
             </TabsList>
           </div>
 
-          <form onSubmit={handleSubmit(handleProductUpdate)}>
+          <form onSubmit={handleSubmit(handleProductCreate)}>
             <TabsContent value="product-detail" className="w-full">
               <Card>
                 <CardContent className="grid gap-6">
@@ -187,23 +181,30 @@ function RouteComponent() {
                           ""
                         )}
                       </div>
-                      <Controller
-                        name="category"
-                        control={control}
-                        render={({ field }) => (
-                          <div className="flex flex-col space-y-3 w-full">
-                            <Label htmlFor="category" className="text-xl">
-                              Category
-                            </Label>
-                            <CategoryCombobox
-                              categories={categories?.data as Category[]}
-                              isLoading={isLoading}
-                              value={field.value as string}
-                              onChange={field.onChange}
-                            />
-                          </div>
-                        )}
-                      />
+                      <div className="space-y-3">
+                        <Controller
+                          name="category"
+                          control={control}
+                          render={({ field }) => (
+                            <div className="flex flex-col space-y-3 w-full">
+                              <Label htmlFor="category" className="text-xl">
+                                Category
+                              </Label>
+                              <CategoryCombobox
+                                categories={categories?.data as Category[]}
+                                isLoading={isLoading}
+                                value={field.value as string}
+                                onChange={field.onChange}
+                              />
+                            </div>
+                          )}
+                        />
+                        {errors.category ? (
+                          <p className="text-error-color text-error-msg">
+                            {errors.category.message}
+                          </p>
+                        ) : null}
+                      </div>
                     </div>
                     <div className="flex flex-col space-y-3">
                       <Label htmlFor="productDescription" className="text-xl">
@@ -262,7 +263,7 @@ function RouteComponent() {
                             defaultValue={field.value}
                           >
                             <SelectTrigger className="w-full">
-                              <SelectValue placeholder={field.value? field.value: `Select if any`}/>
+                              <SelectValue placeholder="Select if any" />
                             </SelectTrigger>
                             <SelectContent className="h-[150px]">
                               <SelectGroup>
@@ -542,31 +543,28 @@ function RouteComponent() {
                                   />
                                 </TableCell>
                                 <TableCell>
-                                   
-                                     <Controller
-                                     control={control}
-                                     name={`variantImages.${index}`}
-                                     render={({ field }) => (
-                                       <Input
-                                       type="file"
-                                       accept="image/*"
-                                       onChange={(e) => {
-                                         const file = e.target.files?.[0];
-                                         field.onChange(file);
+                                  <Controller
+                                    control={control}
+                                    name={`variantImages.${index}`}
+                                    render={({ field }) => (
+                                      <Input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                          const file = e.target.files?.[0];
+                                          field.onChange(file);
                                         }}
-                                        />
-                                      )}
                                       />
+                                    )}
+                                  />
                                   {errors.variantImages?.[index] && (
                                     <p className="text-error-color text-error-msg">
-                                    {
-                                      errors.variantImages[index]
-                                      ?.message as string
-                                    }
+                                      {
+                                        errors.variantImages[index]
+                                          ?.message as string
+                                      }
                                     </p>
                                   )}
-                            
-                                
                                 </TableCell>
                               </TableRow>
                             </TableBody>
@@ -590,7 +588,7 @@ function RouteComponent() {
                   <div className="flex justify-center">
                     <Button
                       type="submit"
-                      className="bg-secondary-color hover:cursor-pointer w-[300px]"
+                      className="bg-secondary-color hover:cursor-pointer border hover:bg-transparent hover:text-secondary-color hover:border-secondary-color w-[300px]"
                     >
                       Submit
                     </Button>

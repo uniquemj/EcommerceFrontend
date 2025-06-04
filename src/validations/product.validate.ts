@@ -21,10 +21,8 @@ export const productSchema = z.object({
     .min(1, { message: "At least one category is required." }),
 
   productDescription: z
-    .string()
-    .trim()
-    .optional(),
-
+    .string({required_error: "Product Description is required."})
+    .trim(),
   productHighlights: z
     .string()
     .trim()
@@ -38,16 +36,16 @@ export const productSchema = z.object({
     .array(variantSchema)
     .min(1, { message: "At least one variant is required." }),
     
-  dangerousGoods: z.string().optional(),
+  dangerousGoods: z.string({required_error: "Required."}),
     
-  warrantyType: z.string().optional(),
+  warrantyType: z.string({required_error: "Required."}),
     
   warrantyPeriod: z
     .string({ invalid_type_error: "Warranty period is Required" })
     .min(0, { message: "Warranty period cannot be negative." })
     .max(18, { message: "Warranty period must not exceed 18 months." }),
     
-  warrantyPolicy: z.string().trim().optional(),
+  warrantyPolicy: z.string({required_error: "Required."}).trim(),
   }).strict().superRefine((data, ctx) => {
     const warrantyPeriod = Number(data.warrantyPeriod);
 
@@ -97,12 +95,10 @@ export const updateProductSchema = z.object({
     .optional(),
     
   variantImages: z
-        .array(imageFile)
-        .min(1, "Upload one image per variant.").optional(),
+        .array(imageFile).optional().default([]),
 
   variants: z
-    .array(variantSchema)
-    .min(1, { message: "At least one variant is required." }).optional(),
+    .array(variantSchema).optional().default([]),
     
   dangerousGoods: z.string().optional(),
     
@@ -133,4 +129,27 @@ export const updateProductSchema = z.object({
       })
     }
 
+    if (data.variants && data.variants.length > 0) {
+    data.variants.forEach((variant, index) => {
+      if (!variant.color || !variant.price) {
+        ctx.addIssue({
+          path: ["variants", index],
+          code: z.ZodIssueCode.custom,
+          message: "Each variant must include at least a color and price.",
+        });
+      }
+    });
+  }
+
+  if (data.variantImages && data.variantImages.length > 0) {
+    data.variantImages.forEach((image, index) => {
+      if (!image || !image.name) {
+        ctx.addIssue({
+          path: ["variantImages", index],
+          code: z.ZodIssueCode.custom,
+          message: "Each variant image must be a valid file.",
+        });
+      }
+    });
+  }
   });

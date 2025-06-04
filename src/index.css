@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -63,10 +64,12 @@ html, body{
     --color-green-color: var(--color-green-400);
     --color-error-color: var(--error-color);
     --color-footer-color: var(--footer-color);
+    --color-little-dark: var(--little-dark);
     --color-secondary-shade-lightest: var(--shade-secondary-color-lightest);
     --color-secondary-shade-light: var(--shade-secondary-color-light);
     --color-secondary-shade-normal: var(--shade-secondary-color-normal);
     --color-secondary-shade-dark: var(--shade-secondary-color-dark);
+    --color-background-color: var(--body-background);
     /* Background Image */
     --background-image-seller-auth: url('/src/assets/Auth/SellerAuthTransparency.png');
     --background-image-customer-auth: url('/src/assets/Auth/LoginTransparency.png');
@@ -79,6 +82,10 @@ html, body{
     --text-13: 13px;
     --text-14: 14px;
 
+    --breakpoint-s-lg:1258px;
+    --breakpoint-s-md:770px;
+
+    
 }
 
 :root {
@@ -132,8 +139,13 @@ html, body{
     --footer-color: #161B22;
     --success-color: var(--color-blue-400);
     --error-color: var(--color-red-700);
+
+    --body-background: #FAFBFC;
+    /* --body-background: #f9efeb; */
     /* size */
     --label-size: 16px;
+
+    --font-nunito: 'Nunito Sans', sans-serif;
 }
 
 
@@ -186,6 +198,11 @@ html, body{
     }
 }
 
+html,body{
+  background-color: var(--color-body-background);
+}
+
 label{
     font-size: 16px;
 }
+

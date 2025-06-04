@@ -122,9 +122,21 @@ export const navRoute: NavRoute = {
         },
         {
             title: "Products",
+            url: "#",
             icons: (<Package size={18}/>),
-            url: '#',
             include: true,
+            subItems: [
+                {
+                    title: "Manage Products",
+                    url: "/seller/dashboard/products",
+                    include: true,
+                },
+                {
+                    title: "Add product",
+                    url: "/seller/dashboard/products/create",
+                    include: true,
+                }
+            ]
         },
         {
             title: "Orders",

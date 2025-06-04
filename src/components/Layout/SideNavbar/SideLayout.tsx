@@ -15,7 +15,7 @@ const SideLayout = ({ children, data }: SideLayoutInterface) => {
   return (
     <SidebarProvider >
       <AppSidebar data={data}/>
-      <SidebarInset >
+      <SidebarInset className="bg-background-color">
         <header className="flex h-16 shrink-0 items-center gap-2 ">
           <div className="flex items-center gap-2 px-4 ">
             <SidebarTrigger className="-ml-1 bg-primary-color hover:bg-ternary-color hover:text-amber-50 hover:cursor-pointer" />

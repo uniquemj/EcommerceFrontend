@@ -1,8 +1,6 @@
 import { UserRole } from "@/types/enum.types";
-import React from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import CarouselComp from "../Carousel/Carousel";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetVariantListOfProduct } from "@/hooks/product.hooks";
 import Spinner from "@/components/ui/spinner";
 import type { VariantInfo } from "@/types/variant.types";
@@ -13,13 +11,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Circle,
-  Clock,
-  Info,
-  Megaphone,
-  Text,
-} from "lucide-react";
+import { Circle, Clock, Info, Megaphone, Text } from "lucide-react";
+import ProductView from "@/components/Product/ProductView";
+import { Separator } from "@/components/ui/separator";
+
 
 interface ProductDetailProps {
   role: string;
@@ -45,57 +40,62 @@ const ProductDetail = ({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-5">
-        <div className="flex justify-start items-center">
-          <h1 className="font-bold text-2xl">{productSummary.name}</h1>
-          {role == UserRole.CUSTOMER && (
-            <Button className="bg-primary-color text-text-color">
-              Add to Cart
-            </Button>
-          )}
-        </div>
-        <div className="flex flex-col min-md:flex-row gap-4">
-          <div className="flex items-center bg-secondary-shade-normal py-1 px-2 rounded-xl gap-2">
-            <div className="flex gap-3 items-center">
-              <Circle size={10} className="text-secondary-shade-lightest" />
-              <h2 className="text-14 text-secondary-shade-lightest font-medium">
-                Colors:
-              </h2>
-            </div>
-            <p className="text-12 text-secondary-shade-light">
-              {productSummary.colors}
-            </p>
-          </div>
-          <div className="flex  items-center gap-2 bg-secondary-shade-normal py-1 px-2 rounded-xl">
-            <div className="flex gap-3 items-center">
-              <Clock size={10} className="text-secondary-shade-lightest" />
-              <h2 className="text-14 text-secondary-shade-lightest font-medium">
-                Created At:
-              </h2>
-            </div>
-            <p className="text-12 text-secondary-shade-light ">
-              {productSummary.createdAt}
-            </p>
-            <div></div>
-          </div>
-        </div>
-      </div>
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">Variants</CardTitle>
+          <div className="flex flex-col gap-5">
+            <div className="flex justify-start items-center">
+              <h1 className="font-bold text-3xl text-secondary-color">{productSummary.name}</h1>
+              {role == UserRole.CUSTOMER && (
+                <Button className="bg-primary-color text-text-color">
+                  Add to Cart
+                </Button>
+              )}
+            </div>
+            <div className="flex flex-col min-md:flex-row gap-4">
+              <div className="flex items-center bg-secondary-shade-light py-1 px-2 rounded-xl gap-2">
+                <div className="flex gap-3 items-center">
+                  <Circle size={10} className="text-secondary-shade-normal" />
+                  <h2 className="text-14 text-secondary-shade-normal font-medium">
+                    Colors:
+                  </h2>
+                </div>
+                <p className="text-12 text-secondary-shade-normal">
+                  {productSummary.colors}
+                </p>
+              </div>
+              <div className="flex  items-center gap-2 bg-secondary-shade-light py-1 px-2 rounded-xl">
+                <div className="flex gap-3 items-center">
+                  <Clock size={10} className="text-secondary-shade-normal" />
+                  <h2 className="text-14 text-secondary-shade-normal font-medium">
+                    Created At:
+                  </h2>
+                </div>
+                <p className="text-12 text-secondary-shade-normal ">
+                  {productSummary.createdAt}
+                </p>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </CardHeader>
+        <Separator/>
+        <CardHeader>
+          <CardTitle className="text-xl font-medium text-secondary-color">Available</CardTitle>
         </CardHeader>
         <CardContent>
-          <CarouselComp<VariantInfo>
-            render={variants?.data as VariantInfo[]}
-            option={{ type: "card" , role: role}}
-          />
+          <div className="">
+            <ProductView
+              render={variants?.data as VariantInfo[]}
+              option={{ role: role }}
+            />
+          </div>
         </CardContent>
       </Card>
       <div className="mt-5">
         <Accordion type="single" collapsible className="w-full px-2">
           <AccordionItem value="product-description">
             <AccordionTrigger>
-              <div className="flex gap-3 items-center">
+              <div className="flex gap-3 items-center text-xl text-secondary-color">
                 <Text size={14} />
                 Product Description
               </div>
@@ -108,7 +108,7 @@ const ProductDetail = ({
           </AccordionItem>
           <AccordionItem value="product-highlight">
             <AccordionTrigger>
-              <div className="flex gap-3 items-center">
+              <div className="flex gap-3 items-center text-xl text-secondary-color">
                 <Megaphone size={14} />
                 Product Highlight
               </div>
@@ -121,7 +121,7 @@ const ProductDetail = ({
           </AccordionItem>
           <AccordionItem value="warranty-setting">
             <AccordionTrigger>
-              <div className="flex gap-3 items-center">
+              <div className="flex gap-3 items-center text-xl text-secondary-color">
                 <Info size={14} />
                 Warranty Information
               </div>

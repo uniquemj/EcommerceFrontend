@@ -1,9 +1,10 @@
-import { createProduct, deleteProduct, editProduct, editProductVariant, getAllProductList, getProductById, getProductList, getSellerProductById, getSellerProductList, getVariantListOfProduct } from "@/services/product.api"
+import { createProduct, deleteProduct, editProduct, editProductVariant, getAllProductList, getProductById, getProductList, getSellerProductById, getSellerProductList, getVariantById, getVariantListOfProduct, removeVariantFromProduct } from "@/services/product.api"
 import type { PaginationField } from "@/types/pagination.types"
 import { type ProductInfo } from "@/types/product.types"
 import { type SuccessResponse, type ErrorResponse } from "@/types/response.types"
-import { type VariantInfo, type VariantInput } from "@/types/variant.types"
+import { type VariantInfo} from "@/types/variant.types"
 import type { ProductSchemaType } from "@/validations/product.validate"
+import type { UpdateVariant } from "@/validations/variants.validate"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import toast from "react-hot-toast"
@@ -53,7 +54,12 @@ export const useGetProductById = (id: string) =>{
     })
 }
 
-
+export const useGetVariantById = (productId: string, variantId: string) =>{
+    return useQuery<SuccessResponse<VariantInfo>, ErrorResponse>({
+        queryKey: ['products', productId, 'variants', variantId],
+        queryFn: ()=>getVariantById(productId, variantId)
+    })
+}
 export const useCreateProduct = () => {
     const query = useQueryClient()
     const navigate = useNavigate()
@@ -65,7 +71,7 @@ export const useCreateProduct = () => {
             query.invalidateQueries({queryKey: ['products', 'seller']})
 
             navigate({
-                to: '/seller/dashboard'
+                to: '/seller/dashboard/products'
             })
 
             toast.success("Product Added.")
@@ -90,7 +96,7 @@ export const useEditProduct = () =>{
             query.invalidateQueries({queryKey: ['products', 'seller']})
 
             navigate({
-                to: '/seller/dashboard/products'
+                to: `/seller/dashboard/products/${data.data._id}`
             })
             toast.success("Product Updated.")
         },
@@ -105,13 +111,14 @@ export const useEditProductVariant = () =>{
     const navigate = useNavigate()
     const query = useQueryClient()
 
-    return useMutation<SuccessResponse<VariantInfo>, ErrorResponse, {productId: string, variantId: string, variantInfo: Partial<VariantInput>}>({
+    return useMutation<SuccessResponse<VariantInfo>, ErrorResponse, {productId: string, variantId: string, variantInfo: Partial<UpdateVariant>}>({
         mutationFn: ({productId,variantId,variantInfo})=>editProductVariant(productId,variantId, variantInfo),
         onSuccess: (data)=>{
             query.invalidateQueries({queryKey: ['products']})
             query.invalidateQueries({queryKey: ['products', 'admin']})
             query.invalidateQueries({queryKey: ['products', 'seller']})
             query.invalidateQueries({queryKey: ['products', data.data.product._id, 'variants']})
+            console.log(data.data.product)
             navigate({
                 to: `/seller/dashboard/products/${data.data.product._id}`
             })
@@ -119,6 +126,7 @@ export const useEditProductVariant = () =>{
         },
 
         onError: (error)=>{
+            console.log(error)
             toast.error(error.response.data.message)
         }
     })
@@ -137,6 +145,28 @@ export const useDeleteProduct = () =>{
             toast.success("Product Deleted.")
         },
         onError: (error)=>{
+            toast.error(error.response.data.message)
+        }
+    })
+}
+
+export const useRemoveVariantFromProduct = () =>{
+    const query = useQueryClient()
+    return useMutation<SuccessResponse<VariantInfo>, ErrorResponse, {productId: string, variantId: string}>({
+        mutationFn: ({productId, variantId}) => removeVariantFromProduct(productId, variantId),
+        onSuccess: ({data})=>{
+            console.log(data)
+            query.invalidateQueries({queryKey: ['products']})
+            query.invalidateQueries({queryKey: ['products', 'seller']})
+            query.invalidateQueries({queryKey: ['products', 'admin']})
+            query.invalidateQueries({queryKey: ['products', data.product._id]})
+            query.invalidateQueries({queryKey: ['products', 'seller',data.product._id]})
+            query.invalidateQueries({queryKey: ['products', data.product._id, 'variants']})
+
+            toast.success("Variant Removed.")
+        },
+        onError: (error)=>{
+            console.log(error)
             toast.error(error.response.data.message)
         }
     })

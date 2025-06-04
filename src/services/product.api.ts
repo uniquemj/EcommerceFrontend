@@ -1,9 +1,10 @@
 import type { PaginationField } from "@/types/pagination.types";
 import type { ProductInfo } from "@/types/product.types";
 import type { SuccessResponse } from "@/types/response.types";
-import type { VariantInfo, VariantInput } from "@/types/variant.types";
+import type { VariantInfo } from "@/types/variant.types";
 import { api } from "@/utils/api";
 import type { ProductSchemaType } from "@/validations/product.validate";
+import type { UpdateVariant } from "@/validations/variants.validate";
 
 
 
@@ -41,7 +42,6 @@ export const createProduct = async (productInfo: ProductSchemaType): Promise<Suc
 
     formData.append("name", productInfo.name)
     formData.append("category", productInfo.category)
-    console.log(productInfo.productDescription)
     formData.append("productDescription", productInfo.productDescription as string)
     formData.append("productHighlights", productInfo.productHighlights as string)
     formData.append("dangerousGoods", productInfo.dangerousGoods as string)
@@ -60,12 +60,40 @@ export const createProduct = async (productInfo: ProductSchemaType): Promise<Suc
 }
 
 export const editProduct = async (id: string, productInfo: Partial<ProductSchemaType>): Promise<SuccessResponse<ProductInfo>> => {
-    const response = await api.put<SuccessResponse<ProductInfo>>(`/products/${id}`, productInfo)
+    const formData = new FormData();
+
+    formData.append("name", productInfo.name as string)
+    formData.append("category", productInfo.category as string)
+    formData.append("productDescription", productInfo.productDescription as string)
+    formData.append("productHighlights", productInfo.productHighlights as string)
+    formData.append("dangerousGoods", productInfo.dangerousGoods as string)
+    formData.append("warrantyType", productInfo.warrantyType as string)
+    formData.append("warrantyPeriod", productInfo.warrantyPeriod as string)
+    formData.append("warrantyPolicy", productInfo.warrantyPolicy as string)
+
+    const parsedVariant = productInfo?.variants?.map((variant)=>({...variant, price: parseInt(variant.price), stock: parseInt(variant.stock), packageWeight: parseInt(variant.packageWeight)}))
+
+    formData.append("variants", JSON.stringify(parsedVariant))
+
+    productInfo?.variantImages?.forEach((image) => formData.append("variantImages", image))
+
+    const response = await api.put<SuccessResponse<ProductInfo>>(`/products/${id}`, formData)
     return response.data
 }
 
-export const editProductVariant = async(productId: string, variantId: string, variantInfo: Partial<VariantInput>): Promise<SuccessResponse<VariantInfo>> => {
-    const response = await api.put<SuccessResponse<VariantInfo>>(`/products/${productId}/variants/${variantId}`, variantInfo)
+export const editProductVariant = async(productId: string, variantId: string, variantInfo: Partial<UpdateVariant>): Promise<SuccessResponse<VariantInfo>> => {
+    const formData = new FormData();
+
+    formData.append("color", variantInfo.color as string)
+    formData.append("size", variantInfo.size as string)
+    formData.append("price", variantInfo.price as string)
+    formData.append("stock", variantInfo.stock as string)
+    formData.append("availability",JSON.stringify(variantInfo.availability))
+    formData.append("packageLength", variantInfo.packageLength as string)
+    formData.append("packageWeight", variantInfo.packageWeight as string)
+
+    variantInfo?.variantImages?.forEach((image) => formData.append("variantImages", image))
+    const response = await api.put<SuccessResponse<VariantInfo>>(`/products/${productId}/variants/${variantId}`, formData)
     return response.data
 }
 
@@ -76,6 +104,11 @@ export const deleteProduct = async(productId: string): Promise<SuccessResponse<P
 
 export const removeVariantFromProduct = async(productId: string, variantId: string): Promise<SuccessResponse<VariantInfo>> => {
     const response = await api.delete<SuccessResponse<VariantInfo>>(`/products/${productId}/variants/${variantId}`)
+    return response.data
+}
+
+export const getVariantById = async(productId: string, variantId: string): Promise<SuccessResponse<VariantInfo>>=>{
+    const response = await api.get<SuccessResponse<VariantInfo>>(`/products/${productId}/variants/${variantId}`)
     return response.data
 }
 

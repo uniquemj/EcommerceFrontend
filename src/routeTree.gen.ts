@@ -38,16 +38,17 @@ import { Route as AdminDashboardSellersIndexImport } from './routes/admin/dashbo
 import { Route as AdminDashboardCustomersIndexImport } from './routes/admin/dashboard/customers/index'
 import { Route as AdminDashboardCategoriesIndexImport } from './routes/admin/dashboard/categories/index'
 import { Route as AdminDashboardAdminsIndexImport } from './routes/admin/dashboard/admins/index'
-import { Route as SellerDashboardProductsCreateImport } from './routes/seller/dashboard/products/create'
-import { Route as SellerDashboardProductsIdImport } from './routes/seller/dashboard/products/$id'
 import { Route as AuthSellerVerifyCodeImport } from './routes/auth/seller/verify/$code'
 import { Route as AuthcustomerVerifyCodeImport } from './routes/auth/(customer)/verify/$code'
 import { Route as AdminDashboardSellersIdImport } from './routes/admin/dashboard/sellers/$id'
 import { Route as AdminDashboardCategoriesCreateImport } from './routes/admin/dashboard/categories/create'
 import { Route as AdminDashboardAdminsCreateImport } from './routes/admin/dashboard/admins/create'
-import { Route as SellerDashboardProductsIdEditImport } from './routes/seller/dashboard/products/$id_.edit'
+import { Route as SellerDashboardProductsproductCreateImport } from './routes/seller/dashboard/products/(product)/create'
 import { Route as AdminDashboardCategorieseditIdImport } from './routes/admin/dashboard/categories/(edit)/$id'
 import { Route as AdminDashboardAdminseditIdImport } from './routes/admin/dashboard/admins/(edit)/$id'
+import { Route as SellerDashboardProductsproductIdIndexImport } from './routes/seller/dashboard/products/(product)/$id/index'
+import { Route as SellerDashboardProductsproductIdEditImport } from './routes/seller/dashboard/products/(product)/$id_/edit'
+import { Route as SellerDashboardProductsproductIdVariantsVariantIdImport } from './routes/seller/dashboard/products/(product)/$id/variants/$variantId'
 
 // Create/Update Routes
 
@@ -223,19 +224,6 @@ const AdminDashboardAdminsIndexRoute = AdminDashboardAdminsIndexImport.update({
   getParentRoute: () => AdminRouteRoute,
 } as any)
 
-const SellerDashboardProductsCreateRoute =
-  SellerDashboardProductsCreateImport.update({
-    id: '/dashboard/products/create',
-    path: '/dashboard/products/create',
-    getParentRoute: () => SellerRouteRoute,
-  } as any)
-
-const SellerDashboardProductsIdRoute = SellerDashboardProductsIdImport.update({
-  id: '/dashboard/products/$id',
-  path: '/dashboard/products/$id',
-  getParentRoute: () => SellerRouteRoute,
-} as any)
-
 const AuthSellerVerifyCodeRoute = AuthSellerVerifyCodeImport.update({
   id: '/seller/verify/$code',
   path: '/seller/verify/$code',
@@ -269,10 +257,10 @@ const AdminDashboardAdminsCreateRoute = AdminDashboardAdminsCreateImport.update(
   } as any,
 )
 
-const SellerDashboardProductsIdEditRoute =
-  SellerDashboardProductsIdEditImport.update({
-    id: '/dashboard/products/$id_/edit',
-    path: '/dashboard/products/$id/edit',
+const SellerDashboardProductsproductCreateRoute =
+  SellerDashboardProductsproductCreateImport.update({
+    id: '/dashboard/products/(product)/create',
+    path: '/dashboard/products/create',
     getParentRoute: () => SellerRouteRoute,
   } as any)
 
@@ -290,6 +278,27 @@ const AdminDashboardAdminseditIdRoute = AdminDashboardAdminseditIdImport.update(
     getParentRoute: () => AdminRouteRoute,
   } as any,
 )
+
+const SellerDashboardProductsproductIdIndexRoute =
+  SellerDashboardProductsproductIdIndexImport.update({
+    id: '/dashboard/products/(product)/$id/',
+    path: '/dashboard/products/$id/',
+    getParentRoute: () => SellerRouteRoute,
+  } as any)
+
+const SellerDashboardProductsproductIdEditRoute =
+  SellerDashboardProductsproductIdEditImport.update({
+    id: '/dashboard/products/(product)/$id_/edit',
+    path: '/dashboard/products/$id/edit',
+    getParentRoute: () => SellerRouteRoute,
+  } as any)
+
+const SellerDashboardProductsproductIdVariantsVariantIdRoute =
+  SellerDashboardProductsproductIdVariantsVariantIdImport.update({
+    id: '/dashboard/products/(product)/$id/variants/$variantId',
+    path: '/dashboard/products/$id/variants/$variantId',
+    getParentRoute: () => SellerRouteRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -484,20 +493,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSellerVerifyCodeImport
       parentRoute: typeof AuthRouteImport
     }
-    '/seller/dashboard/products/$id': {
-      id: '/seller/dashboard/products/$id'
-      path: '/dashboard/products/$id'
-      fullPath: '/seller/dashboard/products/$id'
-      preLoaderRoute: typeof SellerDashboardProductsIdImport
-      parentRoute: typeof SellerRouteImport
-    }
-    '/seller/dashboard/products/create': {
-      id: '/seller/dashboard/products/create'
-      path: '/dashboard/products/create'
-      fullPath: '/seller/dashboard/products/create'
-      preLoaderRoute: typeof SellerDashboardProductsCreateImport
-      parentRoute: typeof SellerRouteImport
-    }
     '/admin/dashboard/admins/': {
       id: '/admin/dashboard/admins/'
       path: '/dashboard/admins'
@@ -547,11 +542,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardCategorieseditIdImport
       parentRoute: typeof AdminRouteImport
     }
-    '/seller/dashboard/products/$id_/edit': {
-      id: '/seller/dashboard/products/$id_/edit'
+    '/seller/dashboard/products/(product)/create': {
+      id: '/seller/dashboard/products/(product)/create'
+      path: '/dashboard/products/create'
+      fullPath: '/seller/dashboard/products/create'
+      preLoaderRoute: typeof SellerDashboardProductsproductCreateImport
+      parentRoute: typeof SellerRouteImport
+    }
+    '/seller/dashboard/products/(product)/$id_/edit': {
+      id: '/seller/dashboard/products/(product)/$id_/edit'
       path: '/dashboard/products/$id/edit'
       fullPath: '/seller/dashboard/products/$id/edit'
-      preLoaderRoute: typeof SellerDashboardProductsIdEditImport
+      preLoaderRoute: typeof SellerDashboardProductsproductIdEditImport
+      parentRoute: typeof SellerRouteImport
+    }
+    '/seller/dashboard/products/(product)/$id/': {
+      id: '/seller/dashboard/products/(product)/$id/'
+      path: '/dashboard/products/$id'
+      fullPath: '/seller/dashboard/products/$id'
+      preLoaderRoute: typeof SellerDashboardProductsproductIdIndexImport
+      parentRoute: typeof SellerRouteImport
+    }
+    '/seller/dashboard/products/(product)/$id/variants/$variantId': {
+      id: '/seller/dashboard/products/(product)/$id/variants/$variantId'
+      path: '/dashboard/products/$id/variants/$variantId'
+      fullPath: '/seller/dashboard/products/$id/variants/$variantId'
+      preLoaderRoute: typeof SellerDashboardProductsproductIdVariantsVariantIdImport
       parentRoute: typeof SellerRouteImport
     }
   }
@@ -641,10 +657,11 @@ interface SellerRouteRouteChildren {
   SellerDashboardUpdatePasswordRoute: typeof SellerDashboardUpdatePasswordRoute
   SellerDashboardIndexRoute: typeof SellerDashboardIndexRoute
   SellerProfileIndexRoute: typeof SellerProfileIndexRoute
-  SellerDashboardProductsIdRoute: typeof SellerDashboardProductsIdRoute
-  SellerDashboardProductsCreateRoute: typeof SellerDashboardProductsCreateRoute
   SellerDashboardProductsIndexRoute: typeof SellerDashboardProductsIndexRoute
-  SellerDashboardProductsIdEditRoute: typeof SellerDashboardProductsIdEditRoute
+  SellerDashboardProductsproductCreateRoute: typeof SellerDashboardProductsproductCreateRoute
+  SellerDashboardProductsproductIdEditRoute: typeof SellerDashboardProductsproductIdEditRoute
+  SellerDashboardProductsproductIdIndexRoute: typeof SellerDashboardProductsproductIdIndexRoute
+  SellerDashboardProductsproductIdVariantsVariantIdRoute: typeof SellerDashboardProductsproductIdVariantsVariantIdRoute
 }
 
 const SellerRouteRouteChildren: SellerRouteRouteChildren = {
@@ -654,10 +671,15 @@ const SellerRouteRouteChildren: SellerRouteRouteChildren = {
   SellerDashboardUpdatePasswordRoute: SellerDashboardUpdatePasswordRoute,
   SellerDashboardIndexRoute: SellerDashboardIndexRoute,
   SellerProfileIndexRoute: SellerProfileIndexRoute,
-  SellerDashboardProductsIdRoute: SellerDashboardProductsIdRoute,
-  SellerDashboardProductsCreateRoute: SellerDashboardProductsCreateRoute,
   SellerDashboardProductsIndexRoute: SellerDashboardProductsIndexRoute,
-  SellerDashboardProductsIdEditRoute: SellerDashboardProductsIdEditRoute,
+  SellerDashboardProductsproductCreateRoute:
+    SellerDashboardProductsproductCreateRoute,
+  SellerDashboardProductsproductIdEditRoute:
+    SellerDashboardProductsproductIdEditRoute,
+  SellerDashboardProductsproductIdIndexRoute:
+    SellerDashboardProductsproductIdIndexRoute,
+  SellerDashboardProductsproductIdVariantsVariantIdRoute:
+    SellerDashboardProductsproductIdVariantsVariantIdRoute,
 }
 
 const SellerRouteRouteWithChildren = SellerRouteRoute._addFileChildren(
@@ -692,8 +714,6 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard/sellers/$id': typeof AdminDashboardSellersIdRoute
   '/auth/verify/$code': typeof AuthcustomerVerifyCodeRoute
   '/auth/seller/verify/$code': typeof AuthSellerVerifyCodeRoute
-  '/seller/dashboard/products/$id': typeof SellerDashboardProductsIdRoute
-  '/seller/dashboard/products/create': typeof SellerDashboardProductsCreateRoute
   '/admin/dashboard/admins': typeof AdminDashboardAdminsIndexRoute
   '/admin/dashboard/categories': typeof AdminDashboardCategoriesIndexRoute
   '/admin/dashboard/customers': typeof AdminDashboardCustomersIndexRoute
@@ -701,7 +721,10 @@ export interface FileRoutesByFullPath {
   '/seller/dashboard/products': typeof SellerDashboardProductsIndexRoute
   '/admin/dashboard/admins/$id': typeof AdminDashboardAdminseditIdRoute
   '/admin/dashboard/categories/$id': typeof AdminDashboardCategorieseditIdRoute
-  '/seller/dashboard/products/$id/edit': typeof SellerDashboardProductsIdEditRoute
+  '/seller/dashboard/products/create': typeof SellerDashboardProductsproductCreateRoute
+  '/seller/dashboard/products/$id/edit': typeof SellerDashboardProductsproductIdEditRoute
+  '/seller/dashboard/products/$id': typeof SellerDashboardProductsproductIdIndexRoute
+  '/seller/dashboard/products/$id/variants/$variantId': typeof SellerDashboardProductsproductIdVariantsVariantIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -732,8 +755,6 @@ export interface FileRoutesByTo {
   '/admin/dashboard/sellers/$id': typeof AdminDashboardSellersIdRoute
   '/auth/verify/$code': typeof AuthcustomerVerifyCodeRoute
   '/auth/seller/verify/$code': typeof AuthSellerVerifyCodeRoute
-  '/seller/dashboard/products/$id': typeof SellerDashboardProductsIdRoute
-  '/seller/dashboard/products/create': typeof SellerDashboardProductsCreateRoute
   '/admin/dashboard/admins': typeof AdminDashboardAdminsIndexRoute
   '/admin/dashboard/categories': typeof AdminDashboardCategoriesIndexRoute
   '/admin/dashboard/customers': typeof AdminDashboardCustomersIndexRoute
@@ -741,7 +762,10 @@ export interface FileRoutesByTo {
   '/seller/dashboard/products': typeof SellerDashboardProductsIndexRoute
   '/admin/dashboard/admins/$id': typeof AdminDashboardAdminseditIdRoute
   '/admin/dashboard/categories/$id': typeof AdminDashboardCategorieseditIdRoute
-  '/seller/dashboard/products/$id/edit': typeof SellerDashboardProductsIdEditRoute
+  '/seller/dashboard/products/create': typeof SellerDashboardProductsproductCreateRoute
+  '/seller/dashboard/products/$id/edit': typeof SellerDashboardProductsproductIdEditRoute
+  '/seller/dashboard/products/$id': typeof SellerDashboardProductsproductIdIndexRoute
+  '/seller/dashboard/products/$id/variants/$variantId': typeof SellerDashboardProductsproductIdVariantsVariantIdRoute
 }
 
 export interface FileRoutesById {
@@ -773,8 +797,6 @@ export interface FileRoutesById {
   '/admin/dashboard/sellers/$id': typeof AdminDashboardSellersIdRoute
   '/auth/(customer)/verify/$code': typeof AuthcustomerVerifyCodeRoute
   '/auth/seller/verify/$code': typeof AuthSellerVerifyCodeRoute
-  '/seller/dashboard/products/$id': typeof SellerDashboardProductsIdRoute
-  '/seller/dashboard/products/create': typeof SellerDashboardProductsCreateRoute
   '/admin/dashboard/admins/': typeof AdminDashboardAdminsIndexRoute
   '/admin/dashboard/categories/': typeof AdminDashboardCategoriesIndexRoute
   '/admin/dashboard/customers/': typeof AdminDashboardCustomersIndexRoute
@@ -782,7 +804,10 @@ export interface FileRoutesById {
   '/seller/dashboard/products/': typeof SellerDashboardProductsIndexRoute
   '/admin/dashboard/admins/(edit)/$id': typeof AdminDashboardAdminseditIdRoute
   '/admin/dashboard/categories/(edit)/$id': typeof AdminDashboardCategorieseditIdRoute
-  '/seller/dashboard/products/$id_/edit': typeof SellerDashboardProductsIdEditRoute
+  '/seller/dashboard/products/(product)/create': typeof SellerDashboardProductsproductCreateRoute
+  '/seller/dashboard/products/(product)/$id_/edit': typeof SellerDashboardProductsproductIdEditRoute
+  '/seller/dashboard/products/(product)/$id/': typeof SellerDashboardProductsproductIdIndexRoute
+  '/seller/dashboard/products/(product)/$id/variants/$variantId': typeof SellerDashboardProductsproductIdVariantsVariantIdRoute
 }
 
 export interface FileRouteTypes {
@@ -815,8 +840,6 @@ export interface FileRouteTypes {
     | '/admin/dashboard/sellers/$id'
     | '/auth/verify/$code'
     | '/auth/seller/verify/$code'
-    | '/seller/dashboard/products/$id'
-    | '/seller/dashboard/products/create'
     | '/admin/dashboard/admins'
     | '/admin/dashboard/categories'
     | '/admin/dashboard/customers'
@@ -824,7 +847,10 @@ export interface FileRouteTypes {
     | '/seller/dashboard/products'
     | '/admin/dashboard/admins/$id'
     | '/admin/dashboard/categories/$id'
+    | '/seller/dashboard/products/create'
     | '/seller/dashboard/products/$id/edit'
+    | '/seller/dashboard/products/$id'
+    | '/seller/dashboard/products/$id/variants/$variantId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -854,8 +880,6 @@ export interface FileRouteTypes {
     | '/admin/dashboard/sellers/$id'
     | '/auth/verify/$code'
     | '/auth/seller/verify/$code'
-    | '/seller/dashboard/products/$id'
-    | '/seller/dashboard/products/create'
     | '/admin/dashboard/admins'
     | '/admin/dashboard/categories'
     | '/admin/dashboard/customers'
@@ -863,7 +887,10 @@ export interface FileRouteTypes {
     | '/seller/dashboard/products'
     | '/admin/dashboard/admins/$id'
     | '/admin/dashboard/categories/$id'
+    | '/seller/dashboard/products/create'
     | '/seller/dashboard/products/$id/edit'
+    | '/seller/dashboard/products/$id'
+    | '/seller/dashboard/products/$id/variants/$variantId'
   id:
     | '__root__'
     | '/'
@@ -893,8 +920,6 @@ export interface FileRouteTypes {
     | '/admin/dashboard/sellers/$id'
     | '/auth/(customer)/verify/$code'
     | '/auth/seller/verify/$code'
-    | '/seller/dashboard/products/$id'
-    | '/seller/dashboard/products/create'
     | '/admin/dashboard/admins/'
     | '/admin/dashboard/categories/'
     | '/admin/dashboard/customers/'
@@ -902,7 +927,10 @@ export interface FileRouteTypes {
     | '/seller/dashboard/products/'
     | '/admin/dashboard/admins/(edit)/$id'
     | '/admin/dashboard/categories/(edit)/$id'
-    | '/seller/dashboard/products/$id_/edit'
+    | '/seller/dashboard/products/(product)/create'
+    | '/seller/dashboard/products/(product)/$id_/edit'
+    | '/seller/dashboard/products/(product)/$id/'
+    | '/seller/dashboard/products/(product)/$id/variants/$variantId'
   fileRoutesById: FileRoutesById
 }
 
@@ -988,10 +1016,11 @@ export const routeTree = rootRoute
         "/seller/dashboard/update-password",
         "/seller/dashboard/",
         "/seller/profile/",
-        "/seller/dashboard/products/$id",
-        "/seller/dashboard/products/create",
         "/seller/dashboard/products/",
-        "/seller/dashboard/products/$id_/edit"
+        "/seller/dashboard/products/(product)/create",
+        "/seller/dashboard/products/(product)/$id_/edit",
+        "/seller/dashboard/products/(product)/$id/",
+        "/seller/dashboard/products/(product)/$id/variants/$variantId"
       ]
     },
     "/customer/update-password": {
@@ -1082,14 +1111,6 @@ export const routeTree = rootRoute
       "filePath": "auth/seller/verify/$code.tsx",
       "parent": "/auth"
     },
-    "/seller/dashboard/products/$id": {
-      "filePath": "seller/dashboard/products/$id.tsx",
-      "parent": "/seller"
-    },
-    "/seller/dashboard/products/create": {
-      "filePath": "seller/dashboard/products/create.tsx",
-      "parent": "/seller"
-    },
     "/admin/dashboard/admins/": {
       "filePath": "admin/dashboard/admins/index.tsx",
       "parent": "/admin"
@@ -1118,8 +1139,20 @@ export const routeTree = rootRoute
       "filePath": "admin/dashboard/categories/(edit)/$id.tsx",
       "parent": "/admin"
     },
-    "/seller/dashboard/products/$id_/edit": {
-      "filePath": "seller/dashboard/products/$id_.edit.tsx",
+    "/seller/dashboard/products/(product)/create": {
+      "filePath": "seller/dashboard/products/(product)/create.tsx",
+      "parent": "/seller"
+    },
+    "/seller/dashboard/products/(product)/$id_/edit": {
+      "filePath": "seller/dashboard/products/(product)/$id_/edit.tsx",
+      "parent": "/seller"
+    },
+    "/seller/dashboard/products/(product)/$id/": {
+      "filePath": "seller/dashboard/products/(product)/$id/index.tsx",
+      "parent": "/seller"
+    },
+    "/seller/dashboard/products/(product)/$id/variants/$variantId": {
+      "filePath": "seller/dashboard/products/(product)/$id/variants/$variantId.tsx",
       "parent": "/seller"
     }
   }
