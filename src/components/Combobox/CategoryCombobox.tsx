@@ -32,7 +32,7 @@ const CategoryCombobox = ({categories, isLoading, value, onChange}: CategoryComb
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 h-[250px]">
-        <Command className="z-1000">
+        <Command className="absolute right-0 z-1000">
           <CommandInput placeholder="Search Categories . . ." value={searchItem} onValueChange={setSearchItem}/>
           <CommandEmpty>No Categories found.</CommandEmpty>
           <CommandGroup className="overflow-y-scroll">

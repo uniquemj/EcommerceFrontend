@@ -1,4 +1,4 @@
-import type { Category, CategoryInput } from "@/types/category.types"
+import type { Category, CategoryInput, CategoryTree } from "@/types/category.types"
 import type { PaginationField } from "@/types/pagination.types"
 import type { SuccessResponse } from "@/types/response.types"
 import { api } from "@/utils/api"
@@ -9,6 +9,10 @@ export const getAllCategory = async(paginationField: PaginationField): Promise<S
     return response.data
 }
 
+export const getCategoryTree = async(pagination: PaginationField) : Promise<SuccessResponse<CategoryTree[]>> => {
+    const response = await api.get<SuccessResponse<CategoryTree[]>>(`/category/tree?page=${pagination.page}&limit=${pagination.limit}`)
+    return response.data
+}
 export const getCategoryById = async(id: string) : Promise<SuccessResponse<Category>> => {
     const response = await api.get<SuccessResponse<Category>>(`/category/${id}`)
     return response.data

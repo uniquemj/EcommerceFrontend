@@ -36,7 +36,7 @@ const RenderAccordionItem = ({ item, data }: RenderAccordianProps) => {
                   to={`/admin/dashboard/categories/$id`}
                   params={{ id: item._id }}
                 >
-                  <Edit size={16} className="text-success-color" />
+                  <Edit size={16} className="text-little-dark" />
                 </Link>
               </div>
             </div>
@@ -57,7 +57,7 @@ const RenderAccordionItem = ({ item, data }: RenderAccordianProps) => {
               to={`/admin/dashboard/categories/$id`}
               params={{ id: item._id }}
             >
-              <Edit size={16} className="text-success-color"/>
+              <Edit size={16} className="text-secondary-little-dark"/>
             </Link>
             <Trash2 size={16} onClick={()=>handleDelete(item._id)} className="text-error-color hover:cursor-pointer"/>
           </div>

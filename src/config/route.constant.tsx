@@ -128,12 +128,7 @@ export const navRoute: NavRoute = {
             subItems: [
                 {
                     title: "Manage Products",
-                    url: "/seller/dashboard/products",
-                    include: true,
-                },
-                {
-                    title: "Add product",
-                    url: "/seller/dashboard/products/create",
+                    url: "/admin/dashboard/products",
                     include: true,
                 }
             ]

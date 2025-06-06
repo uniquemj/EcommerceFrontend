@@ -63,16 +63,49 @@ html, body{
     --color-success-color: var(--success-color);
     --color-green-color: var(--color-green-400);
     --color-error-color: var(--error-color);
-    --color-footer-color: var(--footer-color);
+    /* --color-footer-color: var(--footer-color); */
+    --color-footer-color: var(--shade-secondary-1100);
     --color-little-dark: var(--little-dark);
-    --color-secondary-shade-lightest: var(--shade-secondary-color-lightest);
-    --color-secondary-shade-light: var(--shade-secondary-color-light);
-    --color-secondary-shade-normal: var(--shade-secondary-color-normal);
-    --color-secondary-shade-dark: var(--shade-secondary-color-dark);
+
+    --color-primary-100: #F5F5F5;
+    --color-primary-300: #666666;
+
+    --color-secondary-shade-lightest: var(--shade-secondary-100);
+    --color-secondary-shade-light: var(--shade-secondary-300);
+    --color-secondary-shade-normal: var(--shade-secondary-800);
+    --color-secondary-shade-dark: var(--shade-secondary-1100);
     --color-background-color: var(--body-background);
     /* Background Image */
     --background-image-seller-auth: url('/src/assets/Auth/SellerAuthTransparency.png');
     --background-image-customer-auth: url('/src/assets/Auth/LoginTransparency.png');
+
+    /* Spacing */
+    --spacing-space-2: 2px;
+    --spacing-space-4: 4px;
+    --spacing-space-6: 6px;
+    --spacing-space-8: 8px;
+    --spacing-space-8: 8px;
+    --spacing-space-10: 10px;
+    --spacing-space-14: 14px;
+    --spacing-space-18: 18px;
+    --spacing-space-20: 20px;
+    --spacing-space-22: 22px;
+    --spacing-space-26: 26px;
+    --spacing-space-30: 30px;
+    --spacing-space-34: 34px;
+    --spacing-space-38: 38px;
+    --spacing-space-42: 42px;
+    --spacing-space-46: 46px;
+    --spacing-space-50: 50px;
+    --spacing-space-54: 54px;
+    --spacing-space-58: 58px;
+    --spacing-space-24: 24px;
+    --spacing-space-32: 32px;
+    --spacing-space-42: 42px;
+    --spacing-space-90: 90px;
+    --spacing-space-360: 360px;
+    --spacing-space-460: 460px;
+
 
     /* Text Size */
     --text-error-msg: 0.8rem;
@@ -81,10 +114,25 @@ html, body{
     --text-12: 12px;
     --text-13: 13px;
     --text-14: 14px;
+    --text-16: 16px;
+    --text-18: 18px;
+    --text-20: 20px;
+    --text-24: 24px;
+    --text-28: 28px;
+    --text-32: 32px;
+    --text-36: 36px;
+    --text-38: 38px;
+    --text-40: 40px;
 
     --breakpoint-s-lg:1258px;
+    --breakpoint-940: 940px;
     --breakpoint-s-md:770px;
 
+    --radius-80: 80px;
+    --radius-6: 6px;
+    --radius-8: 8px;
+    --radius-10: 10px;
+    --radius-30: 30px;
     
 }
 
@@ -125,10 +173,10 @@ html, body{
     /*  Custom Variables */
     --primary-color: #151515;
     --secondary-color: #C75B39;
-    --shade-secondary-color-lightest: #f9efeb;
-    --shade-secondary-color-light: #eecec4;
-    --shade-secondary-color-normal: #d27c61;
-    --shade-secondary-color-dark: #3c1b11;
+    --shade-secondary-100: #f9efeb;
+    --shade-secondary-300: #eecec4;
+    --shade-secondary-800: #d27c61;
+    --shade-secondary-1100: #3c1b11;
     /* --secondary-color: #774b53; */
     /* --secondary-color: #4e242c; */
     --ternary-color: #A8B0B9;

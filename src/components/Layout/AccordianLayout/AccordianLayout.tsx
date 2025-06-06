@@ -11,7 +11,8 @@ interface AccordianLayoutProps {
 const AccordianLayout = ({ data }: AccordianLayoutProps) => {
   return (
     <div>
-      <div className="rounded-md border h-[400px] overflow-y-scroll p-4">
+      <div className="rounded-md border max-h-[400px] overflow-y-scroll p-4">
+        {data.length < 1 && <p className="text-ternary-color text-center">Category List is empty</p>}
         <Accordion type="single" collapsible className="w-full">
           {data
             .filter((item) => !item.parent_category)

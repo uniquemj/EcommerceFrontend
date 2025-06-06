@@ -1,5 +1,5 @@
-import { createCategory, getAllCategory, getCategoryById, removeCategory, updateCategory } from "@/services/category.api";
-import type { Category, CategoryInput } from "@/types/category.types";
+import { createCategory, getAllCategory, getCategoryById, getCategoryTree, removeCategory, updateCategory } from "@/services/category.api";
+import { type CategoryTree, type Category, type CategoryInput } from "@/types/category.types";
 import type { PaginationField } from "@/types/pagination.types";
 import type { ErrorResponse, SuccessResponse } from "@/types/response.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -11,6 +11,13 @@ export const useGetAllCategory = (pagination: PaginationField) => {
     return useQuery<SuccessResponse<Category[]>, ErrorResponse>({
         queryKey: ['categories'],
         queryFn: ()=>getAllCategory(pagination)
+    })
+}
+
+export const useGetCategoryTree = (pagination: PaginationField) =>{
+    return useQuery<SuccessResponse<CategoryTree[]>, ErrorResponse>({
+        queryKey: ['category', 'tree'],
+        queryFn: ()=> getCategoryTree(pagination)
     })
 }
 

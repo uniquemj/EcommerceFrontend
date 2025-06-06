@@ -8,7 +8,7 @@ const Navbar = () => {
     const {role} = useAuth()
   return (
     <>
-        {role == UserRole.CUSTOMER || role==UserRole.ANONYMOUS ?(<NormalNavbar/>):(<></>)}
+        {role == UserRole.CUSTOMER || role==UserRole.ANONYMOUS ?(<NormalNavbar/>):(null)}
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { UserRole } from '@/types/enum.types'
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
+import { createFileRoute, Outlet, redirect, useRouterState } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/auth')({
   component: RouteComponent,
@@ -13,6 +13,7 @@ export const Route = createFileRoute('/auth')({
 })
 
 function RouteComponent() {
+  
   return (
     <>
       <Outlet/>

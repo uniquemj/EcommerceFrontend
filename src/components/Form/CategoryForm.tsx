@@ -76,7 +76,7 @@ const CategoryForm = () => {
             <SheetTitle>Create Category</SheetTitle>
             <SheetDescription>Provide Category Information</SheetDescription>
           </SheetHeader>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} className="">
             <div className="grid gap-7 px-3">
               <div className="grid w-full gap-4">
                 <Label htmlFor="title">Title</Label>
