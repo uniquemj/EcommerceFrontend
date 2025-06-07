@@ -22,13 +22,13 @@ interface ProductViewProps {
   className?: string;
 }
 
-function ProductView({ render, option, className }: ProductViewProps) {
+function ProductView({ render, option }: ProductViewProps) {
 
-
+  console.log(render)
   return (
     <>
       <div className="hidden min-s-md:flex justify-center ">
-        <Carousel
+        {/* <Carousel
           opts={{
             align: option?.align || "start",
             loop: option?.loop || false,
@@ -54,9 +54,9 @@ function ProductView({ render, option, className }: ProductViewProps) {
           </CarouselContent>
           <CarouselPrevious className="bg-secondary-shade-light"/>
           <CarouselNext className="bg-secondary-shade-light"/>
-        </Carousel>
+        </Carousel> */}
       </div>
-      <div className="hidden max-s-md:flex flex-col items-center gap-6">
+      <div className="flex max-s-md:flex-col flex-row items-center gap-6 min-s-md:overflow-y-auto">
               {
                 render.map((item)=>(
                   <ProductCard variantInfo={item as VariantInfo} role={option?.role as string} key={item._id}/>

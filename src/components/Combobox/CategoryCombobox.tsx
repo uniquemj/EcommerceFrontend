@@ -1,6 +1,6 @@
 import type { Category } from "@/types/category.types"
 import React from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "../ui/button";
 import { ChevronsUpDown } from "lucide-react";
 import { Command, CommandEmpty, CommandInput, CommandItem } from "../ui/command";
@@ -16,7 +16,7 @@ interface CategoryComboboxProps{
 const CategoryCombobox = ({categories, isLoading, value, onChange}: CategoryComboboxProps) => {
   const [open, setOpen] = React.useState(false);
   const [searchItem, setSearchItem] = React.useState("");
-
+  
   const selectedCategory = categories?.find((c)=> c._id == value);
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -31,11 +31,11 @@ const CategoryCombobox = ({categories, isLoading, value, onChange}: CategoryComb
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0 h-[250px]">
-        <Command className="absolute right-0 z-1000">
+      <PopoverContent className="relative w-[200px] p-0 h-[250px] z-[9999]" side="bottom" align="start" sideOffset={4} alignOffset={4} asChild>
+        <Command>
           <CommandInput placeholder="Search Categories . . ." value={searchItem} onValueChange={setSearchItem}/>
           <CommandEmpty>No Categories found.</CommandEmpty>
-          <CommandGroup className="overflow-y-scroll">
+          <CommandGroup className="overflow-y-auto">
             {isLoading ? (<CommandItem disabled>Loading . . .</CommandItem>):
             (
               categories.map((cat) => (

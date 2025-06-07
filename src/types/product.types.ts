@@ -103,3 +103,19 @@ export enum ArchieveStatus {
     Archieve = "archieve",
     UnArchieve = "unarchieve"
 }
+
+
+export type SearchProductParams = {
+  keyword?: string;
+  category?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  sortBy?: string;
+  page?: number;
+  limit?: number;
+};
+
+export interface SearchProductResponse {
+  count: number;
+  products: ProductInfo[]
+}

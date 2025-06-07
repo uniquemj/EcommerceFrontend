@@ -13,10 +13,9 @@ import  { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import AutoPlay from 'embla-carousel-autoplay';
 import { Separator } from "@/components/ui/separator";
-import { useGetCategoryTree } from "@/hooks/category.hooks";
-import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { upperCase } from "@/utils/helper";
-import { ChevronRight } from "lucide-react";
+import {  Plus } from "lucide-react";
+
+import CategoryTree from "@/components/Category/CategoryTree";
 
 const bannerInfo = [
     {
@@ -43,9 +42,6 @@ const bannerInfo = [
 ];
 
 const Header = () => {
-
-  const {data: categories} = useGetCategoryTree({page: 1, limit: 10})
-
     const autoPlayRef = useRef(
         AutoPlay({delay: 3000, stopOnInteraction: false})
     )
@@ -58,18 +54,13 @@ const Header = () => {
           <Separator/>
           </CardHeader>
           <CardContent className="px-space-18 py-0">
-            {categories?.data.map((cat)=>
-            <div className="px-space-18 py-space-8 border-b-1 w-full">
-              <div className="flex justify-between">
-                <span>{upperCase(cat.category.title)}</span>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <ChevronRight/>
-                  </DropdownMenuTrigger>
-                </DropdownMenu>
+            <CategoryTree variant="card"/>
+            <div className="px-space-18 pt-space-8 w-full">
+              <div className="flex items-center gap-space-4">
+                <Plus size={14}/>
+                <span>More Categories</span>
               </div>
             </div>
-            )}
           </CardContent>
         </Card>
       <div className="flex justify-end w-full overflow-x-hidden">
@@ -84,7 +75,7 @@ const Header = () => {
           >
             <CarouselContent>
               {bannerInfo.map((banner) => (
-                <CarouselItem>
+                <CarouselItem key={banner.title}>
                   <div className="w-full relative h-space-460">
                     <img
                       src={banner.image}
@@ -96,7 +87,7 @@ const Header = () => {
                         <h2 className="font-bold text-24 min-940:text-40 text-secondary-shade-normal">{banner.title}</h2>
                       </div>
                       <div>
-                        <Button className="h-space-38 bg-white text-little-dark text-18 font-normal hover:bg-white hover:cursor-pointer hover:text-secondary-shade-normal">
+                        <Button className="rounded-none h-space-38 bg-white text-little-dark text-18 font-normal hover:bg-white hover:cursor-pointer hover:text-secondary-shade-normal">
                             {banner.button_content}
                         </Button>
                       </div>

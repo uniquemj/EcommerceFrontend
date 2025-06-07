@@ -63,8 +63,8 @@ html, body{
     --color-success-color: var(--success-color);
     --color-green-color: var(--color-green-400);
     --color-error-color: var(--error-color);
-    /* --color-footer-color: var(--footer-color); */
-    --color-footer-color: var(--shade-secondary-1100);
+    --color-footer-color: var(--footer-color);
+    --color-footer-dark-color: var(--shade-secondary-1100);
     --color-little-dark: var(--little-dark);
 
     --color-primary-100: #F5F5F5;
@@ -86,6 +86,7 @@ html, body{
     --spacing-space-8: 8px;
     --spacing-space-8: 8px;
     --spacing-space-10: 10px;
+    --spacing-space-12: 12px;
     --spacing-space-14: 14px;
     --spacing-space-18: 18px;
     --spacing-space-20: 20px;
@@ -103,6 +104,10 @@ html, body{
     --spacing-space-32: 32px;
     --spacing-space-42: 42px;
     --spacing-space-90: 90px;
+    --spacing-space-120: 120px;
+    --spacing-space-220: 220px;
+    --spacing-space-288: 288px;
+    --spacing-space-320: 320px;
     --spacing-space-360: 360px;
     --spacing-space-460: 460px;
 

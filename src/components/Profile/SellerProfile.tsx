@@ -137,7 +137,7 @@ const SellerProfile = ({
                 !hide.status ? (
                     <div className={`w-[100%] p-10 bg-[rgba(0,0,0,0.5)] absolute z-99 flex flex-col justify-center items-center ${ role == UserRole.ADMIN ? `top-200 min-[1180px]:top-150 left-1`: `top-150 min-[1180px]:top-90 left-1`} gap-8`}>
                         <div className="w-full flex justify-end">
-                            <Button className="bg-primary-color text-amber-50 hover:cursor-pointer" onClick={()=>handleImage("")}>
+                            <Button className="bg-secondary-color text-amber-50 hover:cursor-pointer" onClick={()=>handleImage("")}>
                                 <X className=" font-bold"/>
                             </Button>
                         </div>

@@ -1,6 +1,6 @@
-import { createProduct, deleteProduct, editProduct, editProductVariant, getAllProductList, getProductById, getProductList, getSellerProductById, getSellerProductList, getVariantById, getVariantListOfProduct, removeVariantFromProduct } from "@/services/product.api"
+import { createProduct, deleteProduct, editProduct, editProductVariant, getAllProductList, getBestSellProducts, getFeaturedProducts, getProductById, getProductList, getSellerProductById, getSellerProductList, getVariantById, getVariantListOfProduct, removeVariantFromProduct, searchProduct } from "@/services/product.api"
 import type { PaginationField } from "@/types/pagination.types"
-import { type ProductInfo } from "@/types/product.types"
+import { type ProductInfo, type SearchProductParams, type SearchProductResponse } from "@/types/product.types"
 import { type SuccessResponse, type ErrorResponse } from "@/types/response.types"
 import { type VariantInfo} from "@/types/variant.types"
 import type { ProductSchemaType } from "@/validations/product.validate"
@@ -53,6 +53,28 @@ export const useGetProductById = (id: string) =>{
         queryFn: ()=> getProductById(id)
     })
 }
+
+export const useSearchProducts = (params:SearchProductParams) =>{
+    return useQuery<SuccessResponse<SearchProductResponse>, ErrorResponse>({
+        queryKey: ['products', params],
+        queryFn: ()=>searchProduct(params),
+        enabled: !!params
+    })
+}
+
+export const useGetBestSellProducts = (pagination: PaginationField) => {
+    return useQuery<SuccessResponse<ProductInfo[]>, ErrorResponse>({
+        queryKey: ['products', 'best', 'sell'],
+        queryFn: ()=> getBestSellProducts(pagination)
+    })
+}
+
+export const useGetFeaturedProducts = (pagination: PaginationField) =>{
+    return useQuery<SuccessResponse<ProductInfo[]>, ErrorResponse>({
+        queryKey: ['products', 'featured'],
+        queryFn: ()=> getFeaturedProducts(pagination)
+    })
+} 
 
 export const useGetVariantById = (productId: string, variantId: string) =>{
     return useQuery<SuccessResponse<VariantInfo>, ErrorResponse>({
@@ -117,10 +139,11 @@ export const useEditProductVariant = () =>{
             query.invalidateQueries({queryKey: ['products']})
             query.invalidateQueries({queryKey: ['products', 'admin']})
             query.invalidateQueries({queryKey: ['products', 'seller']})
-            query.invalidateQueries({queryKey: ['products', data.data.product._id, 'variants']})
+            query.invalidateQueries({queryKey: ['products', data.data.product, 'variants']})
             console.log(data.data.product)
+            console.log(data.data.product._id)
             navigate({
-                to: `/seller/dashboard/products/${data.data.product._id}`
+                to: `/seller/dashboard/products/${data.data.product}`
             })
             toast.success("Product Variant Updated.")
         },

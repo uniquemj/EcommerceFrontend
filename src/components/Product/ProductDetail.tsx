@@ -43,10 +43,10 @@ const ProductDetail = ({
       <Card>
         <CardHeader>
           <div className="flex flex-col gap-5">
-            <div className="flex justify-start items-center">
+            <div className="flex justify-start items-center gap-5">
               <h1 className="font-bold text-3xl text-secondary-color">{productSummary.name}</h1>
               {role == UserRole.CUSTOMER && (
-                <Button className="bg-primary-color text-text-color">
+                <Button className="bg-secondary-color text-text-color">
                   Add to Cart
                 </Button>
               )}

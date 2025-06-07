@@ -10,7 +10,7 @@ import {
 
 import { useLogout } from "@/hooks/auth.hooks";
 import { useAuth } from "@/store/auth.store";
-import { Link} from "@tanstack/react-router";
+import { Link, useRouterState} from "@tanstack/react-router";
 import {
   EllipsisVertical,
   LogIn,
@@ -30,22 +30,25 @@ const SubNavbar = () => {
   const handleLogout = () => {
     mutate(role);
   };
-
+  const route = useRouterState()
+  const isAuthPage = route.location.pathname.includes('/auth')
   return (
     <div>
       {/* Desktop */}
       <div className="hidden w-full px-space-42 h-space-42 min-sm:flex justify-between bg-primary-100 border-b-1">
         <div className="flex ">
-          {isAuthenticated ? (
+          {!isAuthPage ? (
             <div className="flex justify-start items-center ">
               <h1 className="text-14 font-normal text-primary-300">
                 Welcome to BajarHub
               </h1>
             </div>) :
             (<div className="flex items-center">
-              <h1 className="text-20 font-bold text-secondary-shade-dark">
-                BajarHub
-              </h1>
+              <Link to='/'>
+                <h1 className="text-20 font-bold text-secondary-shade-dark">
+                  BajarHub
+                </h1>
+              </Link>
             </div>)
           }
         </div>

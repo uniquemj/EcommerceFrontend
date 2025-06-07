@@ -71,7 +71,7 @@ const CategoryForm = () => {
             <Plus /> Category
           </Button>
         </SheetTrigger>
-        <SheetContent className="flex flex-col z-50">
+        <SheetContent className="flex flex-col z-[999] overflow-visible">
           <SheetHeader>
             <SheetTitle>Create Category</SheetTitle>
             <SheetDescription>Provide Category Information</SheetDescription>
@@ -87,7 +87,7 @@ const CategoryForm = () => {
                   placeholder="Enter Category title"
                 />
                 {errors.title ? (
-                  <p className="text-primary-color text-error-msg">
+                  <p className="text-error-color text-error-msg">
                     {errors.title.message}
                   </p>
                 ) : (

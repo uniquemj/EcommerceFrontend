@@ -1,15 +1,13 @@
-import LoggedInNav from "./LoggedInNav";
-import GuestNavbar from "./GuestNavbar";
-import { useAuth } from "@/store/auth.store";
-import { UserRole } from "@/types/enum.types";
 import SubTopNavbar from "./SubTopNavbar";
 import { Input } from "@/components/ui/input";
 import { Search, ShoppingCart } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import SubDownNavbar from "./SubDownNavbar";
 
 const NormalNavbar = () => {
-  const { isAuthenticated} = useAuth();
+  const route = useRouterState()
+  const isAuthPage = route.location.pathname.includes('/auth')
+
   return (
     <div className="flex flex-col">
       <div className="">
@@ -21,12 +19,14 @@ const NormalNavbar = () => {
           {isAuthenticated ? <LoggedInNav /> : <GuestNavbar />}
         </div> */}
       </div>
-      {isAuthenticated && (
+      {!isAuthPage && (
         <div className="flex justify-center min-sm:justify-between items-center max-sm:px-space-8 min-sm:px-space-42 border-b-1 py-space-18">
           <div className="hidden min-sm:block">
+            <Link to='/'>
             <h1 className="text-32 font-bold text-secondary-shade-dark">
               BajarHub
             </h1>
+            </Link>
           </div>
           <div className="w-90 min-940:w-150">
             <div className="flex items-center py-space-9 px-space-14 w-full border-1 rounded-80">
@@ -47,7 +47,7 @@ const NormalNavbar = () => {
         </div>
       )}
 
-      {isAuthenticated && (
+      {!isAuthPage && (
         <SubDownNavbar/>
       )}
     </div>

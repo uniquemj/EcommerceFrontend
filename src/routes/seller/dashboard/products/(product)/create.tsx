@@ -211,7 +211,7 @@ function RouteComponent() {
                         Product Description
                       </Label>
                       <Textarea
-                        className="h-[250px]"
+                        className="h-[150px]"
                         {...register("productDescription")}
                         placeholder="Type your message here."
                         id="productDescription"
@@ -229,7 +229,7 @@ function RouteComponent() {
                         Product Highlights
                       </Label>
                       <Textarea
-                        className="h-[250px]"
+                        className="h-[150px]"
                         {...register("productHighlights")}
                         placeholder="Type your message here."
                         id="productHighlights"

@@ -17,6 +17,7 @@ import { Route as AuthRouteImport } from './routes/auth/route'
 import { Route as AdminRouteImport } from './routes/admin/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as CustomerUpdatePasswordImport } from './routes/customer/update-password'
+import { Route as productIdImport } from './routes/(product)/$id'
 import { Route as SellerProfileIndexImport } from './routes/seller/profile/index'
 import { Route as SellerDashboardIndexImport } from './routes/seller/dashboard/index'
 import { Route as CustomerProfileIndexImport } from './routes/customer/profile/index'
@@ -88,6 +89,12 @@ const CustomerUpdatePasswordRoute = CustomerUpdatePasswordImport.update({
   id: '/update-password',
   path: '/update-password',
   getParentRoute: () => CustomerRouteRoute,
+} as any)
+
+const productIdRoute = productIdImport.update({
+  id: '/(product)/$id',
+  path: '/$id',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const SellerProfileIndexRoute = SellerProfileIndexImport.update({
@@ -352,6 +359,13 @@ declare module '@tanstack/react-router' {
       path: '/seller'
       fullPath: '/seller'
       preLoaderRoute: typeof SellerRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/(product)/$id': {
+      id: '/(product)/$id'
+      path: '/$id'
+      fullPath: '/$id'
+      preLoaderRoute: typeof productIdImport
       parentRoute: typeof rootRoute
     }
     '/customer/update-password': {
@@ -725,6 +739,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
+  '/$id': typeof productIdRoute
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
@@ -768,6 +783,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
+  '/$id': typeof productIdRoute
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
@@ -812,6 +828,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
+  '/(product)/$id': typeof productIdRoute
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
@@ -857,6 +874,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/customer'
     | '/seller'
+    | '/$id'
     | '/customer/update-password'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
@@ -899,6 +917,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/customer'
     | '/seller'
+    | '/$id'
     | '/customer/update-password'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
@@ -941,6 +960,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/customer'
     | '/seller'
+    | '/(product)/$id'
     | '/customer/update-password'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
@@ -985,6 +1005,7 @@ export interface RootRouteChildren {
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   CustomerRouteRoute: typeof CustomerRouteRouteWithChildren
   SellerRouteRoute: typeof SellerRouteRouteWithChildren
+  productIdRoute: typeof productIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -993,6 +1014,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRouteRoute: AuthRouteRouteWithChildren,
   CustomerRouteRoute: CustomerRouteRouteWithChildren,
   SellerRouteRoute: SellerRouteRouteWithChildren,
+  productIdRoute: productIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -1009,7 +1031,8 @@ export const routeTree = rootRoute
         "/admin",
         "/auth",
         "/customer",
-        "/seller"
+        "/seller",
+        "/(product)/$id"
       ]
     },
     "/": {
@@ -1069,6 +1092,9 @@ export const routeTree = rootRoute
         "/seller/dashboard/products/(product)/$id/",
         "/seller/dashboard/products/(product)/$id/variants/$variantId"
       ]
+    },
+    "/(product)/$id": {
+      "filePath": "(product)/$id.tsx"
     },
     "/customer/update-password": {
       "filePath": "customer/update-password.tsx",

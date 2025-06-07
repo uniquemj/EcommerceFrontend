@@ -23,7 +23,7 @@ const ProductCard = ({ variantInfo, role }: ProductCardProps) => {
 
   return (
     <Card className="min-sm:w-[350px] bg-secondary-shade-lightest gap-3" key={variantInfo._id}>
-      <CardHeader>
+      <CardHeader className="bg-white">
         <img
           src={variantInfo.images.url}
           className=" w-full max-h-[150px] object-cover rounded-md"
