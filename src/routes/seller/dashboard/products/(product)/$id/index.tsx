@@ -3,7 +3,7 @@ import { useGetProductById } from "@/hooks/product.hooks";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import BackButton from "@/components/Button/BackButton";
 import { Button } from "@/components/ui/button";
-import ProductDetail from "@/components/Product/ProductDetail";
+import ProductDetail from "@/components/Product/newProductDetail";
 import { UserRole } from "@/types/enum.types";
 import type { ProductInfo } from "@/types/product.types";
 import { Edit } from "lucide-react";

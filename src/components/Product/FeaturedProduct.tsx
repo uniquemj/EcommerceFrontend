@@ -7,11 +7,11 @@ import { Link } from '@tanstack/react-router'
 const FeaturedProduct = () => {
    const {data: featuredProduct} = useGetFeaturedProducts({page: 1, limit: 5})
   return (
-    <ProductDisplay title="Featured Products" url='/'>
+    <ProductDisplay title="Featured Products" url='/product/all/feature-product'>
         
         {
             featuredProduct?.data.map((product)=>(
-              <Link to={`/$id`} params={{id: product._id}}>
+              <Link to={`/product/$id`} params={{id: product._id}}>
                 <ProductCard productInfo={product}/>
               </Link>
             ))

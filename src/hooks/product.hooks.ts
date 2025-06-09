@@ -1,4 +1,4 @@
-import { createProduct, deleteProduct, editProduct, editProductVariant, getAllProductList, getBestSellProducts, getFeaturedProducts, getProductById, getProductList, getSellerProductById, getSellerProductList, getVariantById, getVariantListOfProduct, removeVariantFromProduct, searchProduct } from "@/services/product.api"
+import { createProduct, deleteProduct, editProduct, editProductVariant, getAllProductList, getBestSellProducts, getFeaturedProducts, getProductByCategory, getProductById, getProductList, getSellerBestSellProducts, getSellerProductById, getSellerProductList, getSellerTotalSale, getVariantById, getVariantListOfProduct, removeVariantFromProduct, searchProduct } from "@/services/product.api"
 import type { PaginationField } from "@/types/pagination.types"
 import { type ProductInfo, type SearchProductParams, type SearchProductResponse } from "@/types/product.types"
 import { type SuccessResponse, type ErrorResponse } from "@/types/response.types"
@@ -6,7 +6,7 @@ import { type VariantInfo} from "@/types/variant.types"
 import type { ProductSchemaType } from "@/validations/product.validate"
 import type { UpdateVariant } from "@/validations/variants.validate"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { useNavigate } from "@tanstack/react-router"
+import { useNavigate, useSearch } from "@tanstack/react-router"
 import toast from "react-hot-toast"
 
 // For Admin
@@ -54,18 +54,30 @@ export const useGetProductById = (id: string) =>{
     })
 }
 
-export const useSearchProducts = (params:SearchProductParams) =>{
+export const useSearchProducts = (params: Partial<SearchProductParams>) =>{
+    const searchParams = useSearch({strict: false}) as Partial<SearchProductParams>
+    const filterParams = {...searchParams, ...params}
+
     return useQuery<SuccessResponse<SearchProductResponse>, ErrorResponse>({
-        queryKey: ['products', params],
-        queryFn: ()=>searchProduct(params),
-        enabled: !!params
+        queryKey: ['products', searchParams],
+        queryFn: ()=>searchProduct(filterParams),
+        staleTime: 1000 * 60
     })
 }
 
-export const useGetBestSellProducts = (pagination: PaginationField) => {
+export const useGetProductByCategory = (categoryId: string, params: PaginationField) => {
+    return useQuery<SuccessResponse<ProductInfo[]>, ErrorResponse>({
+        queryKey: ['products','category', categoryId, params],
+        queryFn: ()=>getProductByCategory(categoryId, params),
+        enabled: !!categoryId
+    })
+}
+
+
+export const useGetBestSellProducts = (query: SearchProductParams) => {
     return useQuery<SuccessResponse<ProductInfo[]>, ErrorResponse>({
         queryKey: ['products', 'best', 'sell'],
-        queryFn: ()=> getBestSellProducts(pagination)
+        queryFn: ()=> getBestSellProducts(query)
     })
 }
 
@@ -178,7 +190,6 @@ export const useRemoveVariantFromProduct = () =>{
     return useMutation<SuccessResponse<VariantInfo>, ErrorResponse, {productId: string, variantId: string}>({
         mutationFn: ({productId, variantId}) => removeVariantFromProduct(productId, variantId),
         onSuccess: ({data})=>{
-            console.log(data)
             query.invalidateQueries({queryKey: ['products']})
             query.invalidateQueries({queryKey: ['products', 'seller']})
             query.invalidateQueries({queryKey: ['products', 'admin']})
@@ -192,5 +203,19 @@ export const useRemoveVariantFromProduct = () =>{
             console.log(error)
             toast.error(error.response.data.message)
         }
+    })
+}
+
+export const useGetSellerBestSellProduct = (sellerId: string, query: SearchProductParams) =>{
+    return useQuery<SuccessResponse<ProductInfo[]>, ErrorResponse>({
+        queryKey: ['products', 'seller',sellerId, 'best', 'sell'],
+        queryFn: ()=>getSellerBestSellProducts(sellerId, query)
+    })
+}
+
+export const useGetSellerTotalSale = (sellerId: string) => {
+    return useQuery<SuccessResponse<{totalSale: number}>, ErrorResponse>({
+        queryKey: ['products', 'seller', sellerId, 'totalSale'],
+        queryFn: ()=>getSellerTotalSale(sellerId)
     })
 }

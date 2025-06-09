@@ -1,7 +1,6 @@
 import React from "react";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { ProductInfo } from "@/types/product.types";
-import { Link } from "@tanstack/react-router";
 
 interface ProductCardProps {
   productInfo: ProductInfo;
@@ -9,8 +8,8 @@ interface ProductCardProps {
 const ProductCard = ({ productInfo }: ProductCardProps) => {
   return (
     <>
-      <Card className="group p-0 w-space-220 rounded-none  border-1 gap-0 shadow-sm h-space-360">
-        <CardHeader className=" p-0 h-4/5 items-center relative border-b-1">
+      <Card className=" rounded-none group p-0 max-sm:h-space-180 max-sm:w-space-140 w-space-220  border-1 gap-0 shadow-sm h-space-360">
+        <CardHeader className=" p-0 h-4/5 group-hover:brightness-75 duration-300  items-center relative border-b-1">
           <img
             src={productInfo.defaultVariant.images.url}
             className="h-full w-full absolute object-cover"

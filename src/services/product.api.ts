@@ -32,13 +32,28 @@ export const getProductById = async (id: string): Promise<SuccessResponse<Produc
     return response.data
 }
 
-export const getBestSellProducts = async(pagination: PaginationField): Promise<SuccessResponse<ProductInfo[]>> => {
-    const response = await api.get<SuccessResponse<ProductInfo[]>>(`/products/best/sell`, {params: pagination})
+export const getBestSellProducts = async(query: SearchProductParams): Promise<SuccessResponse<ProductInfo[]>> => {
+    const response = await api.get<SuccessResponse<ProductInfo[]>>(`/products/best/sell`, {params: query})
+    return response.data
+}
+
+export const getSellerBestSellProducts = async(sellerId: string, query: SearchProductParams): Promise<SuccessResponse<ProductInfo[]>> => {
+    const response = await api.get<SuccessResponse<ProductInfo[]>>(`/products/best/sell/${sellerId}`, {params: query})
+    return response.data
+}
+
+export const getSellerTotalSale = async(sellerId: string) : Promise<SuccessResponse<{totalSale: number}>> => {
+    const response = await api.get<SuccessResponse<{totalSale: number}>>(`/products/sell/totalSale/${sellerId}`)
     return response.data
 }
 
 export const getFeaturedProducts = async(pagination: PaginationField): Promise<SuccessResponse<ProductInfo[]>> =>{
     const response = await api.get<SuccessResponse<ProductInfo[]>>(`/products/featured`, {params: pagination})
+    return response.data
+}
+
+export const getProductByCategory = async(categoryId: string, pagination:PaginationField):Promise<SuccessResponse<ProductInfo[]>> =>{
+    const response = await api.get<SuccessResponse<ProductInfo[]>>(`/products/category/${categoryId}`, {params: pagination})
     return response.data
 }
 

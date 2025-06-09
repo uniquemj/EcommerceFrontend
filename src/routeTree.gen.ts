@@ -16,16 +16,21 @@ import { Route as CustomerRouteImport } from './routes/customer/route'
 import { Route as AuthRouteImport } from './routes/auth/route'
 import { Route as AdminRouteImport } from './routes/admin/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProductIdImport } from './routes/product/$id'
 import { Route as CustomerUpdatePasswordImport } from './routes/customer/update-password'
-import { Route as productIdImport } from './routes/(product)/$id'
+import { Route as ProductAllRouteImport } from './routes/product/all/route'
 import { Route as SellerProfileIndexImport } from './routes/seller/profile/index'
 import { Route as SellerDashboardIndexImport } from './routes/seller/dashboard/index'
+import { Route as ProductAllIndexImport } from './routes/product/all/index'
 import { Route as CustomerProfileIndexImport } from './routes/customer/profile/index'
 import { Route as AdminProfileIndexImport } from './routes/admin/profile/index'
 import { Route as AdminDashboardIndexImport } from './routes/admin/dashboard/index'
 import { Route as SellerDashboardUpdatePasswordImport } from './routes/seller/dashboard/update-password'
 import { Route as SellerDashboardBusinessInformationImport } from './routes/seller/dashboard/business-information'
 import { Route as SellerDashboardAccountSettingsImport } from './routes/seller/dashboard/account-settings'
+import { Route as ProductAllNewArrivalImport } from './routes/product/all/new-arrival'
+import { Route as ProductAllFeatureProductImport } from './routes/product/all/feature-product'
+import { Route as ProductAllBestSellImport } from './routes/product/all/best-sell'
 import { Route as CustomerProfileUpdateImport } from './routes/customer/profile/update'
 import { Route as AuthSellerRegisterImport } from './routes/auth/seller/register'
 import { Route as AuthSellerLoginImport } from './routes/auth/seller/login'
@@ -85,15 +90,21 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ProductIdRoute = ProductIdImport.update({
+  id: '/product/$id',
+  path: '/product/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const CustomerUpdatePasswordRoute = CustomerUpdatePasswordImport.update({
   id: '/update-password',
   path: '/update-password',
   getParentRoute: () => CustomerRouteRoute,
 } as any)
 
-const productIdRoute = productIdImport.update({
-  id: '/(product)/$id',
-  path: '/$id',
+const ProductAllRouteRoute = ProductAllRouteImport.update({
+  id: '/product/all',
+  path: '/product/all',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -107,6 +118,12 @@ const SellerDashboardIndexRoute = SellerDashboardIndexImport.update({
   id: '/dashboard/',
   path: '/dashboard/',
   getParentRoute: () => SellerRouteRoute,
+} as any)
+
+const ProductAllIndexRoute = ProductAllIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProductAllRouteRoute,
 } as any)
 
 const CustomerProfileIndexRoute = CustomerProfileIndexImport.update({
@@ -147,6 +164,24 @@ const SellerDashboardAccountSettingsRoute =
     path: '/dashboard/account-settings',
     getParentRoute: () => SellerRouteRoute,
   } as any)
+
+const ProductAllNewArrivalRoute = ProductAllNewArrivalImport.update({
+  id: '/new-arrival',
+  path: '/new-arrival',
+  getParentRoute: () => ProductAllRouteRoute,
+} as any)
+
+const ProductAllFeatureProductRoute = ProductAllFeatureProductImport.update({
+  id: '/feature-product',
+  path: '/feature-product',
+  getParentRoute: () => ProductAllRouteRoute,
+} as any)
+
+const ProductAllBestSellRoute = ProductAllBestSellImport.update({
+  id: '/best-sell',
+  path: '/best-sell',
+  getParentRoute: () => ProductAllRouteRoute,
+} as any)
 
 const CustomerProfileUpdateRoute = CustomerProfileUpdateImport.update({
   id: '/profile/update',
@@ -361,11 +396,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SellerRouteImport
       parentRoute: typeof rootRoute
     }
-    '/(product)/$id': {
-      id: '/(product)/$id'
-      path: '/$id'
-      fullPath: '/$id'
-      preLoaderRoute: typeof productIdImport
+    '/product/all': {
+      id: '/product/all'
+      path: '/product/all'
+      fullPath: '/product/all'
+      preLoaderRoute: typeof ProductAllRouteImport
       parentRoute: typeof rootRoute
     }
     '/customer/update-password': {
@@ -374,6 +409,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/customer/update-password'
       preLoaderRoute: typeof CustomerUpdatePasswordImport
       parentRoute: typeof CustomerRouteImport
+    }
+    '/product/$id': {
+      id: '/product/$id'
+      path: '/product/$id'
+      fullPath: '/product/$id'
+      preLoaderRoute: typeof ProductIdImport
+      parentRoute: typeof rootRoute
     }
     '/admin/dashboard/account-settings': {
       id: '/admin/dashboard/account-settings'
@@ -431,6 +473,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerProfileUpdateImport
       parentRoute: typeof CustomerRouteImport
     }
+    '/product/all/best-sell': {
+      id: '/product/all/best-sell'
+      path: '/best-sell'
+      fullPath: '/product/all/best-sell'
+      preLoaderRoute: typeof ProductAllBestSellImport
+      parentRoute: typeof ProductAllRouteImport
+    }
+    '/product/all/feature-product': {
+      id: '/product/all/feature-product'
+      path: '/feature-product'
+      fullPath: '/product/all/feature-product'
+      preLoaderRoute: typeof ProductAllFeatureProductImport
+      parentRoute: typeof ProductAllRouteImport
+    }
+    '/product/all/new-arrival': {
+      id: '/product/all/new-arrival'
+      path: '/new-arrival'
+      fullPath: '/product/all/new-arrival'
+      preLoaderRoute: typeof ProductAllNewArrivalImport
+      parentRoute: typeof ProductAllRouteImport
+    }
     '/seller/dashboard/account-settings': {
       id: '/seller/dashboard/account-settings'
       path: '/dashboard/account-settings'
@@ -472,6 +535,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/customer/profile'
       preLoaderRoute: typeof CustomerProfileIndexImport
       parentRoute: typeof CustomerRouteImport
+    }
+    '/product/all/': {
+      id: '/product/all/'
+      path: '/'
+      fullPath: '/product/all/'
+      preLoaderRoute: typeof ProductAllIndexImport
+      parentRoute: typeof ProductAllRouteImport
     }
     '/seller/dashboard/': {
       id: '/seller/dashboard/'
@@ -733,14 +803,33 @@ const SellerRouteRouteWithChildren = SellerRouteRoute._addFileChildren(
   SellerRouteRouteChildren,
 )
 
+interface ProductAllRouteRouteChildren {
+  ProductAllBestSellRoute: typeof ProductAllBestSellRoute
+  ProductAllFeatureProductRoute: typeof ProductAllFeatureProductRoute
+  ProductAllNewArrivalRoute: typeof ProductAllNewArrivalRoute
+  ProductAllIndexRoute: typeof ProductAllIndexRoute
+}
+
+const ProductAllRouteRouteChildren: ProductAllRouteRouteChildren = {
+  ProductAllBestSellRoute: ProductAllBestSellRoute,
+  ProductAllFeatureProductRoute: ProductAllFeatureProductRoute,
+  ProductAllNewArrivalRoute: ProductAllNewArrivalRoute,
+  ProductAllIndexRoute: ProductAllIndexRoute,
+}
+
+const ProductAllRouteRouteWithChildren = ProductAllRouteRoute._addFileChildren(
+  ProductAllRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
-  '/$id': typeof productIdRoute
+  '/product/all': typeof ProductAllRouteRouteWithChildren
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
+  '/product/$id': typeof ProductIdRoute
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
   '/auth/login': typeof AuthcustomerLoginRoute
@@ -749,12 +838,16 @@ export interface FileRoutesByFullPath {
   '/auth/seller/login': typeof AuthSellerLoginRoute
   '/auth/seller/register': typeof AuthSellerRegisterRoute
   '/customer/profile/update': typeof CustomerProfileUpdateRoute
+  '/product/all/best-sell': typeof ProductAllBestSellRoute
+  '/product/all/feature-product': typeof ProductAllFeatureProductRoute
+  '/product/all/new-arrival': typeof ProductAllNewArrivalRoute
   '/seller/dashboard/account-settings': typeof SellerDashboardAccountSettingsRoute
   '/seller/dashboard/business-information': typeof SellerDashboardBusinessInformationRoute
   '/seller/dashboard/update-password': typeof SellerDashboardUpdatePasswordRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
   '/admin/profile': typeof AdminProfileIndexRoute
   '/customer/profile': typeof CustomerProfileIndexRoute
+  '/product/all/': typeof ProductAllIndexRoute
   '/seller/dashboard': typeof SellerDashboardIndexRoute
   '/seller/profile': typeof SellerProfileIndexRoute
   '/admin/dashboard/admins/create': typeof AdminDashboardAdminsCreateRoute
@@ -783,8 +876,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
-  '/$id': typeof productIdRoute
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
+  '/product/$id': typeof ProductIdRoute
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
   '/auth/login': typeof AuthcustomerLoginRoute
@@ -793,12 +886,16 @@ export interface FileRoutesByTo {
   '/auth/seller/login': typeof AuthSellerLoginRoute
   '/auth/seller/register': typeof AuthSellerRegisterRoute
   '/customer/profile/update': typeof CustomerProfileUpdateRoute
+  '/product/all/best-sell': typeof ProductAllBestSellRoute
+  '/product/all/feature-product': typeof ProductAllFeatureProductRoute
+  '/product/all/new-arrival': typeof ProductAllNewArrivalRoute
   '/seller/dashboard/account-settings': typeof SellerDashboardAccountSettingsRoute
   '/seller/dashboard/business-information': typeof SellerDashboardBusinessInformationRoute
   '/seller/dashboard/update-password': typeof SellerDashboardUpdatePasswordRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
   '/admin/profile': typeof AdminProfileIndexRoute
   '/customer/profile': typeof CustomerProfileIndexRoute
+  '/product/all': typeof ProductAllIndexRoute
   '/seller/dashboard': typeof SellerDashboardIndexRoute
   '/seller/profile': typeof SellerProfileIndexRoute
   '/admin/dashboard/admins/create': typeof AdminDashboardAdminsCreateRoute
@@ -828,8 +925,9 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
-  '/(product)/$id': typeof productIdRoute
+  '/product/all': typeof ProductAllRouteRouteWithChildren
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
+  '/product/$id': typeof ProductIdRoute
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
   '/auth/(customer)/login': typeof AuthcustomerLoginRoute
@@ -838,12 +936,16 @@ export interface FileRoutesById {
   '/auth/seller/login': typeof AuthSellerLoginRoute
   '/auth/seller/register': typeof AuthSellerRegisterRoute
   '/customer/profile/update': typeof CustomerProfileUpdateRoute
+  '/product/all/best-sell': typeof ProductAllBestSellRoute
+  '/product/all/feature-product': typeof ProductAllFeatureProductRoute
+  '/product/all/new-arrival': typeof ProductAllNewArrivalRoute
   '/seller/dashboard/account-settings': typeof SellerDashboardAccountSettingsRoute
   '/seller/dashboard/business-information': typeof SellerDashboardBusinessInformationRoute
   '/seller/dashboard/update-password': typeof SellerDashboardUpdatePasswordRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
   '/admin/profile/': typeof AdminProfileIndexRoute
   '/customer/profile/': typeof CustomerProfileIndexRoute
+  '/product/all/': typeof ProductAllIndexRoute
   '/seller/dashboard/': typeof SellerDashboardIndexRoute
   '/seller/profile/': typeof SellerProfileIndexRoute
   '/admin/dashboard/admins/create': typeof AdminDashboardAdminsCreateRoute
@@ -874,8 +976,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/customer'
     | '/seller'
-    | '/$id'
+    | '/product/all'
     | '/customer/update-password'
+    | '/product/$id'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
     | '/auth/login'
@@ -884,12 +987,16 @@ export interface FileRouteTypes {
     | '/auth/seller/login'
     | '/auth/seller/register'
     | '/customer/profile/update'
+    | '/product/all/best-sell'
+    | '/product/all/feature-product'
+    | '/product/all/new-arrival'
     | '/seller/dashboard/account-settings'
     | '/seller/dashboard/business-information'
     | '/seller/dashboard/update-password'
     | '/admin/dashboard'
     | '/admin/profile'
     | '/customer/profile'
+    | '/product/all/'
     | '/seller/dashboard'
     | '/seller/profile'
     | '/admin/dashboard/admins/create'
@@ -917,8 +1024,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/customer'
     | '/seller'
-    | '/$id'
     | '/customer/update-password'
+    | '/product/$id'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
     | '/auth/login'
@@ -927,12 +1034,16 @@ export interface FileRouteTypes {
     | '/auth/seller/login'
     | '/auth/seller/register'
     | '/customer/profile/update'
+    | '/product/all/best-sell'
+    | '/product/all/feature-product'
+    | '/product/all/new-arrival'
     | '/seller/dashboard/account-settings'
     | '/seller/dashboard/business-information'
     | '/seller/dashboard/update-password'
     | '/admin/dashboard'
     | '/admin/profile'
     | '/customer/profile'
+    | '/product/all'
     | '/seller/dashboard'
     | '/seller/profile'
     | '/admin/dashboard/admins/create'
@@ -960,8 +1071,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/customer'
     | '/seller'
-    | '/(product)/$id'
+    | '/product/all'
     | '/customer/update-password'
+    | '/product/$id'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
     | '/auth/(customer)/login'
@@ -970,12 +1082,16 @@ export interface FileRouteTypes {
     | '/auth/seller/login'
     | '/auth/seller/register'
     | '/customer/profile/update'
+    | '/product/all/best-sell'
+    | '/product/all/feature-product'
+    | '/product/all/new-arrival'
     | '/seller/dashboard/account-settings'
     | '/seller/dashboard/business-information'
     | '/seller/dashboard/update-password'
     | '/admin/dashboard/'
     | '/admin/profile/'
     | '/customer/profile/'
+    | '/product/all/'
     | '/seller/dashboard/'
     | '/seller/profile/'
     | '/admin/dashboard/admins/create'
@@ -1005,7 +1121,8 @@ export interface RootRouteChildren {
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   CustomerRouteRoute: typeof CustomerRouteRouteWithChildren
   SellerRouteRoute: typeof SellerRouteRouteWithChildren
-  productIdRoute: typeof productIdRoute
+  ProductAllRouteRoute: typeof ProductAllRouteRouteWithChildren
+  ProductIdRoute: typeof ProductIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -1014,7 +1131,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRouteRoute: AuthRouteRouteWithChildren,
   CustomerRouteRoute: CustomerRouteRouteWithChildren,
   SellerRouteRoute: SellerRouteRouteWithChildren,
-  productIdRoute: productIdRoute,
+  ProductAllRouteRoute: ProductAllRouteRouteWithChildren,
+  ProductIdRoute: ProductIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -1032,7 +1150,8 @@ export const routeTree = rootRoute
         "/auth",
         "/customer",
         "/seller",
-        "/(product)/$id"
+        "/product/all",
+        "/product/$id"
       ]
     },
     "/": {
@@ -1093,12 +1212,21 @@ export const routeTree = rootRoute
         "/seller/dashboard/products/(product)/$id/variants/$variantId"
       ]
     },
-    "/(product)/$id": {
-      "filePath": "(product)/$id.tsx"
+    "/product/all": {
+      "filePath": "product/all/route.tsx",
+      "children": [
+        "/product/all/best-sell",
+        "/product/all/feature-product",
+        "/product/all/new-arrival",
+        "/product/all/"
+      ]
     },
     "/customer/update-password": {
       "filePath": "customer/update-password.tsx",
       "parent": "/customer"
+    },
+    "/product/$id": {
+      "filePath": "product/$id.tsx"
     },
     "/admin/dashboard/account-settings": {
       "filePath": "admin/dashboard/account-settings.tsx",
@@ -1132,6 +1260,18 @@ export const routeTree = rootRoute
       "filePath": "customer/profile/update.tsx",
       "parent": "/customer"
     },
+    "/product/all/best-sell": {
+      "filePath": "product/all/best-sell.tsx",
+      "parent": "/product/all"
+    },
+    "/product/all/feature-product": {
+      "filePath": "product/all/feature-product.tsx",
+      "parent": "/product/all"
+    },
+    "/product/all/new-arrival": {
+      "filePath": "product/all/new-arrival.tsx",
+      "parent": "/product/all"
+    },
     "/seller/dashboard/account-settings": {
       "filePath": "seller/dashboard/account-settings.tsx",
       "parent": "/seller"
@@ -1155,6 +1295,10 @@ export const routeTree = rootRoute
     "/customer/profile/": {
       "filePath": "customer/profile/index.tsx",
       "parent": "/customer"
+    },
+    "/product/all/": {
+      "filePath": "product/all/index.tsx",
+      "parent": "/product/all"
     },
     "/seller/dashboard/": {
       "filePath": "seller/dashboard/index.tsx",

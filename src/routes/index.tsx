@@ -1,4 +1,5 @@
 import Banner from '@/components/Layout/Banner/Banner'
+import FinalCTA from '@/components/Layout/Banner/FinalCTA'
 import PromotionContent from '@/components/Layout/Banner/PromotionContent'
 import Header from '@/components/Layout/Header/Header'
 import FeaturedProduct from '@/components/Product/FeaturedProduct'
@@ -37,13 +38,16 @@ export const Route = createFileRoute('/')({
 
 function RouteComponent() {
   return (
-    <div className='max-sm:px-space-8 min-sm:px-space-42 py-space-20'>
-      <Header/>
-      <Banner/>
-      <NewArrival/>
-      <PromotionContent/>
-      <TopSell/>
-      <FeaturedProduct/>
+    <div>
+      <div className='max-sm:px-space-8 min-sm:px-space-42 pt-space-20'>
+        <Header/>
+        <Banner/>
+        <NewArrival/>
+        <PromotionContent/>
+        <TopSell/>
+        <FeaturedProduct/>
+      </div>
+      <FinalCTA/>
     </div>
   )
 }

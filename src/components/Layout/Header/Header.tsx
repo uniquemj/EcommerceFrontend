@@ -13,7 +13,7 @@ import  { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import AutoPlay from 'embla-carousel-autoplay';
 import { Separator } from "@/components/ui/separator";
-import {  Plus } from "lucide-react";
+
 
 import CategoryTree from "@/components/Category/CategoryTree";
 
@@ -55,12 +55,6 @@ const Header = () => {
           </CardHeader>
           <CardContent className="px-space-18 py-0">
             <CategoryTree variant="card"/>
-            <div className="px-space-18 pt-space-8 w-full">
-              <div className="flex items-center gap-space-4">
-                <Plus size={14}/>
-                <span>More Categories</span>
-              </div>
-            </div>
           </CardContent>
         </Card>
       <div className="flex justify-end w-full overflow-x-hidden">

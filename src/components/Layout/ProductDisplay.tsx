@@ -15,7 +15,7 @@ const ProductDisplay = ({title, url, children}: ProductDisplayProps) => {
     <div className='flex flex-col justify-center gap-space-32 px-space-24 py-space-24'>
         <div className='flex justify-between items-center'>
             <div>
-                <h1 className='font-bold text-28'>{title}</h1>
+                <h1 className='font-bold text-28 text-secondary-shade-dark'>{title}</h1>
             </div>
             <div className='w-3/5 px-space-24'>
                 <Separator/>
@@ -29,7 +29,7 @@ const ProductDisplay = ({title, url, children}: ProductDisplayProps) => {
                 </Link>
             </div>
         </div>
-        <div className='flex max-sm:justify-center flex-wrap gap-space-38'>
+        <div className='flex flex-wrap max-sm:gap-space-24 gap-space-38'>
             {children}
         </div>
     </div>
@@ -37,3 +37,5 @@ const ProductDisplay = ({title, url, children}: ProductDisplayProps) => {
 }
 
 export default ProductDisplay
+
+// max-sm:justify-center

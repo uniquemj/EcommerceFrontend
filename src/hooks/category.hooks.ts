@@ -16,7 +16,7 @@ export const useGetAllCategory = (pagination: PaginationField) => {
 
 export const useGetCategoryTree = (pagination: PaginationField) =>{
     return useQuery<SuccessResponse<CategoryTree[]>, ErrorResponse>({
-        queryKey: ['category', 'tree'],
+        queryKey: ['category', 'tree', pagination],
         queryFn: ()=> getCategoryTree(pagination)
     })
 }

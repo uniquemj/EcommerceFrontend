@@ -9,7 +9,7 @@ export interface SuccessResponse<T>{
     message: string,
     success: boolean,
     data: T,
-    pagination?: PaginationResponse
+    paginationData?: PaginationResponse
 }
 
 interface ErrorInfo{

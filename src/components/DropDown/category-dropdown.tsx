@@ -9,7 +9,7 @@ const CategoryItem = ({ category }: { category: CategoryTree }) => {
   return (
       <div className="pl-space-18 py-space-8 border-b-1 w-full last:borde-none">
         <div className="flex justify-between items-center">
-            <Link to={'/'} className="hover:text-secondary-shade-normal">
+            <Link to={`/product/all`} search={{category: category.category.title}} className="hover:text-secondary-shade-normal">
                 <span>{upperCase(category.category.title)}</span>
             </Link>
           {hasChildren ? (

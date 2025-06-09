@@ -7,11 +7,11 @@ import { Link } from '@tanstack/react-router'
 const TopSell = () => {
   const {data: bestSell} = useGetBestSellProducts({page: 1, limit: 5})
   return (
-    <ProductDisplay title="Best Sellers" url='/'>
+    <ProductDisplay title="Best Sellers" url='/product/all/best-sell'>
         
         {
             bestSell?.data.map((product)=>(
-              <Link to={`/$id`} params={{id: product._id}}>
+              <Link to={`/product/$id`} params={{id: product._id}}>
                 <ProductCard productInfo={product}/>
               </Link>
             ))

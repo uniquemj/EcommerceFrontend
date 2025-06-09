@@ -46,7 +46,7 @@ const ProductDetail = ({
             <div className="flex justify-start items-center gap-5">
               <h1 className="font-bold text-3xl text-secondary-color">{productSummary.name}</h1>
               {role == UserRole.CUSTOMER && (
-                <Button className="bg-secondary-color text-text-color">
+                <Button className="hover:bg-secondary-color hover:text-text-color rounded-none bg-transparent border-1 border-secondary-color text-secondary-color hover:cursor-pointer">
                   Add to Cart
                 </Button>
               )}

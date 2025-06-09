@@ -6,13 +6,13 @@ import { Link } from '@tanstack/react-router'
 
 const NewArrival = () => {
 
-    const {data: newArrival} = useSearchProducts({page: 1, limit: 5, sortBy: '-createdAt'})
+  const {data: newArrival} = useSearchProducts({page: 1, limit: 5, sortBy: '-createdAt'})
 
   return (
-    <ProductDisplay title="New Arrivals" url='/'>
+    <ProductDisplay title="New Arrivals" url='/product/all/new-arrival'>
         {
             newArrival?.data.products.map((product)=>(
-              <Link to={`/$id`} params={{id: product._id}}>
+              <Link to={`/product/$id`} params={{id: product._id}}>
                 <ProductCard productInfo={product}/>
               </Link>
             ))
