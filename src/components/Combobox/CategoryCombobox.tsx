@@ -3,8 +3,8 @@ import React from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "../ui/button";
 import { ChevronsUpDown } from "lucide-react";
-import { Command, CommandEmpty, CommandInput, CommandItem } from "../ui/command";
-import { CommandGroup } from "cmdk";
+import { Command, CommandEmpty, CommandInput, CommandItem, CommandGroup } from "../ui/command";
+
 
 interface CategoryComboboxProps{
   categories: Category[];
