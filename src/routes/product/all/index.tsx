@@ -2,7 +2,7 @@ import ProductCard from '@/components/Layout/ProductCard'
 import ProductListLayout from '@/components/Layout/ProductList/ProductListLayout'
 
 import { useSearchProducts } from '@/hooks/product.hooks'
-import { createFileRoute, Link, useNavigate} from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate, useSearch} from '@tanstack/react-router'
 import { CircleAlert } from 'lucide-react'
 
 export const Route = createFileRoute('/product/all/')({
@@ -19,7 +19,7 @@ function RouteComponent() {
   const navigate = useNavigate();
   const {data: products} = useSearchProducts({})
   
-
+  const search = useSearch({strict: false})
 
   const totalProducts = products?.paginationData?.total_items || 0;
   const limit =  products?.paginationData?.limit || 1;

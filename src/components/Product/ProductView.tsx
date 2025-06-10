@@ -1,4 +1,3 @@
-import ProductCard from "../Card/ProductCard";
 import type { VariantInfo } from "@/types/variant.types";
 import ProductRow from "../Layout/ProductList/ProductRow";
 import { RadioGroup } from "../ui/radio-group";
@@ -22,7 +21,9 @@ interface ProductViewProps {
 
 function ProductView({ render, option ,defaultVariant}: ProductViewProps) {
   const initializedRef = useRef(false)
+  
   const { selectedVariantId, setSelectedVariantId} = useVariantSelectionStore()
+
   if(!initializedRef.current && defaultVariant as string && !selectedVariantId){
     setSelectedVariantId(defaultVariant as string);
     initializedRef.current = true
@@ -30,8 +31,8 @@ function ProductView({ render, option ,defaultVariant}: ProductViewProps) {
   
   return (
     <>
-      <div className="hidden min-s-md:flex justify-center ">
-        {/* <Carousel
+      {/* <div className="hidden min-s-md:flex justify-center ">
+        <Carousel
           opts={{
             align: option?.align || "start",
             loop: option?.loop || false,
@@ -57,9 +58,9 @@ function ProductView({ render, option ,defaultVariant}: ProductViewProps) {
           </CarouselContent>
           <CarouselPrevious className="bg-secondary-shade-light"/>
           <CarouselNext className="bg-secondary-shade-light"/>
-        </Carousel> */}
+        </Carousel>
       </div>
-      {/* <div className="flex max-s-md:flex-col flex-row items-center gap-6 min-s-md:overflow-y-auto">
+      <div className="flex max-s-md:flex-col flex-row items-center gap-6 min-s-md:overflow-y-auto">
               {
                 render.map((item)=>(
                   <ProductCard variantInfo={item as VariantInfo} role={option?.role as string} key={item._id}/>

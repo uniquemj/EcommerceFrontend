@@ -16,7 +16,7 @@ export const Route = createFileRoute("/auth/seller/verify/$code")({
   beforeLoad: ({context})=>{
     const {isAuthenticated, role} = context.auth.getState()
     if(isAuthenticated){
-      const redirectRoute = role == UserRole.CUSTOMER ? '/' : role == UserRole.SELLER ? '/seller/dashboard' : role == UserRole.ADMIN ? '/admin/dashboard' : '/login'
+      const redirectRoute = role == UserRole.CUSTOMER ? '/' : role == UserRole.SELLER ? '/seller/dashboard' : role == UserRole.ADMIN ? '/admin/dashboard' : '/auth/login'
       throw redirect({to: redirectRoute})
     }
   }

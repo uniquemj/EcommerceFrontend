@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useRemoveVariantFromProduct } from "@/hooks/product.hooks";
+import { useAuth } from "@/store/auth.store";
 import { useVariantSelectionStore } from "@/store/variant.store";
 import { UserRole } from "@/types/enum.types";
 import type { VariantInfo } from "@/types/variant.types";
@@ -30,9 +31,15 @@ const ProductRow = ({ variantInfo, role }: ProductRowProps) => {
     <Table className="p-0">
       <TableBody className="p-0">
         <TableRow className="overflow-x-auto">
-          <TableCell className="w-space-90 h-space-58 py-space-24 px-space-24  gap-space-12 border-t-1">
-              <RadioGroupItem value={variantInfo._id} id={variantInfo._id} className="border-secondary-shade-normal"/>
-          </TableCell>
+          {role === UserRole.CUSTOMER && (
+            <TableCell className="w-space-90 h-space-58 py-space-24  gap-space-12 border-t-1">
+              <RadioGroupItem
+                value={variantInfo._id}
+                id={variantInfo._id}
+                className="border-secondary-shade-normal"
+              />
+            </TableCell>
+          )}
           <TableCell className="min-w-space-120 min-h-space-58 min-940:py-space-24 min-940:px-space-24 gap-space-12 border-t-1">
             <div className="w-space-60 h-space-60">
               <img
@@ -77,11 +84,13 @@ const ProductRow = ({ variantInfo, role }: ProductRowProps) => {
                   <span className="text-12">stock</span>
                 </>
               )}
-              {role == UserRole.CUSTOMER && variantInfo.stock > 0 ? (
-                <span className="text-12">in-stock</span>
-              ) : (
-                <span className="text-12">out-of-stock</span>
-              )}
+              {role == UserRole.CUSTOMER ? (
+                variantInfo.stock > 0 ? (
+                  <span className="text-12">in-stock</span>
+                ) : (
+                  <span className="text-12">out-of-stock</span>
+                )
+              ) : null}
             </div>
           </TableCell>
           {role !== UserRole.CUSTOMER && role === UserRole.SELLER && (

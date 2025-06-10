@@ -13,9 +13,12 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SellerRouteImport } from './routes/seller/route'
 import { Route as CustomerRouteImport } from './routes/customer/route'
+import { Route as CartRouteImport } from './routes/cart/route'
 import { Route as AuthRouteImport } from './routes/auth/route'
 import { Route as AdminRouteImport } from './routes/admin/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as CheckoutIndexImport } from './routes/checkout/index'
+import { Route as CartIndexImport } from './routes/cart/index'
 import { Route as ProductIdImport } from './routes/product/$id'
 import { Route as CustomerUpdatePasswordImport } from './routes/customer/update-password'
 import { Route as ProductAllRouteImport } from './routes/product/all/route'
@@ -72,6 +75,12 @@ const CustomerRouteRoute = CustomerRouteImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const CartRouteRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthRouteRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -88,6 +97,18 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const CheckoutIndexRoute = CheckoutIndexImport.update({
+  id: '/checkout/',
+  path: '/checkout/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CartIndexRoute = CartIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CartRouteRoute,
 } as any)
 
 const ProductIdRoute = ProductIdImport.update({
@@ -382,6 +403,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRoute
     }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/customer': {
       id: '/customer'
       path: '/customer'
@@ -415,6 +443,20 @@ declare module '@tanstack/react-router' {
       path: '/product/$id'
       fullPath: '/product/$id'
       preLoaderRoute: typeof ProductIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/cart/': {
+      id: '/cart/'
+      path: '/'
+      fullPath: '/cart/'
+      preLoaderRoute: typeof CartIndexImport
+      parentRoute: typeof CartRouteImport
+    }
+    '/checkout/': {
+      id: '/checkout/'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutIndexImport
       parentRoute: typeof rootRoute
     }
     '/admin/dashboard/account-settings': {
@@ -752,6 +794,18 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface CartRouteRouteChildren {
+  CartIndexRoute: typeof CartIndexRoute
+}
+
+const CartRouteRouteChildren: CartRouteRouteChildren = {
+  CartIndexRoute: CartIndexRoute,
+}
+
+const CartRouteRouteWithChildren = CartRouteRoute._addFileChildren(
+  CartRouteRouteChildren,
+)
+
 interface CustomerRouteRouteChildren {
   CustomerUpdatePasswordRoute: typeof CustomerUpdatePasswordRoute
   CustomerProfileUpdateRoute: typeof CustomerProfileUpdateRoute
@@ -825,11 +879,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
+  '/cart': typeof CartRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
   '/product/all': typeof ProductAllRouteRouteWithChildren
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
   '/product/$id': typeof ProductIdRoute
+  '/cart/': typeof CartIndexRoute
+  '/checkout': typeof CheckoutIndexRoute
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
   '/auth/login': typeof AuthcustomerLoginRoute
@@ -878,6 +935,8 @@ export interface FileRoutesByTo {
   '/seller': typeof SellerRouteRouteWithChildren
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
   '/product/$id': typeof ProductIdRoute
+  '/cart': typeof CartIndexRoute
+  '/checkout': typeof CheckoutIndexRoute
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
   '/auth/login': typeof AuthcustomerLoginRoute
@@ -923,11 +982,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
+  '/cart': typeof CartRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
   '/product/all': typeof ProductAllRouteRouteWithChildren
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
   '/product/$id': typeof ProductIdRoute
+  '/cart/': typeof CartIndexRoute
+  '/checkout/': typeof CheckoutIndexRoute
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
   '/auth/(customer)/login': typeof AuthcustomerLoginRoute
@@ -974,11 +1036,14 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/auth'
+    | '/cart'
     | '/customer'
     | '/seller'
     | '/product/all'
     | '/customer/update-password'
     | '/product/$id'
+    | '/cart/'
+    | '/checkout'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
     | '/auth/login'
@@ -1026,6 +1091,8 @@ export interface FileRouteTypes {
     | '/seller'
     | '/customer/update-password'
     | '/product/$id'
+    | '/cart'
+    | '/checkout'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
     | '/auth/login'
@@ -1069,11 +1136,14 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/auth'
+    | '/cart'
     | '/customer'
     | '/seller'
     | '/product/all'
     | '/customer/update-password'
     | '/product/$id'
+    | '/cart/'
+    | '/checkout/'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
     | '/auth/(customer)/login'
@@ -1119,20 +1189,24 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  CartRouteRoute: typeof CartRouteRouteWithChildren
   CustomerRouteRoute: typeof CustomerRouteRouteWithChildren
   SellerRouteRoute: typeof SellerRouteRouteWithChildren
   ProductAllRouteRoute: typeof ProductAllRouteRouteWithChildren
   ProductIdRoute: typeof ProductIdRoute
+  CheckoutIndexRoute: typeof CheckoutIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
+  CartRouteRoute: CartRouteRouteWithChildren,
   CustomerRouteRoute: CustomerRouteRouteWithChildren,
   SellerRouteRoute: SellerRouteRouteWithChildren,
   ProductAllRouteRoute: ProductAllRouteRouteWithChildren,
   ProductIdRoute: ProductIdRoute,
+  CheckoutIndexRoute: CheckoutIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -1148,10 +1222,12 @@ export const routeTree = rootRoute
         "/",
         "/admin",
         "/auth",
+        "/cart",
         "/customer",
         "/seller",
         "/product/all",
-        "/product/$id"
+        "/product/$id",
+        "/checkout/"
       ]
     },
     "/": {
@@ -1187,6 +1263,12 @@ export const routeTree = rootRoute
         "/auth/seller/register",
         "/auth/(customer)/verify/$code",
         "/auth/seller/verify/$code"
+      ]
+    },
+    "/cart": {
+      "filePath": "cart/route.tsx",
+      "children": [
+        "/cart/"
       ]
     },
     "/customer": {
@@ -1227,6 +1309,13 @@ export const routeTree = rootRoute
     },
     "/product/$id": {
       "filePath": "product/$id.tsx"
+    },
+    "/cart/": {
+      "filePath": "cart/index.tsx",
+      "parent": "/cart"
+    },
+    "/checkout/": {
+      "filePath": "checkout/index.tsx"
     },
     "/admin/dashboard/account-settings": {
       "filePath": "admin/dashboard/account-settings.tsx",

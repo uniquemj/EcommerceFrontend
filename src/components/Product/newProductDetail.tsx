@@ -11,10 +11,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Circle, Clock, Info, Megaphone, Text } from "lucide-react";
+import { Circle, Clock, Info, Loader2, Megaphone, Text } from "lucide-react";
 import ProductView from "@/components/Product/ProductView";
 import { Separator } from "@/components/ui/separator";
 import { useVariantSelectionStore } from "@/store/variant.store";
+import { useAddToCart } from "@/hooks/cart.hooks";
+import { useAuth } from "@/store/auth.store";
+import { useNavigate } from "@tanstack/react-router";
 
 interface ProductDetailProps {
   role: string;
@@ -32,15 +35,31 @@ const ProductDetail = ({
   productSummary,
   product,
 }: ProductDetailProps) => {
+
+  const {isAuthenticated} = useAuth()
+  const navigate = useNavigate()
   const {selectedVariantId} = useVariantSelectionStore()
 
   const { isPending, data: variants } = useGetVariantListOfProduct(
     productSummary.id
   );
+
+  const {isPending:isAddToCartPending, mutate} = useAddToCart()
+
   if (isPending) return <Spinner />;
 
+  const handleAddToCart = () =>{
+    if(!isAuthenticated){
+      navigate({
+        to: '/auth/login'
+      })
+    }
+    if(!selectedVariantId) return;
+    mutate({itemId: selectedVariantId, quantity: 1})
+  }
+
   return (
-    <div className="flex flex-col gap-6 px-space-24 py-space-24">
+    <div className="flex flex-col gap-6 max-sm:px-space-8 max-sm:py-space-12 px-space-24 py-space-24">
       <Card className="rounded-none shadow-none grid max-940:grid-cols-1 grid-cols-2">
         <CardHeader>
           <div className="flex flex-col gap-5">
@@ -49,10 +68,13 @@ const ProductDetail = ({
                 {productSummary.name}
               </h1>
               {role == UserRole.CUSTOMER && (
-                <Button className="hover:bg-secondary-color hover:text-text-color rounded-none bg-transparent border-1 border-secondary-color text-secondary-color hover:cursor-pointer">
-                  Add to Cart
-                </Button>
-              )}
+                <Button className="hover:bg-secondary-color hover:text-text-color rounded-none bg-transparent border-1 border-secondary-color text-secondary-color hover:cursor-pointer" onClick={handleAddToCart}>
+                  {isAddToCartPending ? (
+                    <Loader2 className="animate-spin w-4 h-4 mr-2" />
+                  ) : (
+                    "Add to Cart"
+                  )}
+                </Button>)}
             </div>
             {role !== UserRole.CUSTOMER && (
               <div className="flex flex-col min-md:flex-row gap-4">

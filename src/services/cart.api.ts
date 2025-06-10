@@ -1,4 +1,4 @@
-import type { CartInfo } from "@/types/cart.types";
+import type { CartInfo, CartTotal } from "@/types/cart.types";
 import type { SuccessResponse } from "@/types/response.types";
 import { api } from "@/utils/api";
 
@@ -23,7 +23,7 @@ export const updateCart = async(itemId: string, quantity: number):Promise<Succes
     return response.data
 }
 
-export const getCartTotal = async():Promise<SuccessResponse<number>> =>{
-    const response = await api.get<SuccessResponse<number>>('/carts/total')
+export const getCartTotal = async():Promise<SuccessResponse<CartTotal>> =>{
+    const response = await api.get<SuccessResponse<CartTotal>>('/carts/total')
     return response.data
 }

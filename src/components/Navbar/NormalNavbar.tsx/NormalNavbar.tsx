@@ -20,7 +20,7 @@ const NormalNavbar = () => {
   const handleSearchSubmit = (e: React.FormEvent) =>{
     e.preventDefault()
     navigate({
-      to: '/all',
+      to: '/product/all',
       search:{
         keyword: localKeyword || undefined
       }
@@ -61,7 +61,7 @@ const NormalNavbar = () => {
             </form>
           </div>
           <div className="hidden min-sm:block">
-            <Link to="/" className="flex items-center gap-2 text-14 hover:underline hover:text-secondary-shade-normal">
+            <Link to="/cart" className="flex items-center gap-2 text-14 hover:underline hover:text-secondary-shade-normal">
               <ShoppingCart size={20} className="text-secondary-shade-normal"/>
               Cart
             </Link>

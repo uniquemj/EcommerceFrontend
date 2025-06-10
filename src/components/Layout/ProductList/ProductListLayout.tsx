@@ -13,6 +13,9 @@ import {
   CardContent,
   CardHeader,
 } from "@/components/ui/card";
+import { strict } from "assert";
+import { useSearch } from "@tanstack/react-router";
+import { SearchProductParams } from "@/types/product.types";
 
 interface ProductListLayoutProps {
   children: React.ReactNode;
@@ -34,7 +37,8 @@ const ProductListLayout = ({
   onPageChange
 }: ProductListLayoutProps) => {
 
-  console.log(totalPages)
+  const search = useSearch({strict: false}) as SearchProductParams
+
   const handlePeviousPage = (e: React.FormEvent) =>{
     e.preventDefault();
     if(currentPage > 1) onPageChange(currentPage -1);
@@ -50,16 +54,16 @@ const ProductListLayout = ({
     onPageChange(index+1)
   }
   return (
-    <div className="grid grid-cols-1 min-940:grid-cols-[240px_1fr] gap-space-18 px-space-24 py-space-38">
+    <div className="grid grid-cols-1 min-940:grid-cols-[240px_1fr] gap-space-18 min-940:px-space-24 min-940:py-space-38">
       <div className="max-940:hidden w-full h-full">
         <ProductFilter />
       </div>
       <div className="">
         <Card className="rounded-none p-0 shadow-none border-1 w-full h-full overflow-y-auto px-space-12 py-space-12">
           <CardHeader className="flex justify-start w-full">
-            {category ? (
+            {Object.keys(search).length ? (
               <h1 className="text-32 font-bold text-secondary-shade-dark">
-                {`Search For "${category}"`}
+                {`Search For "${search.category || search.keyword} "`}
               </h1>
             ) : (
               <h1 className="text-32 font-bold text-secondary-shade-dark">
@@ -67,7 +71,7 @@ const ProductListLayout = ({
               </h1>
             )}
           </CardHeader>
-          <CardContent className="flex gap-space-24 py-space-24 flex-wrap">
+          <CardContent className="flex gap-space-24 min-940:py-space-24 flex-wrap">
             {children}
           </CardContent>
         </Card>

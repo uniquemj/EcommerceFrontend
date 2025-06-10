@@ -9,6 +9,7 @@ export interface ProductVariant{
     },
     images: ImageInfo,
     color: string,
+    size:string,
     price: number,
     stock: number
 }
@@ -22,4 +23,10 @@ export interface CartInfo{
     _id: string,
     customer: string,
     items: CartItem[]
+}
+
+export interface CartTotal{
+    delivery_fee: number, 
+    subTotal: number, 
+    total: number
 }

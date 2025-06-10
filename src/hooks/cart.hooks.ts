@@ -1,5 +1,5 @@
 import { addToCart, getCart, getCartTotal, removeItemFromCart, updateCart } from "@/services/cart.api"
-import type { CartInfo } from "@/types/cart.types"
+import type { CartInfo, CartTotal } from "@/types/cart.types"
 import type { ErrorResponse, SuccessResponse } from "@/types/response.types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import toast from "react-hot-toast"
@@ -13,8 +13,16 @@ export const useGetCart = () =>{
 }
 
 export const useAddToCart = () =>{
+    const query = useQueryClient()
     return useMutation<SuccessResponse<CartInfo>, ErrorResponse, {itemId: string, quantity: number}>({
-        mutationFn: ({itemId, quantity})=>addToCart(itemId, quantity)
+        mutationFn: ({itemId, quantity})=>addToCart(itemId, quantity),
+        onSuccess: ()=>{
+            query.invalidateQueries({queryKey: ['cart']})
+            toast.success("Item Added to Cart.")
+        },
+        onError: (error)=>{
+            toast.error(error.response.data.message)
+        }
     })
 }
 
@@ -40,7 +48,6 @@ export const useUpdateCart = () =>{
         mutationFn: ({itemId,quantity}) => updateCart(itemId, quantity),
         onSuccess: ()=>{
             query.invalidateQueries({queryKey: ['cart']})
-            toast.success("Cart Updated.")
         },
         onError: (error)=>{
             toast.error(error.response.data.message)
@@ -49,7 +56,7 @@ export const useUpdateCart = () =>{
 }
 
 export const useGetCartTotal = () =>{
-    return useQuery<SuccessResponse<number>, ErrorResponse>({
+    return useQuery<SuccessResponse<CartTotal>, ErrorResponse>({
         queryKey: ['cart','total'],
         queryFn: ()=>getCartTotal()
     })

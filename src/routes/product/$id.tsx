@@ -3,13 +3,14 @@ import ProductDetail from "@/components/Product/newProductDetail";
 import Spinner from "@/components/ui/spinner";
 import {
   useGetProductByCategory,
-  useGetProductById,
-  useSearchProductsByCategory,
+  useGetProductById
 } from "@/hooks/product.hooks";
+import { useVariantSelectionStore } from "@/store/variant.store";
 import { UserRole } from "@/types/enum.types";
 import type { ProductInfo } from "@/types/product.types";
 import { createFileRoute } from "@tanstack/react-router";
 import { CircleAlert } from "lucide-react";
+import { useMemo } from "react";
 
 export const Route = createFileRoute("/product/$id")({
   component: RouteComponent,
@@ -19,6 +20,7 @@ function RouteComponent() {
   const { id } = Route.useParams();
 
   const { isPending, data: product } = useGetProductById(id);
+  const {setSelectedVariantId} = useVariantSelectionStore();
 
   const category = product?.data.category._id
 
@@ -27,10 +29,14 @@ function RouteComponent() {
   let colors = "";
 
   product?.data.variants
-    .map((variant) => variant.color)
-    .forEach((color) => (colors += color + ","));
+  .map((variant) => variant.color)
+  .forEach((color) => (colors += color + ","));
   const createdAt = `${product?.data.createdAt}`.split("T")[0];
-
+  
+  useMemo(()=>{
+    setSelectedVariantId(null);
+  }, [id])
+  
   if (isPending) return <Spinner />;
 
   const props = {
@@ -42,6 +48,8 @@ function RouteComponent() {
       createdAt: createdAt,
     },
   };
+
+
   return (
     <div className="px-space-24 py-space-24 flex flex-col gap-5">
       <ProductDetail
@@ -54,7 +62,7 @@ function RouteComponent() {
           <h1 className="text-24 font-medium text-secondary-shade-dark">
             Related Products
           </h1>
-          {relatedProduct?.data.length ? 
+          {relatedProduct?.data?.length ? 
           (<div className="flex items-center gap-space-10">
             {relatedProduct?.data
               .filter((product) => product._id !== id)
@@ -62,7 +70,8 @@ function RouteComponent() {
                 
                 <ProductCard productInfo={product} key={product._id} />
               ))}
-          </div>): 
+          </div>)
+          : 
           <div className="flex items-center justify-center">
             <CircleAlert/>
             No Related Product Found.
