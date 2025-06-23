@@ -8,7 +8,6 @@ import { useState } from "react";
 const NormalNavbar = () => {
   const route = useRouterState()
   const isAuthPage = route.location.pathname.includes('/auth')
-
   const [localKeyword, setLocalKeyword] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{

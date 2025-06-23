@@ -18,6 +18,11 @@ export const getAllSeller = async(paginationField: PaginationField):Promise<Succ
     return response.data
 }
 
+
+export const getSellerCount = async():Promise<SuccessResponse<number>> => {
+    const response = await api.get<SuccessResponse<number>>(`/seller/verify/count`)
+    return response.data
+}
 export const getSellerById = async(id: string): Promise<SuccessResponse<Seller>> => {
     const repsonse = await api.get<SuccessResponse<Seller>>(`/seller/${id}`)
     return repsonse.data

@@ -1,0 +1,12 @@
+export const InfoSeller = ({ label, value, className }: { 
+  label: string; 
+  value: string; 
+  className?: string 
+}) => (
+  <div className={className}>
+    <p className="text-sm font-medium text-gray-500">{label}</p>
+    <p className="text-base font-medium text-gray-900 mt-1">
+      {value || <span className="text-gray-400">Not provided</span>}
+    </p>
+  </div>
+);

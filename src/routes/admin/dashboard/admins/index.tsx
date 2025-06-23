@@ -23,9 +23,10 @@ function RouteComponent() {
   const buttons = [<Link to='/admin/dashboard/admins/create'>
           <Button className="bg-secondary-color hover:cursor-pointer hover"><Plus/>Admin</Button>
         </Link>]
+
   return (
     <DashboardHeader header="Manage Admins" buttons={buttons}>
-        <DataTable columns={columns} data={admin?.data as Admin[]} />
+        <DataTable columns={columns} data={admin?.data as Admin[]} filterId='fullname'/>
     </DashboardHeader>
   );
 }

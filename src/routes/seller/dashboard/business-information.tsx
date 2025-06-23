@@ -148,7 +148,7 @@ function RouteComponent() {
                     }
                     className="min-[900px]:w-3/4"
                   />
-                  <div className="bg-gray-200 w-[100px] p-4 rounded-xl">
+                  <div className=" w-[100px] p-4 rounded-xl">
                     {legalDocsPreview[0] ? (
                       <img src={legalDocsPreview[0]} />
                     ):<Image/>}
@@ -171,7 +171,7 @@ function RouteComponent() {
                     }
                     className="min-[900px]:w-3/4"
                   />
-                  <div className="bg-gray-200 w-[100px] p-4 rounded-xl">
+                  <div className="w-[100px] p-4 rounded-xl">
                     {legalDocsPreview[1] ? (
                       <img src={legalDocsPreview[1]} />
                     ):<Image/>}
@@ -197,7 +197,7 @@ function RouteComponent() {
                   }
                   className="min-[900px]:w-[37%]"
                 />
-                <div className="bg-gray-200 w-[100px] p-4 rounded-xl">
+                <div className=" w-[100px] p-4 rounded-xl">
                   {storeLogoDocs?.length ? (
                     <img src={URL.createObjectURL(storeLogoDocs[0])} />
                   ) : (

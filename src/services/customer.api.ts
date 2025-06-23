@@ -14,6 +14,11 @@ export const getCustomerById = async(id: string): Promise<SuccessResponse<Custom
     return response.data
 }
 
+export const getCustomerCount = async(): Promise<SuccessResponse<number>> => {
+    const response = await api.get<SuccessResponse<number>>(`/customer/verify/count`)
+    return response.data
+}
+
 export const deleteCustomer = async(id: string): Promise<SuccessResponse<Customer>> =>{
     const response = await api.delete<SuccessResponse<Customer>>(`/customer/${id}`)
     return response.data

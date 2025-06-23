@@ -5,10 +5,11 @@ import { VerificationStatus, type SellerProfileInfo } from "@/types/user.types";
 import { useAuth } from "@/store/auth.store";
 import { UserRole } from "@/types/enum.types";
 import { useState } from "react";
-import { X } from 'lucide-react';
+import { X } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import DashboardHeader from "../Layout/DashboardHeader/DashboardHeader";
+import { InfoSeller } from "../Card/InfoSeller";
 
 interface HideState {
   status: boolean;
@@ -18,13 +19,13 @@ interface HideState {
 const SellerProfile = ({
   heading,
   profileInfo,
-  buttons
+  buttons,
 }: {
   heading: string;
   profileInfo: Partial<SellerProfileInfo>;
-  buttons: React.ReactNode[]
+  buttons: React.ReactNode[];
 }) => {
-  const [hide, setHide ] = useState<HideState>({ status: true, url: "" });
+  const [hide, setHide] = useState<HideState>({ status: true, url: "" });
   const { role } = useAuth();
 
   const handleImage = (url: string) => {
@@ -32,126 +33,133 @@ const SellerProfile = ({
   };
   return (
     <DashboardHeader header={heading} buttons={buttons}>
-      <Card className="p-5">
-        <div className="w-full flex flex-col items-center gap-6">
-          <Avatar className="max-[1200px]:w-[60%] w-[15%] h-auto flex justify-center items-center">
+      <Card className="p-6 shadow-md">
+        {/* Profile Header */}
+        <div className="w-full flex flex-col items-center gap-4 mb-6">
+          <Avatar className="w-32 h-32 min-[1200px]:w-40 min-[1200px]:h-40 border-2 border-primary/20">
             <AvatarImage
               src={profileInfo.avatar as string}
-              alt={profileInfo.initials}
+              alt={profileInfo.fullname}
+              className="object-cover"
             />
-            <AvatarFallback className="rounded-lg text-primary-color font-semibold">
+            <AvatarFallback className="text-3xl font-semibold text-primary bg-primary/10">
               {profileInfo.initials}
             </AvatarFallback>
           </Avatar>
-          <div className="">
-            <div className="flex flex-col space-y-1 items-center">
-              <h1 className="text-xl min-[460px]:text-2xl font-semibold text-center">
-                {profileInfo.fullname}
-              </h1>
-              <h1 className="text-sm min-[460px]:text-md font-medium text-gray-400">
-                {profileInfo.email}
-              </h1>
-              <Badge className={`${profileInfo.verification_status == VerificationStatus.PENDING ? `bg-light-tan text-text-color` : profileInfo.verification_status == VerificationStatus.VERIFIED ? `bg-success-color text-text-color`: `bg-error-color text-text-color`} mt-2`}>
-                {profileInfo.verification_status?.toUpperCase()}
-              </Badge>
-            </div>
+
+          <div className="text-center space-y-1">
+            <h1 className="text-2xl font-bold text-gray-900">
+              {profileInfo.fullname}
+            </h1>
+            <p className="text-gray-500">{profileInfo.email}</p>
+
+            <Badge
+              className={`mt-2 text-sm font-medium ${
+                profileInfo.verification_status === VerificationStatus.PENDING
+                  ? "bg-amber-100 text-amber-800"
+                  : profileInfo.verification_status ===
+                      VerificationStatus.VERIFIED
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+              }`}
+            >
+              {profileInfo.verification_status?.toUpperCase()}
+            </Badge>
           </div>
         </div>
-        <Separator />
-        <CardContent className="w-full flex flex-col justify-center items-center">
-          <div className=" w-full min-[550px]:w-4/5 min-[950px]:w-2/5 flex flex-col justify-center items-center gap-10">
-            <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
-              <h1 className="w-[50%] max-[365px]:text-sm font-semibold text-left">
-                Store Name:
-              </h1>
-              <h2 className="w-[50%] max-[365px]:text-sm  font-medium text-right">
-                {profileInfo.store_name}
-              </h2>
-            </div>
 
-            <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
-              <h1 className="w-[50%] max-[365px]:text-sm font-semibold text-left">
-                City:
-              </h1>
-              <h2 className="w-[50%] max-[365px]:text-sm  font-medium text-right">
-                {profileInfo.city}
-              </h2>
-            </div>
+        <Separator className="my-4" />
 
-            <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
-              <h1 className="w-[50%] max-[365px]:text-sm font-semibold text-left">
-                County:
-              </h1>
-              <h2 className="w-[50%] max-[365px]:text-sm  font-medium text-right">
-                {profileInfo.country}
-              </h2>
-            </div>
-
-            <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
-              <h1 className="w-[50%] max-[365px]:text-sm font-semibold text-left">
-                Address:
-              </h1>
-              <h2 className="w-[50%] max-[365px]:text-sm  font-medium text-right">
-                {profileInfo.address}
-              </h2>
-            </div>
-
-            <div className="flex w-full justify-center max-[450px]:gap-5 gap-10">
-              <h1 className="w-[50%] max-[365px]:text-sm font-semibold text-left">
-                Phone Number:
-              </h1>
-              <h2 className="w-[50%] max-[365px]:text-sm  font-medium text-right">
-                {profileInfo.phone_number}
-              </h2>
-            </div>
+        {/* Profile Details */}
+        <CardContent className="w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <InfoSeller
+              label="Store Name"
+              value={profileInfo.store_name as string}
+            />
+            <InfoSeller
+              label="Phone Number"
+              value={profileInfo.phone_number as string}
+            />
+            <InfoSeller label="City" value={profileInfo.city as string} />
+            <InfoSeller label="Country" value={profileInfo.country as string} />
+            <InfoSeller
+              label="Address"
+              value={profileInfo.address as string}
+              className="md:col-span-2"
+            />
           </div>
         </CardContent>
-        <Separator />
-        <CardFooter className={`w-full ${role==UserRole.SELLER && `grid min-[1185px]:grid-cols-2 gap-10`}`}>
-          <div className={`flex flex-col ${role==UserRole.SELLER && `w-4/5`}`}>
-            <h1 className="text-xl font-semibold text-center bg-amber-200">
-              Legal Documents:
-            </h1>
+
+        <Separator className="my-4" />
+
+        {/* Legal Documents */}
+        <CardFooter className="flex flex-col gap-6">
+          <div className="w-full">
+            <h2 className="text-lg font-semibold text-center mb-4 pb-2 border-b">
+              Legal Documents
+            </h2>
+
             <div
-              className={
-                role == UserRole.ADMIN
-                  ? `grid grid-cols-1 min-[1185px]:grid-cols-2 items-center justify-center gap-10`
-                  : `grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-10`
-              }
+              className={`grid gap-4 ${
+                role === UserRole.ADMIN
+                  ? "grid-cols-1 min-[1185px]:grid-cols-2"
+                  : "grid-cols-1 sm:grid-cols-2"
+              }`}
             >
               {profileInfo.legal_documents?.map((image) => (
                 <div
                   key={image._id}
-                  className={
-                    role == UserRole.ADMIN
-                      ? `min-[514px]:w-[350px]`
-                      : `w-[150px]`
-                  }
+                  className="border rounded-lg overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
                   onClick={() => handleImage(image.url)}
                 >
-                  <img src={image.url} />
+                  <img
+                    src={image.url}
+                    alt="Legal Document"
+                    className="w-full h-48 object-contain bg-gray-50 p-2"
+                  />
                 </div>
               ))}
-
-              {
-                !hide.status ? (
-                    <div className={`w-[100%] p-10 bg-[rgba(0,0,0,0.5)] absolute z-99 flex flex-col justify-center items-center ${ role == UserRole.ADMIN ? `top-200 min-[1180px]:top-150 left-1`: `top-150 min-[1180px]:top-90 left-1`} gap-8`}>
-                        <div className="w-full flex justify-end">
-                            <Button className="bg-secondary-color text-amber-50 hover:cursor-pointer" onClick={()=>handleImage("")}>
-                                <X className=" font-bold"/>
-                            </Button>
-                        </div>
-                        <img src={hide.url} className="w-[500px]"/>
-                    </div>
-                ): null
-              }
             </div>
+
+            {/* Image Modal */}
+            {!hide.status && (
+              <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+                <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
+                  <div className="flex justify-end p-4">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleImage("")}
+                      className="text-gray-500 hover:text-gray-900"
+                    >
+                      <X className="h-5 w-5" />
+                    </Button>
+                  </div>
+                  <div className="p-4 overflow-auto">
+                    <img
+                      src={hide.url}
+                      alt="Enlarged Document"
+                      className="w-full object-contain max-h-[70vh]"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-            {profileInfo.verification_status == VerificationStatus.REJECTED && role== UserRole.SELLER?
-                <div className="flex flex-col h-full gap-3">
-                <h1 className="font-bold text-primary-color">Rejection Reason</h1>
-                <textarea readOnly className="border border-red-500 p-4">{profileInfo.rejection_reason}</textarea>
-            </div>: null}
+
+          {/* Rejection Reason */}
+          {profileInfo.verification_status === VerificationStatus.REJECTED &&
+            role === UserRole.SELLER && (
+              <div className="w-full space-y-2">
+                <h3 className="font-semibold text-red-600">Rejection Reason</h3>
+                <div className="p-4 bg-red-50 border border-red-100 rounded-lg">
+                  <p className="text-gray-700">
+                    {profileInfo.rejection_reason}
+                  </p>
+                </div>
+              </div>
+            )}
         </CardFooter>
       </Card>
     </DashboardHeader>

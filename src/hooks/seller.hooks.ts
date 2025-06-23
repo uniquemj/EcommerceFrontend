@@ -1,4 +1,4 @@
-import { addBusinessInfo, deleteSeller, getAllSeller, getSellerById, getSellerProfile, resendVerificationEmail, updateSellerInfo, updateSellerPassword, updateSellerVerification, verifySeller, verifySellerEmail } from "@/services/seller.api"
+import { addBusinessInfo, deleteSeller, getAllSeller, getSellerById, getSellerCount, getSellerProfile, resendVerificationEmail, updateSellerInfo, updateSellerPassword, updateSellerVerification, verifySeller, verifySellerEmail } from "@/services/seller.api"
 import { useAuth } from "@/store/auth.store"
 import { useSellerState } from "@/store/seller.store"
 import type { PaginationField } from "@/types/pagination.types"
@@ -14,6 +14,13 @@ export const useGetAllSeller = (paginationField: PaginationField) =>{
     return useQuery<SuccessResponse<Seller[]>, ErrorResponse>({
         queryKey: ['sellers', paginationField.page, paginationField.limit],
         queryFn: () => getAllSeller(paginationField)
+    })
+}
+
+export const useGetSllerCount = () =>{
+    return useQuery<SuccessResponse<number>, ErrorResponse>({
+        queryKey: ['sellers','count'],
+        queryFn: ()=> getSellerCount()
     })
 }
 

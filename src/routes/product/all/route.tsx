@@ -5,7 +5,7 @@ export const Route = createFileRoute('/product/all')({
 })
 
 function RouteComponent() {
-  return <div className='px-space-24 py-space-24'>
+  return <div className='max-sm:px-space-12 max-sm:py-space-12 px-space-24 py-space-24'>
       <Outlet/>
     </div>
 }

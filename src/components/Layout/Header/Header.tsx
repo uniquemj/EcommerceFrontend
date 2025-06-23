@@ -16,27 +16,28 @@ import { Separator } from "@/components/ui/separator";
 
 
 import CategoryTree from "@/components/Category/CategoryTree";
+import { Link } from "@tanstack/react-router";
 
 const bannerInfo = [
     {
       heading: "Experience Quality",
       title: "Without the Premium Price Tag",
       image: Banner5,
-      url: "#",
+      url: "/product/all",
       button_content: "Shop Now"
     },
     {
       heading: "Stay Connected in Style",
       title: "Top Tech & Accessories",
       image: Banner0,
-      url: "#",
+      url: "/product/all?category=electronics",
       button_content: "Browse Gadgets"
     },
     {
       heading: "Elevate Your Everyday Look",
       title: "Minimalist Men's Fashion",
       image: Banner3,
-      url: "#",
+      url: "/product/all?category=mens%27+wear",
       button_content: "Shop Men's Wear"
     },
 ];
@@ -81,9 +82,11 @@ const Header = () => {
                         <h2 className="font-bold text-24 min-940:text-40 text-secondary-shade-normal">{banner.title}</h2>
                       </div>
                       <div>
+                        <Link to={banner.url}>
                         <Button className="rounded-none h-space-38 bg-white text-little-dark text-18 font-normal hover:bg-white hover:cursor-pointer hover:text-secondary-shade-normal">
                             {banner.button_content}
                         </Button>
+                        </Link>
                       </div>
                     </div>
                   </div>

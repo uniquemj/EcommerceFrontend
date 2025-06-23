@@ -20,12 +20,16 @@ import { Route as IndexImport } from './routes/index'
 import { Route as CheckoutIndexImport } from './routes/checkout/index'
 import { Route as CartIndexImport } from './routes/cart/index'
 import { Route as ProductIdImport } from './routes/product/$id'
+import { Route as PaymentSuccessImport } from './routes/payment/success'
 import { Route as CustomerUpdatePasswordImport } from './routes/customer/update-password'
 import { Route as ProductAllRouteImport } from './routes/product/all/route'
+import { Route as CustomerOrderRouteImport } from './routes/customer/order/route'
 import { Route as SellerProfileIndexImport } from './routes/seller/profile/index'
 import { Route as SellerDashboardIndexImport } from './routes/seller/dashboard/index'
 import { Route as ProductAllIndexImport } from './routes/product/all/index'
 import { Route as CustomerProfileIndexImport } from './routes/customer/profile/index'
+import { Route as CustomerOrderIndexImport } from './routes/customer/order/index'
+import { Route as CustomerAddressIndexImport } from './routes/customer/address/index'
 import { Route as AdminProfileIndexImport } from './routes/admin/profile/index'
 import { Route as AdminDashboardIndexImport } from './routes/admin/dashboard/index'
 import { Route as SellerDashboardUpdatePasswordImport } from './routes/seller/dashboard/update-password'
@@ -35,6 +39,10 @@ import { Route as ProductAllNewArrivalImport } from './routes/product/all/new-ar
 import { Route as ProductAllFeatureProductImport } from './routes/product/all/feature-product'
 import { Route as ProductAllBestSellImport } from './routes/product/all/best-sell'
 import { Route as CustomerProfileUpdateImport } from './routes/customer/profile/update'
+import { Route as CustomerOrderProcessingImport } from './routes/customer/order/processing'
+import { Route as CustomerOrderCompletedImport } from './routes/customer/order/completed'
+import { Route as CustomerAddressCreateImport } from './routes/customer/address/create'
+import { Route as CustomerAddressIdImport } from './routes/customer/address/$id'
 import { Route as AuthSellerRegisterImport } from './routes/auth/seller/register'
 import { Route as AuthSellerLoginImport } from './routes/auth/seller/login'
 import { Route as AuthAdminLoginImport } from './routes/auth/admin/login'
@@ -42,9 +50,15 @@ import { Route as AuthcustomerRegisterImport } from './routes/auth/(customer)/re
 import { Route as AuthcustomerLoginImport } from './routes/auth/(customer)/login'
 import { Route as AdminDashboardUpdatePasswordImport } from './routes/admin/dashboard/update-password'
 import { Route as AdminDashboardAccountSettingsImport } from './routes/admin/dashboard/account-settings'
+import { Route as SellerDashboardOrdersRouteImport } from './routes/seller/dashboard/orders/route'
+import { Route as AdminDashboardOrdersRouteImport } from './routes/admin/dashboard/orders/route'
+import { Route as AdminDashboardOrderItemsRouteImport } from './routes/admin/dashboard/order-items/route'
 import { Route as SellerDashboardProductsIndexImport } from './routes/seller/dashboard/products/index'
+import { Route as SellerDashboardOrdersIndexImport } from './routes/seller/dashboard/orders/index'
 import { Route as AdminDashboardSellersIndexImport } from './routes/admin/dashboard/sellers/index'
 import { Route as AdminDashboardProductsIndexImport } from './routes/admin/dashboard/products/index'
+import { Route as AdminDashboardOrdersIndexImport } from './routes/admin/dashboard/orders/index'
+import { Route as AdminDashboardOrderItemsIndexImport } from './routes/admin/dashboard/order-items/index'
 import { Route as AdminDashboardCustomersIndexImport } from './routes/admin/dashboard/customers/index'
 import { Route as AdminDashboardCategoriesIndexImport } from './routes/admin/dashboard/categories/index'
 import { Route as AdminDashboardAdminsIndexImport } from './routes/admin/dashboard/admins/index'
@@ -55,10 +69,24 @@ import { Route as AdminDashboardProductsIdImport } from './routes/admin/dashboar
 import { Route as AdminDashboardCategoriesCreateImport } from './routes/admin/dashboard/categories/create'
 import { Route as AdminDashboardAdminsCreateImport } from './routes/admin/dashboard/admins/create'
 import { Route as SellerDashboardProductsproductCreateImport } from './routes/seller/dashboard/products/(product)/create'
+import { Route as SellerDashboardOrdersordersToshipImport } from './routes/seller/dashboard/orders/(orders)/toship'
+import { Route as SellerDashboardOrdersordersShippingImport } from './routes/seller/dashboard/orders/(orders)/shipping'
+import { Route as SellerDashboardOrdersordersReturnRequestImport } from './routes/seller/dashboard/orders/(orders)/return-request'
+import { Route as SellerDashboardOrdersordersFailDeliveryImport } from './routes/seller/dashboard/orders/(orders)/fail-delivery'
+import { Route as SellerDashboardOrdersordersDeliveredImport } from './routes/seller/dashboard/orders/(orders)/delivered'
+import { Route as SellerDashboardOrdersordersCancelImport } from './routes/seller/dashboard/orders/(orders)/cancel'
+import { Route as SellerDashboardOrdersordersAllImport } from './routes/seller/dashboard/orders/(orders)/all'
+import { Route as AdminDashboardOrdersordersAllImport } from './routes/admin/dashboard/orders/(orders)/all'
+import { Route as AdminDashboardOrderItemsorderItemsShippingImport } from './routes/admin/dashboard/order-items/(order-items)/shipping'
+import { Route as AdminDashboardOrderItemsorderItemsFailDeliveryImport } from './routes/admin/dashboard/order-items/(order-items)/fail-delivery'
+import { Route as AdminDashboardOrderItemsorderItemsDeliveredImport } from './routes/admin/dashboard/order-items/(order-items)/delivered'
+import { Route as AdminDashboardOrderItemsorderItemsAllImport } from './routes/admin/dashboard/order-items/(order-items)/all'
 import { Route as AdminDashboardCategorieseditIdImport } from './routes/admin/dashboard/categories/(edit)/$id'
 import { Route as AdminDashboardAdminseditIdImport } from './routes/admin/dashboard/admins/(edit)/$id'
 import { Route as SellerDashboardProductsproductIdIndexImport } from './routes/seller/dashboard/products/(product)/$id/index'
 import { Route as SellerDashboardProductsproductIdEditImport } from './routes/seller/dashboard/products/(product)/$id_/edit'
+import { Route as AdminDashboardOrderItemsorderItemsItemsIdImport } from './routes/admin/dashboard/order-items/(order-items)/items/$id'
+import { Route as SellerDashboardOrdersordersItemsIdIndexImport } from './routes/seller/dashboard/orders/(orders)/items/$id/index'
 import { Route as SellerDashboardProductsproductIdVariantsVariantIdImport } from './routes/seller/dashboard/products/(product)/$id/variants/$variantId'
 
 // Create/Update Routes
@@ -117,6 +145,12 @@ const ProductIdRoute = ProductIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const PaymentSuccessRoute = PaymentSuccessImport.update({
+  id: '/payment/success',
+  path: '/payment/success',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const CustomerUpdatePasswordRoute = CustomerUpdatePasswordImport.update({
   id: '/update-password',
   path: '/update-password',
@@ -127,6 +161,12 @@ const ProductAllRouteRoute = ProductAllRouteImport.update({
   id: '/product/all',
   path: '/product/all',
   getParentRoute: () => rootRoute,
+} as any)
+
+const CustomerOrderRouteRoute = CustomerOrderRouteImport.update({
+  id: '/order',
+  path: '/order',
+  getParentRoute: () => CustomerRouteRoute,
 } as any)
 
 const SellerProfileIndexRoute = SellerProfileIndexImport.update({
@@ -150,6 +190,18 @@ const ProductAllIndexRoute = ProductAllIndexImport.update({
 const CustomerProfileIndexRoute = CustomerProfileIndexImport.update({
   id: '/profile/',
   path: '/profile/',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+
+const CustomerOrderIndexRoute = CustomerOrderIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CustomerOrderRouteRoute,
+} as any)
+
+const CustomerAddressIndexRoute = CustomerAddressIndexImport.update({
+  id: '/address/',
+  path: '/address/',
   getParentRoute: () => CustomerRouteRoute,
 } as any)
 
@@ -210,6 +262,30 @@ const CustomerProfileUpdateRoute = CustomerProfileUpdateImport.update({
   getParentRoute: () => CustomerRouteRoute,
 } as any)
 
+const CustomerOrderProcessingRoute = CustomerOrderProcessingImport.update({
+  id: '/processing',
+  path: '/processing',
+  getParentRoute: () => CustomerOrderRouteRoute,
+} as any)
+
+const CustomerOrderCompletedRoute = CustomerOrderCompletedImport.update({
+  id: '/completed',
+  path: '/completed',
+  getParentRoute: () => CustomerOrderRouteRoute,
+} as any)
+
+const CustomerAddressCreateRoute = CustomerAddressCreateImport.update({
+  id: '/address/create',
+  path: '/address/create',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+
+const CustomerAddressIdRoute = CustomerAddressIdImport.update({
+  id: '/address/$id',
+  path: '/address/$id',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+
 const AuthSellerRegisterRoute = AuthSellerRegisterImport.update({
   id: '/seller/register',
   path: '/seller/register',
@@ -254,12 +330,41 @@ const AdminDashboardAccountSettingsRoute =
     getParentRoute: () => AdminRouteRoute,
   } as any)
 
+const SellerDashboardOrdersRouteRoute = SellerDashboardOrdersRouteImport.update(
+  {
+    id: '/dashboard/orders',
+    path: '/dashboard/orders',
+    getParentRoute: () => SellerRouteRoute,
+  } as any,
+)
+
+const AdminDashboardOrdersRouteRoute = AdminDashboardOrdersRouteImport.update({
+  id: '/dashboard/orders',
+  path: '/dashboard/orders',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const AdminDashboardOrderItemsRouteRoute =
+  AdminDashboardOrderItemsRouteImport.update({
+    id: '/dashboard/order-items',
+    path: '/dashboard/order-items',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
+
 const SellerDashboardProductsIndexRoute =
   SellerDashboardProductsIndexImport.update({
     id: '/dashboard/products/',
     path: '/dashboard/products/',
     getParentRoute: () => SellerRouteRoute,
   } as any)
+
+const SellerDashboardOrdersIndexRoute = SellerDashboardOrdersIndexImport.update(
+  {
+    id: '/',
+    path: '/',
+    getParentRoute: () => SellerDashboardOrdersRouteRoute,
+  } as any,
+)
 
 const AdminDashboardSellersIndexRoute = AdminDashboardSellersIndexImport.update(
   {
@@ -274,6 +379,19 @@ const AdminDashboardProductsIndexRoute =
     id: '/dashboard/products/',
     path: '/dashboard/products/',
     getParentRoute: () => AdminRouteRoute,
+  } as any)
+
+const AdminDashboardOrdersIndexRoute = AdminDashboardOrdersIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminDashboardOrdersRouteRoute,
+} as any)
+
+const AdminDashboardOrderItemsIndexRoute =
+  AdminDashboardOrderItemsIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AdminDashboardOrderItemsRouteRoute,
   } as any)
 
 const AdminDashboardCustomersIndexRoute =
@@ -342,6 +460,90 @@ const SellerDashboardProductsproductCreateRoute =
     getParentRoute: () => SellerRouteRoute,
   } as any)
 
+const SellerDashboardOrdersordersToshipRoute =
+  SellerDashboardOrdersordersToshipImport.update({
+    id: '/(orders)/toship',
+    path: '/toship',
+    getParentRoute: () => SellerDashboardOrdersRouteRoute,
+  } as any)
+
+const SellerDashboardOrdersordersShippingRoute =
+  SellerDashboardOrdersordersShippingImport.update({
+    id: '/(orders)/shipping',
+    path: '/shipping',
+    getParentRoute: () => SellerDashboardOrdersRouteRoute,
+  } as any)
+
+const SellerDashboardOrdersordersReturnRequestRoute =
+  SellerDashboardOrdersordersReturnRequestImport.update({
+    id: '/(orders)/return-request',
+    path: '/return-request',
+    getParentRoute: () => SellerDashboardOrdersRouteRoute,
+  } as any)
+
+const SellerDashboardOrdersordersFailDeliveryRoute =
+  SellerDashboardOrdersordersFailDeliveryImport.update({
+    id: '/(orders)/fail-delivery',
+    path: '/fail-delivery',
+    getParentRoute: () => SellerDashboardOrdersRouteRoute,
+  } as any)
+
+const SellerDashboardOrdersordersDeliveredRoute =
+  SellerDashboardOrdersordersDeliveredImport.update({
+    id: '/(orders)/delivered',
+    path: '/delivered',
+    getParentRoute: () => SellerDashboardOrdersRouteRoute,
+  } as any)
+
+const SellerDashboardOrdersordersCancelRoute =
+  SellerDashboardOrdersordersCancelImport.update({
+    id: '/(orders)/cancel',
+    path: '/cancel',
+    getParentRoute: () => SellerDashboardOrdersRouteRoute,
+  } as any)
+
+const SellerDashboardOrdersordersAllRoute =
+  SellerDashboardOrdersordersAllImport.update({
+    id: '/(orders)/all',
+    path: '/all',
+    getParentRoute: () => SellerDashboardOrdersRouteRoute,
+  } as any)
+
+const AdminDashboardOrdersordersAllRoute =
+  AdminDashboardOrdersordersAllImport.update({
+    id: '/(orders)/all',
+    path: '/all',
+    getParentRoute: () => AdminDashboardOrdersRouteRoute,
+  } as any)
+
+const AdminDashboardOrderItemsorderItemsShippingRoute =
+  AdminDashboardOrderItemsorderItemsShippingImport.update({
+    id: '/(order-items)/shipping',
+    path: '/shipping',
+    getParentRoute: () => AdminDashboardOrderItemsRouteRoute,
+  } as any)
+
+const AdminDashboardOrderItemsorderItemsFailDeliveryRoute =
+  AdminDashboardOrderItemsorderItemsFailDeliveryImport.update({
+    id: '/(order-items)/fail-delivery',
+    path: '/fail-delivery',
+    getParentRoute: () => AdminDashboardOrderItemsRouteRoute,
+  } as any)
+
+const AdminDashboardOrderItemsorderItemsDeliveredRoute =
+  AdminDashboardOrderItemsorderItemsDeliveredImport.update({
+    id: '/(order-items)/delivered',
+    path: '/delivered',
+    getParentRoute: () => AdminDashboardOrderItemsRouteRoute,
+  } as any)
+
+const AdminDashboardOrderItemsorderItemsAllRoute =
+  AdminDashboardOrderItemsorderItemsAllImport.update({
+    id: '/(order-items)/all',
+    path: '/all',
+    getParentRoute: () => AdminDashboardOrderItemsRouteRoute,
+  } as any)
+
 const AdminDashboardCategorieseditIdRoute =
   AdminDashboardCategorieseditIdImport.update({
     id: '/dashboard/categories/(edit)/$id',
@@ -369,6 +571,20 @@ const SellerDashboardProductsproductIdEditRoute =
     id: '/dashboard/products/(product)/$id_/edit',
     path: '/dashboard/products/$id/edit',
     getParentRoute: () => SellerRouteRoute,
+  } as any)
+
+const AdminDashboardOrderItemsorderItemsItemsIdRoute =
+  AdminDashboardOrderItemsorderItemsItemsIdImport.update({
+    id: '/(order-items)/items/$id',
+    path: '/items/$id',
+    getParentRoute: () => AdminDashboardOrderItemsRouteRoute,
+  } as any)
+
+const SellerDashboardOrdersordersItemsIdIndexRoute =
+  SellerDashboardOrdersordersItemsIdIndexImport.update({
+    id: '/(orders)/items/$id/',
+    path: '/items/$id/',
+    getParentRoute: () => SellerDashboardOrdersRouteRoute,
   } as any)
 
 const SellerDashboardProductsproductIdVariantsVariantIdRoute =
@@ -424,6 +640,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SellerRouteImport
       parentRoute: typeof rootRoute
     }
+    '/customer/order': {
+      id: '/customer/order'
+      path: '/order'
+      fullPath: '/customer/order'
+      preLoaderRoute: typeof CustomerOrderRouteImport
+      parentRoute: typeof CustomerRouteImport
+    }
     '/product/all': {
       id: '/product/all'
       path: '/product/all'
@@ -437,6 +660,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/customer/update-password'
       preLoaderRoute: typeof CustomerUpdatePasswordImport
       parentRoute: typeof CustomerRouteImport
+    }
+    '/payment/success': {
+      id: '/payment/success'
+      path: '/payment/success'
+      fullPath: '/payment/success'
+      preLoaderRoute: typeof PaymentSuccessImport
+      parentRoute: typeof rootRoute
     }
     '/product/$id': {
       id: '/product/$id'
@@ -458,6 +688,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/checkout'
       preLoaderRoute: typeof CheckoutIndexImport
       parentRoute: typeof rootRoute
+    }
+    '/admin/dashboard/order-items': {
+      id: '/admin/dashboard/order-items'
+      path: '/dashboard/order-items'
+      fullPath: '/admin/dashboard/order-items'
+      preLoaderRoute: typeof AdminDashboardOrderItemsRouteImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/admin/dashboard/orders': {
+      id: '/admin/dashboard/orders'
+      path: '/dashboard/orders'
+      fullPath: '/admin/dashboard/orders'
+      preLoaderRoute: typeof AdminDashboardOrdersRouteImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/seller/dashboard/orders': {
+      id: '/seller/dashboard/orders'
+      path: '/dashboard/orders'
+      fullPath: '/seller/dashboard/orders'
+      preLoaderRoute: typeof SellerDashboardOrdersRouteImport
+      parentRoute: typeof SellerRouteImport
     }
     '/admin/dashboard/account-settings': {
       id: '/admin/dashboard/account-settings'
@@ -507,6 +758,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/seller/register'
       preLoaderRoute: typeof AuthSellerRegisterImport
       parentRoute: typeof AuthRouteImport
+    }
+    '/customer/address/$id': {
+      id: '/customer/address/$id'
+      path: '/address/$id'
+      fullPath: '/customer/address/$id'
+      preLoaderRoute: typeof CustomerAddressIdImport
+      parentRoute: typeof CustomerRouteImport
+    }
+    '/customer/address/create': {
+      id: '/customer/address/create'
+      path: '/address/create'
+      fullPath: '/customer/address/create'
+      preLoaderRoute: typeof CustomerAddressCreateImport
+      parentRoute: typeof CustomerRouteImport
+    }
+    '/customer/order/completed': {
+      id: '/customer/order/completed'
+      path: '/completed'
+      fullPath: '/customer/order/completed'
+      preLoaderRoute: typeof CustomerOrderCompletedImport
+      parentRoute: typeof CustomerOrderRouteImport
+    }
+    '/customer/order/processing': {
+      id: '/customer/order/processing'
+      path: '/processing'
+      fullPath: '/customer/order/processing'
+      preLoaderRoute: typeof CustomerOrderProcessingImport
+      parentRoute: typeof CustomerOrderRouteImport
     }
     '/customer/profile/update': {
       id: '/customer/profile/update'
@@ -570,6 +849,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/profile'
       preLoaderRoute: typeof AdminProfileIndexImport
       parentRoute: typeof AdminRouteImport
+    }
+    '/customer/address/': {
+      id: '/customer/address/'
+      path: '/address'
+      fullPath: '/customer/address'
+      preLoaderRoute: typeof CustomerAddressIndexImport
+      parentRoute: typeof CustomerRouteImport
+    }
+    '/customer/order/': {
+      id: '/customer/order/'
+      path: '/'
+      fullPath: '/customer/order/'
+      preLoaderRoute: typeof CustomerOrderIndexImport
+      parentRoute: typeof CustomerOrderRouteImport
     }
     '/customer/profile/': {
       id: '/customer/profile/'
@@ -662,6 +955,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardCustomersIndexImport
       parentRoute: typeof AdminRouteImport
     }
+    '/admin/dashboard/order-items/': {
+      id: '/admin/dashboard/order-items/'
+      path: '/'
+      fullPath: '/admin/dashboard/order-items/'
+      preLoaderRoute: typeof AdminDashboardOrderItemsIndexImport
+      parentRoute: typeof AdminDashboardOrderItemsRouteImport
+    }
+    '/admin/dashboard/orders/': {
+      id: '/admin/dashboard/orders/'
+      path: '/'
+      fullPath: '/admin/dashboard/orders/'
+      preLoaderRoute: typeof AdminDashboardOrdersIndexImport
+      parentRoute: typeof AdminDashboardOrdersRouteImport
+    }
     '/admin/dashboard/products/': {
       id: '/admin/dashboard/products/'
       path: '/dashboard/products'
@@ -675,6 +982,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/dashboard/sellers'
       preLoaderRoute: typeof AdminDashboardSellersIndexImport
       parentRoute: typeof AdminRouteImport
+    }
+    '/seller/dashboard/orders/': {
+      id: '/seller/dashboard/orders/'
+      path: '/'
+      fullPath: '/seller/dashboard/orders/'
+      preLoaderRoute: typeof SellerDashboardOrdersIndexImport
+      parentRoute: typeof SellerDashboardOrdersRouteImport
     }
     '/seller/dashboard/products/': {
       id: '/seller/dashboard/products/'
@@ -697,12 +1011,103 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardCategorieseditIdImport
       parentRoute: typeof AdminRouteImport
     }
+    '/admin/dashboard/order-items/(order-items)/all': {
+      id: '/admin/dashboard/order-items/(order-items)/all'
+      path: '/all'
+      fullPath: '/admin/dashboard/order-items/all'
+      preLoaderRoute: typeof AdminDashboardOrderItemsorderItemsAllImport
+      parentRoute: typeof AdminDashboardOrderItemsRouteImport
+    }
+    '/admin/dashboard/order-items/(order-items)/delivered': {
+      id: '/admin/dashboard/order-items/(order-items)/delivered'
+      path: '/delivered'
+      fullPath: '/admin/dashboard/order-items/delivered'
+      preLoaderRoute: typeof AdminDashboardOrderItemsorderItemsDeliveredImport
+      parentRoute: typeof AdminDashboardOrderItemsRouteImport
+    }
+    '/admin/dashboard/order-items/(order-items)/fail-delivery': {
+      id: '/admin/dashboard/order-items/(order-items)/fail-delivery'
+      path: '/fail-delivery'
+      fullPath: '/admin/dashboard/order-items/fail-delivery'
+      preLoaderRoute: typeof AdminDashboardOrderItemsorderItemsFailDeliveryImport
+      parentRoute: typeof AdminDashboardOrderItemsRouteImport
+    }
+    '/admin/dashboard/order-items/(order-items)/shipping': {
+      id: '/admin/dashboard/order-items/(order-items)/shipping'
+      path: '/shipping'
+      fullPath: '/admin/dashboard/order-items/shipping'
+      preLoaderRoute: typeof AdminDashboardOrderItemsorderItemsShippingImport
+      parentRoute: typeof AdminDashboardOrderItemsRouteImport
+    }
+    '/admin/dashboard/orders/(orders)/all': {
+      id: '/admin/dashboard/orders/(orders)/all'
+      path: '/all'
+      fullPath: '/admin/dashboard/orders/all'
+      preLoaderRoute: typeof AdminDashboardOrdersordersAllImport
+      parentRoute: typeof AdminDashboardOrdersRouteImport
+    }
+    '/seller/dashboard/orders/(orders)/all': {
+      id: '/seller/dashboard/orders/(orders)/all'
+      path: '/all'
+      fullPath: '/seller/dashboard/orders/all'
+      preLoaderRoute: typeof SellerDashboardOrdersordersAllImport
+      parentRoute: typeof SellerDashboardOrdersRouteImport
+    }
+    '/seller/dashboard/orders/(orders)/cancel': {
+      id: '/seller/dashboard/orders/(orders)/cancel'
+      path: '/cancel'
+      fullPath: '/seller/dashboard/orders/cancel'
+      preLoaderRoute: typeof SellerDashboardOrdersordersCancelImport
+      parentRoute: typeof SellerDashboardOrdersRouteImport
+    }
+    '/seller/dashboard/orders/(orders)/delivered': {
+      id: '/seller/dashboard/orders/(orders)/delivered'
+      path: '/delivered'
+      fullPath: '/seller/dashboard/orders/delivered'
+      preLoaderRoute: typeof SellerDashboardOrdersordersDeliveredImport
+      parentRoute: typeof SellerDashboardOrdersRouteImport
+    }
+    '/seller/dashboard/orders/(orders)/fail-delivery': {
+      id: '/seller/dashboard/orders/(orders)/fail-delivery'
+      path: '/fail-delivery'
+      fullPath: '/seller/dashboard/orders/fail-delivery'
+      preLoaderRoute: typeof SellerDashboardOrdersordersFailDeliveryImport
+      parentRoute: typeof SellerDashboardOrdersRouteImport
+    }
+    '/seller/dashboard/orders/(orders)/return-request': {
+      id: '/seller/dashboard/orders/(orders)/return-request'
+      path: '/return-request'
+      fullPath: '/seller/dashboard/orders/return-request'
+      preLoaderRoute: typeof SellerDashboardOrdersordersReturnRequestImport
+      parentRoute: typeof SellerDashboardOrdersRouteImport
+    }
+    '/seller/dashboard/orders/(orders)/shipping': {
+      id: '/seller/dashboard/orders/(orders)/shipping'
+      path: '/shipping'
+      fullPath: '/seller/dashboard/orders/shipping'
+      preLoaderRoute: typeof SellerDashboardOrdersordersShippingImport
+      parentRoute: typeof SellerDashboardOrdersRouteImport
+    }
+    '/seller/dashboard/orders/(orders)/toship': {
+      id: '/seller/dashboard/orders/(orders)/toship'
+      path: '/toship'
+      fullPath: '/seller/dashboard/orders/toship'
+      preLoaderRoute: typeof SellerDashboardOrdersordersToshipImport
+      parentRoute: typeof SellerDashboardOrdersRouteImport
+    }
     '/seller/dashboard/products/(product)/create': {
       id: '/seller/dashboard/products/(product)/create'
       path: '/dashboard/products/create'
       fullPath: '/seller/dashboard/products/create'
       preLoaderRoute: typeof SellerDashboardProductsproductCreateImport
       parentRoute: typeof SellerRouteImport
+    }
+    '/admin/dashboard/order-items/(order-items)/items/$id': {
+      id: '/admin/dashboard/order-items/(order-items)/items/$id'
+      path: '/items/$id'
+      fullPath: '/admin/dashboard/order-items/items/$id'
+      preLoaderRoute: typeof AdminDashboardOrderItemsorderItemsItemsIdImport
+      parentRoute: typeof AdminDashboardOrderItemsRouteImport
     }
     '/seller/dashboard/products/(product)/$id_/edit': {
       id: '/seller/dashboard/products/(product)/$id_/edit'
@@ -725,12 +1130,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SellerDashboardProductsproductIdVariantsVariantIdImport
       parentRoute: typeof SellerRouteImport
     }
+    '/seller/dashboard/orders/(orders)/items/$id/': {
+      id: '/seller/dashboard/orders/(orders)/items/$id/'
+      path: '/items/$id'
+      fullPath: '/seller/dashboard/orders/items/$id'
+      preLoaderRoute: typeof SellerDashboardOrdersordersItemsIdIndexImport
+      parentRoute: typeof SellerDashboardOrdersRouteImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface AdminDashboardOrderItemsRouteRouteChildren {
+  AdminDashboardOrderItemsIndexRoute: typeof AdminDashboardOrderItemsIndexRoute
+  AdminDashboardOrderItemsorderItemsAllRoute: typeof AdminDashboardOrderItemsorderItemsAllRoute
+  AdminDashboardOrderItemsorderItemsDeliveredRoute: typeof AdminDashboardOrderItemsorderItemsDeliveredRoute
+  AdminDashboardOrderItemsorderItemsFailDeliveryRoute: typeof AdminDashboardOrderItemsorderItemsFailDeliveryRoute
+  AdminDashboardOrderItemsorderItemsShippingRoute: typeof AdminDashboardOrderItemsorderItemsShippingRoute
+  AdminDashboardOrderItemsorderItemsItemsIdRoute: typeof AdminDashboardOrderItemsorderItemsItemsIdRoute
+}
+
+const AdminDashboardOrderItemsRouteRouteChildren: AdminDashboardOrderItemsRouteRouteChildren =
+  {
+    AdminDashboardOrderItemsIndexRoute: AdminDashboardOrderItemsIndexRoute,
+    AdminDashboardOrderItemsorderItemsAllRoute:
+      AdminDashboardOrderItemsorderItemsAllRoute,
+    AdminDashboardOrderItemsorderItemsDeliveredRoute:
+      AdminDashboardOrderItemsorderItemsDeliveredRoute,
+    AdminDashboardOrderItemsorderItemsFailDeliveryRoute:
+      AdminDashboardOrderItemsorderItemsFailDeliveryRoute,
+    AdminDashboardOrderItemsorderItemsShippingRoute:
+      AdminDashboardOrderItemsorderItemsShippingRoute,
+    AdminDashboardOrderItemsorderItemsItemsIdRoute:
+      AdminDashboardOrderItemsorderItemsItemsIdRoute,
+  }
+
+const AdminDashboardOrderItemsRouteRouteWithChildren =
+  AdminDashboardOrderItemsRouteRoute._addFileChildren(
+    AdminDashboardOrderItemsRouteRouteChildren,
+  )
+
+interface AdminDashboardOrdersRouteRouteChildren {
+  AdminDashboardOrdersIndexRoute: typeof AdminDashboardOrdersIndexRoute
+  AdminDashboardOrdersordersAllRoute: typeof AdminDashboardOrdersordersAllRoute
+}
+
+const AdminDashboardOrdersRouteRouteChildren: AdminDashboardOrdersRouteRouteChildren =
+  {
+    AdminDashboardOrdersIndexRoute: AdminDashboardOrdersIndexRoute,
+    AdminDashboardOrdersordersAllRoute: AdminDashboardOrdersordersAllRoute,
+  }
+
+const AdminDashboardOrdersRouteRouteWithChildren =
+  AdminDashboardOrdersRouteRoute._addFileChildren(
+    AdminDashboardOrdersRouteRouteChildren,
+  )
+
 interface AdminRouteRouteChildren {
+  AdminDashboardOrderItemsRouteRoute: typeof AdminDashboardOrderItemsRouteRouteWithChildren
+  AdminDashboardOrdersRouteRoute: typeof AdminDashboardOrdersRouteRouteWithChildren
   AdminDashboardAccountSettingsRoute: typeof AdminDashboardAccountSettingsRoute
   AdminDashboardUpdatePasswordRoute: typeof AdminDashboardUpdatePasswordRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
@@ -749,6 +1208,9 @@ interface AdminRouteRouteChildren {
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminDashboardOrderItemsRouteRoute:
+    AdminDashboardOrderItemsRouteRouteWithChildren,
+  AdminDashboardOrdersRouteRoute: AdminDashboardOrdersRouteRouteWithChildren,
   AdminDashboardAccountSettingsRoute: AdminDashboardAccountSettingsRoute,
   AdminDashboardUpdatePasswordRoute: AdminDashboardUpdatePasswordRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
@@ -806,15 +1268,38 @@ const CartRouteRouteWithChildren = CartRouteRoute._addFileChildren(
   CartRouteRouteChildren,
 )
 
+interface CustomerOrderRouteRouteChildren {
+  CustomerOrderCompletedRoute: typeof CustomerOrderCompletedRoute
+  CustomerOrderProcessingRoute: typeof CustomerOrderProcessingRoute
+  CustomerOrderIndexRoute: typeof CustomerOrderIndexRoute
+}
+
+const CustomerOrderRouteRouteChildren: CustomerOrderRouteRouteChildren = {
+  CustomerOrderCompletedRoute: CustomerOrderCompletedRoute,
+  CustomerOrderProcessingRoute: CustomerOrderProcessingRoute,
+  CustomerOrderIndexRoute: CustomerOrderIndexRoute,
+}
+
+const CustomerOrderRouteRouteWithChildren =
+  CustomerOrderRouteRoute._addFileChildren(CustomerOrderRouteRouteChildren)
+
 interface CustomerRouteRouteChildren {
+  CustomerOrderRouteRoute: typeof CustomerOrderRouteRouteWithChildren
   CustomerUpdatePasswordRoute: typeof CustomerUpdatePasswordRoute
+  CustomerAddressIdRoute: typeof CustomerAddressIdRoute
+  CustomerAddressCreateRoute: typeof CustomerAddressCreateRoute
   CustomerProfileUpdateRoute: typeof CustomerProfileUpdateRoute
+  CustomerAddressIndexRoute: typeof CustomerAddressIndexRoute
   CustomerProfileIndexRoute: typeof CustomerProfileIndexRoute
 }
 
 const CustomerRouteRouteChildren: CustomerRouteRouteChildren = {
+  CustomerOrderRouteRoute: CustomerOrderRouteRouteWithChildren,
   CustomerUpdatePasswordRoute: CustomerUpdatePasswordRoute,
+  CustomerAddressIdRoute: CustomerAddressIdRoute,
+  CustomerAddressCreateRoute: CustomerAddressCreateRoute,
   CustomerProfileUpdateRoute: CustomerProfileUpdateRoute,
+  CustomerAddressIndexRoute: CustomerAddressIndexRoute,
   CustomerProfileIndexRoute: CustomerProfileIndexRoute,
 }
 
@@ -822,7 +1307,45 @@ const CustomerRouteRouteWithChildren = CustomerRouteRoute._addFileChildren(
   CustomerRouteRouteChildren,
 )
 
+interface SellerDashboardOrdersRouteRouteChildren {
+  SellerDashboardOrdersIndexRoute: typeof SellerDashboardOrdersIndexRoute
+  SellerDashboardOrdersordersAllRoute: typeof SellerDashboardOrdersordersAllRoute
+  SellerDashboardOrdersordersCancelRoute: typeof SellerDashboardOrdersordersCancelRoute
+  SellerDashboardOrdersordersDeliveredRoute: typeof SellerDashboardOrdersordersDeliveredRoute
+  SellerDashboardOrdersordersFailDeliveryRoute: typeof SellerDashboardOrdersordersFailDeliveryRoute
+  SellerDashboardOrdersordersReturnRequestRoute: typeof SellerDashboardOrdersordersReturnRequestRoute
+  SellerDashboardOrdersordersShippingRoute: typeof SellerDashboardOrdersordersShippingRoute
+  SellerDashboardOrdersordersToshipRoute: typeof SellerDashboardOrdersordersToshipRoute
+  SellerDashboardOrdersordersItemsIdIndexRoute: typeof SellerDashboardOrdersordersItemsIdIndexRoute
+}
+
+const SellerDashboardOrdersRouteRouteChildren: SellerDashboardOrdersRouteRouteChildren =
+  {
+    SellerDashboardOrdersIndexRoute: SellerDashboardOrdersIndexRoute,
+    SellerDashboardOrdersordersAllRoute: SellerDashboardOrdersordersAllRoute,
+    SellerDashboardOrdersordersCancelRoute:
+      SellerDashboardOrdersordersCancelRoute,
+    SellerDashboardOrdersordersDeliveredRoute:
+      SellerDashboardOrdersordersDeliveredRoute,
+    SellerDashboardOrdersordersFailDeliveryRoute:
+      SellerDashboardOrdersordersFailDeliveryRoute,
+    SellerDashboardOrdersordersReturnRequestRoute:
+      SellerDashboardOrdersordersReturnRequestRoute,
+    SellerDashboardOrdersordersShippingRoute:
+      SellerDashboardOrdersordersShippingRoute,
+    SellerDashboardOrdersordersToshipRoute:
+      SellerDashboardOrdersordersToshipRoute,
+    SellerDashboardOrdersordersItemsIdIndexRoute:
+      SellerDashboardOrdersordersItemsIdIndexRoute,
+  }
+
+const SellerDashboardOrdersRouteRouteWithChildren =
+  SellerDashboardOrdersRouteRoute._addFileChildren(
+    SellerDashboardOrdersRouteRouteChildren,
+  )
+
 interface SellerRouteRouteChildren {
+  SellerDashboardOrdersRouteRoute: typeof SellerDashboardOrdersRouteRouteWithChildren
   SellerDashboardAccountSettingsRoute: typeof SellerDashboardAccountSettingsRoute
   SellerDashboardBusinessInformationRoute: typeof SellerDashboardBusinessInformationRoute
   SellerDashboardUpdatePasswordRoute: typeof SellerDashboardUpdatePasswordRoute
@@ -836,6 +1359,7 @@ interface SellerRouteRouteChildren {
 }
 
 const SellerRouteRouteChildren: SellerRouteRouteChildren = {
+  SellerDashboardOrdersRouteRoute: SellerDashboardOrdersRouteRouteWithChildren,
   SellerDashboardAccountSettingsRoute: SellerDashboardAccountSettingsRoute,
   SellerDashboardBusinessInformationRoute:
     SellerDashboardBusinessInformationRoute,
@@ -882,11 +1406,16 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
+  '/customer/order': typeof CustomerOrderRouteRouteWithChildren
   '/product/all': typeof ProductAllRouteRouteWithChildren
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
+  '/payment/success': typeof PaymentSuccessRoute
   '/product/$id': typeof ProductIdRoute
   '/cart/': typeof CartIndexRoute
   '/checkout': typeof CheckoutIndexRoute
+  '/admin/dashboard/order-items': typeof AdminDashboardOrderItemsRouteRouteWithChildren
+  '/admin/dashboard/orders': typeof AdminDashboardOrdersRouteRouteWithChildren
+  '/seller/dashboard/orders': typeof SellerDashboardOrdersRouteRouteWithChildren
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
   '/auth/login': typeof AuthcustomerLoginRoute
@@ -894,6 +1423,10 @@ export interface FileRoutesByFullPath {
   '/auth/admin/login': typeof AuthAdminLoginRoute
   '/auth/seller/login': typeof AuthSellerLoginRoute
   '/auth/seller/register': typeof AuthSellerRegisterRoute
+  '/customer/address/$id': typeof CustomerAddressIdRoute
+  '/customer/address/create': typeof CustomerAddressCreateRoute
+  '/customer/order/completed': typeof CustomerOrderCompletedRoute
+  '/customer/order/processing': typeof CustomerOrderProcessingRoute
   '/customer/profile/update': typeof CustomerProfileUpdateRoute
   '/product/all/best-sell': typeof ProductAllBestSellRoute
   '/product/all/feature-product': typeof ProductAllFeatureProductRoute
@@ -903,6 +1436,8 @@ export interface FileRoutesByFullPath {
   '/seller/dashboard/update-password': typeof SellerDashboardUpdatePasswordRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
   '/admin/profile': typeof AdminProfileIndexRoute
+  '/customer/address': typeof CustomerAddressIndexRoute
+  '/customer/order/': typeof CustomerOrderIndexRoute
   '/customer/profile': typeof CustomerProfileIndexRoute
   '/product/all/': typeof ProductAllIndexRoute
   '/seller/dashboard': typeof SellerDashboardIndexRoute
@@ -916,15 +1451,32 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard/admins': typeof AdminDashboardAdminsIndexRoute
   '/admin/dashboard/categories': typeof AdminDashboardCategoriesIndexRoute
   '/admin/dashboard/customers': typeof AdminDashboardCustomersIndexRoute
+  '/admin/dashboard/order-items/': typeof AdminDashboardOrderItemsIndexRoute
+  '/admin/dashboard/orders/': typeof AdminDashboardOrdersIndexRoute
   '/admin/dashboard/products': typeof AdminDashboardProductsIndexRoute
   '/admin/dashboard/sellers': typeof AdminDashboardSellersIndexRoute
+  '/seller/dashboard/orders/': typeof SellerDashboardOrdersIndexRoute
   '/seller/dashboard/products': typeof SellerDashboardProductsIndexRoute
   '/admin/dashboard/admins/$id': typeof AdminDashboardAdminseditIdRoute
   '/admin/dashboard/categories/$id': typeof AdminDashboardCategorieseditIdRoute
+  '/admin/dashboard/order-items/all': typeof AdminDashboardOrderItemsorderItemsAllRoute
+  '/admin/dashboard/order-items/delivered': typeof AdminDashboardOrderItemsorderItemsDeliveredRoute
+  '/admin/dashboard/order-items/fail-delivery': typeof AdminDashboardOrderItemsorderItemsFailDeliveryRoute
+  '/admin/dashboard/order-items/shipping': typeof AdminDashboardOrderItemsorderItemsShippingRoute
+  '/admin/dashboard/orders/all': typeof AdminDashboardOrdersordersAllRoute
+  '/seller/dashboard/orders/all': typeof SellerDashboardOrdersordersAllRoute
+  '/seller/dashboard/orders/cancel': typeof SellerDashboardOrdersordersCancelRoute
+  '/seller/dashboard/orders/delivered': typeof SellerDashboardOrdersordersDeliveredRoute
+  '/seller/dashboard/orders/fail-delivery': typeof SellerDashboardOrdersordersFailDeliveryRoute
+  '/seller/dashboard/orders/return-request': typeof SellerDashboardOrdersordersReturnRequestRoute
+  '/seller/dashboard/orders/shipping': typeof SellerDashboardOrdersordersShippingRoute
+  '/seller/dashboard/orders/toship': typeof SellerDashboardOrdersordersToshipRoute
   '/seller/dashboard/products/create': typeof SellerDashboardProductsproductCreateRoute
+  '/admin/dashboard/order-items/items/$id': typeof AdminDashboardOrderItemsorderItemsItemsIdRoute
   '/seller/dashboard/products/$id/edit': typeof SellerDashboardProductsproductIdEditRoute
   '/seller/dashboard/products/$id': typeof SellerDashboardProductsproductIdIndexRoute
   '/seller/dashboard/products/$id/variants/$variantId': typeof SellerDashboardProductsproductIdVariantsVariantIdRoute
+  '/seller/dashboard/orders/items/$id': typeof SellerDashboardOrdersordersItemsIdIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -934,6 +1486,7 @@ export interface FileRoutesByTo {
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
+  '/payment/success': typeof PaymentSuccessRoute
   '/product/$id': typeof ProductIdRoute
   '/cart': typeof CartIndexRoute
   '/checkout': typeof CheckoutIndexRoute
@@ -944,6 +1497,10 @@ export interface FileRoutesByTo {
   '/auth/admin/login': typeof AuthAdminLoginRoute
   '/auth/seller/login': typeof AuthSellerLoginRoute
   '/auth/seller/register': typeof AuthSellerRegisterRoute
+  '/customer/address/$id': typeof CustomerAddressIdRoute
+  '/customer/address/create': typeof CustomerAddressCreateRoute
+  '/customer/order/completed': typeof CustomerOrderCompletedRoute
+  '/customer/order/processing': typeof CustomerOrderProcessingRoute
   '/customer/profile/update': typeof CustomerProfileUpdateRoute
   '/product/all/best-sell': typeof ProductAllBestSellRoute
   '/product/all/feature-product': typeof ProductAllFeatureProductRoute
@@ -953,6 +1510,8 @@ export interface FileRoutesByTo {
   '/seller/dashboard/update-password': typeof SellerDashboardUpdatePasswordRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
   '/admin/profile': typeof AdminProfileIndexRoute
+  '/customer/address': typeof CustomerAddressIndexRoute
+  '/customer/order': typeof CustomerOrderIndexRoute
   '/customer/profile': typeof CustomerProfileIndexRoute
   '/product/all': typeof ProductAllIndexRoute
   '/seller/dashboard': typeof SellerDashboardIndexRoute
@@ -966,15 +1525,32 @@ export interface FileRoutesByTo {
   '/admin/dashboard/admins': typeof AdminDashboardAdminsIndexRoute
   '/admin/dashboard/categories': typeof AdminDashboardCategoriesIndexRoute
   '/admin/dashboard/customers': typeof AdminDashboardCustomersIndexRoute
+  '/admin/dashboard/order-items': typeof AdminDashboardOrderItemsIndexRoute
+  '/admin/dashboard/orders': typeof AdminDashboardOrdersIndexRoute
   '/admin/dashboard/products': typeof AdminDashboardProductsIndexRoute
   '/admin/dashboard/sellers': typeof AdminDashboardSellersIndexRoute
+  '/seller/dashboard/orders': typeof SellerDashboardOrdersIndexRoute
   '/seller/dashboard/products': typeof SellerDashboardProductsIndexRoute
   '/admin/dashboard/admins/$id': typeof AdminDashboardAdminseditIdRoute
   '/admin/dashboard/categories/$id': typeof AdminDashboardCategorieseditIdRoute
+  '/admin/dashboard/order-items/all': typeof AdminDashboardOrderItemsorderItemsAllRoute
+  '/admin/dashboard/order-items/delivered': typeof AdminDashboardOrderItemsorderItemsDeliveredRoute
+  '/admin/dashboard/order-items/fail-delivery': typeof AdminDashboardOrderItemsorderItemsFailDeliveryRoute
+  '/admin/dashboard/order-items/shipping': typeof AdminDashboardOrderItemsorderItemsShippingRoute
+  '/admin/dashboard/orders/all': typeof AdminDashboardOrdersordersAllRoute
+  '/seller/dashboard/orders/all': typeof SellerDashboardOrdersordersAllRoute
+  '/seller/dashboard/orders/cancel': typeof SellerDashboardOrdersordersCancelRoute
+  '/seller/dashboard/orders/delivered': typeof SellerDashboardOrdersordersDeliveredRoute
+  '/seller/dashboard/orders/fail-delivery': typeof SellerDashboardOrdersordersFailDeliveryRoute
+  '/seller/dashboard/orders/return-request': typeof SellerDashboardOrdersordersReturnRequestRoute
+  '/seller/dashboard/orders/shipping': typeof SellerDashboardOrdersordersShippingRoute
+  '/seller/dashboard/orders/toship': typeof SellerDashboardOrdersordersToshipRoute
   '/seller/dashboard/products/create': typeof SellerDashboardProductsproductCreateRoute
+  '/admin/dashboard/order-items/items/$id': typeof AdminDashboardOrderItemsorderItemsItemsIdRoute
   '/seller/dashboard/products/$id/edit': typeof SellerDashboardProductsproductIdEditRoute
   '/seller/dashboard/products/$id': typeof SellerDashboardProductsproductIdIndexRoute
   '/seller/dashboard/products/$id/variants/$variantId': typeof SellerDashboardProductsproductIdVariantsVariantIdRoute
+  '/seller/dashboard/orders/items/$id': typeof SellerDashboardOrdersordersItemsIdIndexRoute
 }
 
 export interface FileRoutesById {
@@ -985,11 +1561,16 @@ export interface FileRoutesById {
   '/cart': typeof CartRouteRouteWithChildren
   '/customer': typeof CustomerRouteRouteWithChildren
   '/seller': typeof SellerRouteRouteWithChildren
+  '/customer/order': typeof CustomerOrderRouteRouteWithChildren
   '/product/all': typeof ProductAllRouteRouteWithChildren
   '/customer/update-password': typeof CustomerUpdatePasswordRoute
+  '/payment/success': typeof PaymentSuccessRoute
   '/product/$id': typeof ProductIdRoute
   '/cart/': typeof CartIndexRoute
   '/checkout/': typeof CheckoutIndexRoute
+  '/admin/dashboard/order-items': typeof AdminDashboardOrderItemsRouteRouteWithChildren
+  '/admin/dashboard/orders': typeof AdminDashboardOrdersRouteRouteWithChildren
+  '/seller/dashboard/orders': typeof SellerDashboardOrdersRouteRouteWithChildren
   '/admin/dashboard/account-settings': typeof AdminDashboardAccountSettingsRoute
   '/admin/dashboard/update-password': typeof AdminDashboardUpdatePasswordRoute
   '/auth/(customer)/login': typeof AuthcustomerLoginRoute
@@ -997,6 +1578,10 @@ export interface FileRoutesById {
   '/auth/admin/login': typeof AuthAdminLoginRoute
   '/auth/seller/login': typeof AuthSellerLoginRoute
   '/auth/seller/register': typeof AuthSellerRegisterRoute
+  '/customer/address/$id': typeof CustomerAddressIdRoute
+  '/customer/address/create': typeof CustomerAddressCreateRoute
+  '/customer/order/completed': typeof CustomerOrderCompletedRoute
+  '/customer/order/processing': typeof CustomerOrderProcessingRoute
   '/customer/profile/update': typeof CustomerProfileUpdateRoute
   '/product/all/best-sell': typeof ProductAllBestSellRoute
   '/product/all/feature-product': typeof ProductAllFeatureProductRoute
@@ -1006,6 +1591,8 @@ export interface FileRoutesById {
   '/seller/dashboard/update-password': typeof SellerDashboardUpdatePasswordRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
   '/admin/profile/': typeof AdminProfileIndexRoute
+  '/customer/address/': typeof CustomerAddressIndexRoute
+  '/customer/order/': typeof CustomerOrderIndexRoute
   '/customer/profile/': typeof CustomerProfileIndexRoute
   '/product/all/': typeof ProductAllIndexRoute
   '/seller/dashboard/': typeof SellerDashboardIndexRoute
@@ -1019,15 +1606,32 @@ export interface FileRoutesById {
   '/admin/dashboard/admins/': typeof AdminDashboardAdminsIndexRoute
   '/admin/dashboard/categories/': typeof AdminDashboardCategoriesIndexRoute
   '/admin/dashboard/customers/': typeof AdminDashboardCustomersIndexRoute
+  '/admin/dashboard/order-items/': typeof AdminDashboardOrderItemsIndexRoute
+  '/admin/dashboard/orders/': typeof AdminDashboardOrdersIndexRoute
   '/admin/dashboard/products/': typeof AdminDashboardProductsIndexRoute
   '/admin/dashboard/sellers/': typeof AdminDashboardSellersIndexRoute
+  '/seller/dashboard/orders/': typeof SellerDashboardOrdersIndexRoute
   '/seller/dashboard/products/': typeof SellerDashboardProductsIndexRoute
   '/admin/dashboard/admins/(edit)/$id': typeof AdminDashboardAdminseditIdRoute
   '/admin/dashboard/categories/(edit)/$id': typeof AdminDashboardCategorieseditIdRoute
+  '/admin/dashboard/order-items/(order-items)/all': typeof AdminDashboardOrderItemsorderItemsAllRoute
+  '/admin/dashboard/order-items/(order-items)/delivered': typeof AdminDashboardOrderItemsorderItemsDeliveredRoute
+  '/admin/dashboard/order-items/(order-items)/fail-delivery': typeof AdminDashboardOrderItemsorderItemsFailDeliveryRoute
+  '/admin/dashboard/order-items/(order-items)/shipping': typeof AdminDashboardOrderItemsorderItemsShippingRoute
+  '/admin/dashboard/orders/(orders)/all': typeof AdminDashboardOrdersordersAllRoute
+  '/seller/dashboard/orders/(orders)/all': typeof SellerDashboardOrdersordersAllRoute
+  '/seller/dashboard/orders/(orders)/cancel': typeof SellerDashboardOrdersordersCancelRoute
+  '/seller/dashboard/orders/(orders)/delivered': typeof SellerDashboardOrdersordersDeliveredRoute
+  '/seller/dashboard/orders/(orders)/fail-delivery': typeof SellerDashboardOrdersordersFailDeliveryRoute
+  '/seller/dashboard/orders/(orders)/return-request': typeof SellerDashboardOrdersordersReturnRequestRoute
+  '/seller/dashboard/orders/(orders)/shipping': typeof SellerDashboardOrdersordersShippingRoute
+  '/seller/dashboard/orders/(orders)/toship': typeof SellerDashboardOrdersordersToshipRoute
   '/seller/dashboard/products/(product)/create': typeof SellerDashboardProductsproductCreateRoute
+  '/admin/dashboard/order-items/(order-items)/items/$id': typeof AdminDashboardOrderItemsorderItemsItemsIdRoute
   '/seller/dashboard/products/(product)/$id_/edit': typeof SellerDashboardProductsproductIdEditRoute
   '/seller/dashboard/products/(product)/$id/': typeof SellerDashboardProductsproductIdIndexRoute
   '/seller/dashboard/products/(product)/$id/variants/$variantId': typeof SellerDashboardProductsproductIdVariantsVariantIdRoute
+  '/seller/dashboard/orders/(orders)/items/$id/': typeof SellerDashboardOrdersordersItemsIdIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -1039,11 +1643,16 @@ export interface FileRouteTypes {
     | '/cart'
     | '/customer'
     | '/seller'
+    | '/customer/order'
     | '/product/all'
     | '/customer/update-password'
+    | '/payment/success'
     | '/product/$id'
     | '/cart/'
     | '/checkout'
+    | '/admin/dashboard/order-items'
+    | '/admin/dashboard/orders'
+    | '/seller/dashboard/orders'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
     | '/auth/login'
@@ -1051,6 +1660,10 @@ export interface FileRouteTypes {
     | '/auth/admin/login'
     | '/auth/seller/login'
     | '/auth/seller/register'
+    | '/customer/address/$id'
+    | '/customer/address/create'
+    | '/customer/order/completed'
+    | '/customer/order/processing'
     | '/customer/profile/update'
     | '/product/all/best-sell'
     | '/product/all/feature-product'
@@ -1060,6 +1673,8 @@ export interface FileRouteTypes {
     | '/seller/dashboard/update-password'
     | '/admin/dashboard'
     | '/admin/profile'
+    | '/customer/address'
+    | '/customer/order/'
     | '/customer/profile'
     | '/product/all/'
     | '/seller/dashboard'
@@ -1073,15 +1688,32 @@ export interface FileRouteTypes {
     | '/admin/dashboard/admins'
     | '/admin/dashboard/categories'
     | '/admin/dashboard/customers'
+    | '/admin/dashboard/order-items/'
+    | '/admin/dashboard/orders/'
     | '/admin/dashboard/products'
     | '/admin/dashboard/sellers'
+    | '/seller/dashboard/orders/'
     | '/seller/dashboard/products'
     | '/admin/dashboard/admins/$id'
     | '/admin/dashboard/categories/$id'
+    | '/admin/dashboard/order-items/all'
+    | '/admin/dashboard/order-items/delivered'
+    | '/admin/dashboard/order-items/fail-delivery'
+    | '/admin/dashboard/order-items/shipping'
+    | '/admin/dashboard/orders/all'
+    | '/seller/dashboard/orders/all'
+    | '/seller/dashboard/orders/cancel'
+    | '/seller/dashboard/orders/delivered'
+    | '/seller/dashboard/orders/fail-delivery'
+    | '/seller/dashboard/orders/return-request'
+    | '/seller/dashboard/orders/shipping'
+    | '/seller/dashboard/orders/toship'
     | '/seller/dashboard/products/create'
+    | '/admin/dashboard/order-items/items/$id'
     | '/seller/dashboard/products/$id/edit'
     | '/seller/dashboard/products/$id'
     | '/seller/dashboard/products/$id/variants/$variantId'
+    | '/seller/dashboard/orders/items/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -1090,6 +1722,7 @@ export interface FileRouteTypes {
     | '/customer'
     | '/seller'
     | '/customer/update-password'
+    | '/payment/success'
     | '/product/$id'
     | '/cart'
     | '/checkout'
@@ -1100,6 +1733,10 @@ export interface FileRouteTypes {
     | '/auth/admin/login'
     | '/auth/seller/login'
     | '/auth/seller/register'
+    | '/customer/address/$id'
+    | '/customer/address/create'
+    | '/customer/order/completed'
+    | '/customer/order/processing'
     | '/customer/profile/update'
     | '/product/all/best-sell'
     | '/product/all/feature-product'
@@ -1109,6 +1746,8 @@ export interface FileRouteTypes {
     | '/seller/dashboard/update-password'
     | '/admin/dashboard'
     | '/admin/profile'
+    | '/customer/address'
+    | '/customer/order'
     | '/customer/profile'
     | '/product/all'
     | '/seller/dashboard'
@@ -1122,15 +1761,32 @@ export interface FileRouteTypes {
     | '/admin/dashboard/admins'
     | '/admin/dashboard/categories'
     | '/admin/dashboard/customers'
+    | '/admin/dashboard/order-items'
+    | '/admin/dashboard/orders'
     | '/admin/dashboard/products'
     | '/admin/dashboard/sellers'
+    | '/seller/dashboard/orders'
     | '/seller/dashboard/products'
     | '/admin/dashboard/admins/$id'
     | '/admin/dashboard/categories/$id'
+    | '/admin/dashboard/order-items/all'
+    | '/admin/dashboard/order-items/delivered'
+    | '/admin/dashboard/order-items/fail-delivery'
+    | '/admin/dashboard/order-items/shipping'
+    | '/admin/dashboard/orders/all'
+    | '/seller/dashboard/orders/all'
+    | '/seller/dashboard/orders/cancel'
+    | '/seller/dashboard/orders/delivered'
+    | '/seller/dashboard/orders/fail-delivery'
+    | '/seller/dashboard/orders/return-request'
+    | '/seller/dashboard/orders/shipping'
+    | '/seller/dashboard/orders/toship'
     | '/seller/dashboard/products/create'
+    | '/admin/dashboard/order-items/items/$id'
     | '/seller/dashboard/products/$id/edit'
     | '/seller/dashboard/products/$id'
     | '/seller/dashboard/products/$id/variants/$variantId'
+    | '/seller/dashboard/orders/items/$id'
   id:
     | '__root__'
     | '/'
@@ -1139,11 +1795,16 @@ export interface FileRouteTypes {
     | '/cart'
     | '/customer'
     | '/seller'
+    | '/customer/order'
     | '/product/all'
     | '/customer/update-password'
+    | '/payment/success'
     | '/product/$id'
     | '/cart/'
     | '/checkout/'
+    | '/admin/dashboard/order-items'
+    | '/admin/dashboard/orders'
+    | '/seller/dashboard/orders'
     | '/admin/dashboard/account-settings'
     | '/admin/dashboard/update-password'
     | '/auth/(customer)/login'
@@ -1151,6 +1812,10 @@ export interface FileRouteTypes {
     | '/auth/admin/login'
     | '/auth/seller/login'
     | '/auth/seller/register'
+    | '/customer/address/$id'
+    | '/customer/address/create'
+    | '/customer/order/completed'
+    | '/customer/order/processing'
     | '/customer/profile/update'
     | '/product/all/best-sell'
     | '/product/all/feature-product'
@@ -1160,6 +1825,8 @@ export interface FileRouteTypes {
     | '/seller/dashboard/update-password'
     | '/admin/dashboard/'
     | '/admin/profile/'
+    | '/customer/address/'
+    | '/customer/order/'
     | '/customer/profile/'
     | '/product/all/'
     | '/seller/dashboard/'
@@ -1173,15 +1840,32 @@ export interface FileRouteTypes {
     | '/admin/dashboard/admins/'
     | '/admin/dashboard/categories/'
     | '/admin/dashboard/customers/'
+    | '/admin/dashboard/order-items/'
+    | '/admin/dashboard/orders/'
     | '/admin/dashboard/products/'
     | '/admin/dashboard/sellers/'
+    | '/seller/dashboard/orders/'
     | '/seller/dashboard/products/'
     | '/admin/dashboard/admins/(edit)/$id'
     | '/admin/dashboard/categories/(edit)/$id'
+    | '/admin/dashboard/order-items/(order-items)/all'
+    | '/admin/dashboard/order-items/(order-items)/delivered'
+    | '/admin/dashboard/order-items/(order-items)/fail-delivery'
+    | '/admin/dashboard/order-items/(order-items)/shipping'
+    | '/admin/dashboard/orders/(orders)/all'
+    | '/seller/dashboard/orders/(orders)/all'
+    | '/seller/dashboard/orders/(orders)/cancel'
+    | '/seller/dashboard/orders/(orders)/delivered'
+    | '/seller/dashboard/orders/(orders)/fail-delivery'
+    | '/seller/dashboard/orders/(orders)/return-request'
+    | '/seller/dashboard/orders/(orders)/shipping'
+    | '/seller/dashboard/orders/(orders)/toship'
     | '/seller/dashboard/products/(product)/create'
+    | '/admin/dashboard/order-items/(order-items)/items/$id'
     | '/seller/dashboard/products/(product)/$id_/edit'
     | '/seller/dashboard/products/(product)/$id/'
     | '/seller/dashboard/products/(product)/$id/variants/$variantId'
+    | '/seller/dashboard/orders/(orders)/items/$id/'
   fileRoutesById: FileRoutesById
 }
 
@@ -1193,6 +1877,7 @@ export interface RootRouteChildren {
   CustomerRouteRoute: typeof CustomerRouteRouteWithChildren
   SellerRouteRoute: typeof SellerRouteRouteWithChildren
   ProductAllRouteRoute: typeof ProductAllRouteRouteWithChildren
+  PaymentSuccessRoute: typeof PaymentSuccessRoute
   ProductIdRoute: typeof ProductIdRoute
   CheckoutIndexRoute: typeof CheckoutIndexRoute
 }
@@ -1205,6 +1890,7 @@ const rootRouteChildren: RootRouteChildren = {
   CustomerRouteRoute: CustomerRouteRouteWithChildren,
   SellerRouteRoute: SellerRouteRouteWithChildren,
   ProductAllRouteRoute: ProductAllRouteRouteWithChildren,
+  PaymentSuccessRoute: PaymentSuccessRoute,
   ProductIdRoute: ProductIdRoute,
   CheckoutIndexRoute: CheckoutIndexRoute,
 }
@@ -1226,6 +1912,7 @@ export const routeTree = rootRoute
         "/customer",
         "/seller",
         "/product/all",
+        "/payment/success",
         "/product/$id",
         "/checkout/"
       ]
@@ -1236,6 +1923,8 @@ export const routeTree = rootRoute
     "/admin": {
       "filePath": "admin/route.tsx",
       "children": [
+        "/admin/dashboard/order-items",
+        "/admin/dashboard/orders",
         "/admin/dashboard/account-settings",
         "/admin/dashboard/update-password",
         "/admin/dashboard/",
@@ -1274,14 +1963,19 @@ export const routeTree = rootRoute
     "/customer": {
       "filePath": "customer/route.tsx",
       "children": [
+        "/customer/order",
         "/customer/update-password",
+        "/customer/address/$id",
+        "/customer/address/create",
         "/customer/profile/update",
+        "/customer/address/",
         "/customer/profile/"
       ]
     },
     "/seller": {
       "filePath": "seller/route.tsx",
       "children": [
+        "/seller/dashboard/orders",
         "/seller/dashboard/account-settings",
         "/seller/dashboard/business-information",
         "/seller/dashboard/update-password",
@@ -1292,6 +1986,15 @@ export const routeTree = rootRoute
         "/seller/dashboard/products/(product)/$id_/edit",
         "/seller/dashboard/products/(product)/$id/",
         "/seller/dashboard/products/(product)/$id/variants/$variantId"
+      ]
+    },
+    "/customer/order": {
+      "filePath": "customer/order/route.tsx",
+      "parent": "/customer",
+      "children": [
+        "/customer/order/completed",
+        "/customer/order/processing",
+        "/customer/order/"
       ]
     },
     "/product/all": {
@@ -1307,6 +2010,9 @@ export const routeTree = rootRoute
       "filePath": "customer/update-password.tsx",
       "parent": "/customer"
     },
+    "/payment/success": {
+      "filePath": "payment/success.tsx"
+    },
     "/product/$id": {
       "filePath": "product/$id.tsx"
     },
@@ -1316,6 +2022,41 @@ export const routeTree = rootRoute
     },
     "/checkout/": {
       "filePath": "checkout/index.tsx"
+    },
+    "/admin/dashboard/order-items": {
+      "filePath": "admin/dashboard/order-items/route.tsx",
+      "parent": "/admin",
+      "children": [
+        "/admin/dashboard/order-items/",
+        "/admin/dashboard/order-items/(order-items)/all",
+        "/admin/dashboard/order-items/(order-items)/delivered",
+        "/admin/dashboard/order-items/(order-items)/fail-delivery",
+        "/admin/dashboard/order-items/(order-items)/shipping",
+        "/admin/dashboard/order-items/(order-items)/items/$id"
+      ]
+    },
+    "/admin/dashboard/orders": {
+      "filePath": "admin/dashboard/orders/route.tsx",
+      "parent": "/admin",
+      "children": [
+        "/admin/dashboard/orders/",
+        "/admin/dashboard/orders/(orders)/all"
+      ]
+    },
+    "/seller/dashboard/orders": {
+      "filePath": "seller/dashboard/orders/route.tsx",
+      "parent": "/seller",
+      "children": [
+        "/seller/dashboard/orders/",
+        "/seller/dashboard/orders/(orders)/all",
+        "/seller/dashboard/orders/(orders)/cancel",
+        "/seller/dashboard/orders/(orders)/delivered",
+        "/seller/dashboard/orders/(orders)/fail-delivery",
+        "/seller/dashboard/orders/(orders)/return-request",
+        "/seller/dashboard/orders/(orders)/shipping",
+        "/seller/dashboard/orders/(orders)/toship",
+        "/seller/dashboard/orders/(orders)/items/$id/"
+      ]
     },
     "/admin/dashboard/account-settings": {
       "filePath": "admin/dashboard/account-settings.tsx",
@@ -1344,6 +2085,22 @@ export const routeTree = rootRoute
     "/auth/seller/register": {
       "filePath": "auth/seller/register.tsx",
       "parent": "/auth"
+    },
+    "/customer/address/$id": {
+      "filePath": "customer/address/$id.tsx",
+      "parent": "/customer"
+    },
+    "/customer/address/create": {
+      "filePath": "customer/address/create.tsx",
+      "parent": "/customer"
+    },
+    "/customer/order/completed": {
+      "filePath": "customer/order/completed.tsx",
+      "parent": "/customer/order"
+    },
+    "/customer/order/processing": {
+      "filePath": "customer/order/processing.tsx",
+      "parent": "/customer/order"
     },
     "/customer/profile/update": {
       "filePath": "customer/profile/update.tsx",
@@ -1380,6 +2137,14 @@ export const routeTree = rootRoute
     "/admin/profile/": {
       "filePath": "admin/profile/index.tsx",
       "parent": "/admin"
+    },
+    "/customer/address/": {
+      "filePath": "customer/address/index.tsx",
+      "parent": "/customer"
+    },
+    "/customer/order/": {
+      "filePath": "customer/order/index.tsx",
+      "parent": "/customer/order"
     },
     "/customer/profile/": {
       "filePath": "customer/profile/index.tsx",
@@ -1433,6 +2198,14 @@ export const routeTree = rootRoute
       "filePath": "admin/dashboard/customers/index.tsx",
       "parent": "/admin"
     },
+    "/admin/dashboard/order-items/": {
+      "filePath": "admin/dashboard/order-items/index.tsx",
+      "parent": "/admin/dashboard/order-items"
+    },
+    "/admin/dashboard/orders/": {
+      "filePath": "admin/dashboard/orders/index.tsx",
+      "parent": "/admin/dashboard/orders"
+    },
     "/admin/dashboard/products/": {
       "filePath": "admin/dashboard/products/index.tsx",
       "parent": "/admin"
@@ -1440,6 +2213,10 @@ export const routeTree = rootRoute
     "/admin/dashboard/sellers/": {
       "filePath": "admin/dashboard/sellers/index.tsx",
       "parent": "/admin"
+    },
+    "/seller/dashboard/orders/": {
+      "filePath": "seller/dashboard/orders/index.tsx",
+      "parent": "/seller/dashboard/orders"
     },
     "/seller/dashboard/products/": {
       "filePath": "seller/dashboard/products/index.tsx",
@@ -1453,9 +2230,61 @@ export const routeTree = rootRoute
       "filePath": "admin/dashboard/categories/(edit)/$id.tsx",
       "parent": "/admin"
     },
+    "/admin/dashboard/order-items/(order-items)/all": {
+      "filePath": "admin/dashboard/order-items/(order-items)/all.tsx",
+      "parent": "/admin/dashboard/order-items"
+    },
+    "/admin/dashboard/order-items/(order-items)/delivered": {
+      "filePath": "admin/dashboard/order-items/(order-items)/delivered.tsx",
+      "parent": "/admin/dashboard/order-items"
+    },
+    "/admin/dashboard/order-items/(order-items)/fail-delivery": {
+      "filePath": "admin/dashboard/order-items/(order-items)/fail-delivery.tsx",
+      "parent": "/admin/dashboard/order-items"
+    },
+    "/admin/dashboard/order-items/(order-items)/shipping": {
+      "filePath": "admin/dashboard/order-items/(order-items)/shipping.tsx",
+      "parent": "/admin/dashboard/order-items"
+    },
+    "/admin/dashboard/orders/(orders)/all": {
+      "filePath": "admin/dashboard/orders/(orders)/all.tsx",
+      "parent": "/admin/dashboard/orders"
+    },
+    "/seller/dashboard/orders/(orders)/all": {
+      "filePath": "seller/dashboard/orders/(orders)/all.tsx",
+      "parent": "/seller/dashboard/orders"
+    },
+    "/seller/dashboard/orders/(orders)/cancel": {
+      "filePath": "seller/dashboard/orders/(orders)/cancel.tsx",
+      "parent": "/seller/dashboard/orders"
+    },
+    "/seller/dashboard/orders/(orders)/delivered": {
+      "filePath": "seller/dashboard/orders/(orders)/delivered.tsx",
+      "parent": "/seller/dashboard/orders"
+    },
+    "/seller/dashboard/orders/(orders)/fail-delivery": {
+      "filePath": "seller/dashboard/orders/(orders)/fail-delivery.tsx",
+      "parent": "/seller/dashboard/orders"
+    },
+    "/seller/dashboard/orders/(orders)/return-request": {
+      "filePath": "seller/dashboard/orders/(orders)/return-request.tsx",
+      "parent": "/seller/dashboard/orders"
+    },
+    "/seller/dashboard/orders/(orders)/shipping": {
+      "filePath": "seller/dashboard/orders/(orders)/shipping.tsx",
+      "parent": "/seller/dashboard/orders"
+    },
+    "/seller/dashboard/orders/(orders)/toship": {
+      "filePath": "seller/dashboard/orders/(orders)/toship.tsx",
+      "parent": "/seller/dashboard/orders"
+    },
     "/seller/dashboard/products/(product)/create": {
       "filePath": "seller/dashboard/products/(product)/create.tsx",
       "parent": "/seller"
+    },
+    "/admin/dashboard/order-items/(order-items)/items/$id": {
+      "filePath": "admin/dashboard/order-items/(order-items)/items/$id.tsx",
+      "parent": "/admin/dashboard/order-items"
     },
     "/seller/dashboard/products/(product)/$id_/edit": {
       "filePath": "seller/dashboard/products/(product)/$id_/edit.tsx",
@@ -1468,6 +2297,10 @@ export const routeTree = rootRoute
     "/seller/dashboard/products/(product)/$id/variants/$variantId": {
       "filePath": "seller/dashboard/products/(product)/$id/variants/$variantId.tsx",
       "parent": "/seller"
+    },
+    "/seller/dashboard/orders/(orders)/items/$id/": {
+      "filePath": "seller/dashboard/orders/(orders)/items/$id/index.tsx",
+      "parent": "/seller/dashboard/orders"
     }
   }
 }

@@ -1,5 +1,5 @@
 import BackButton from '@/components/Button/BackButton';
-import ProductDetail from '@/components/Product/ProductDetail';
+import ProductDetail from '@/components/Product/newProductDetail';
 import Spinner from '@/components/ui/spinner';
 import { useGetProductById } from '@/hooks/product.hooks';
 import { UserRole } from '@/types/enum.types';

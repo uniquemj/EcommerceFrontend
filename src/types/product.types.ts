@@ -17,7 +17,8 @@ export interface ProductInfo{
     dangerousGoods: string,
     warrantyType: string,
     warrantyPeriod: number,
-    warrantyPolicy: string
+    warrantyPolicy: string,
+    sellCount: number
 }
 
 export enum ColorType {

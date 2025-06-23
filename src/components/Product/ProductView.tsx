@@ -16,19 +16,27 @@ interface ProductViewProps {
     role: string;
   };
   className?: string;
-  defaultVariant?:string
+  defaultVariant?: string;
 }
 
-function ProductView({ render, option ,defaultVariant}: ProductViewProps) {
-  const initializedRef = useRef(false)
-  
-  const { selectedVariantId, setSelectedVariantId} = useVariantSelectionStore()
+function ProductView({ render, option, defaultVariant }: ProductViewProps) {
+  const initializedRef = useRef(false);
 
-  if(!initializedRef.current && defaultVariant as string && !selectedVariantId){
+  const { selectedVariantId, setSelectedVariantId } =
+    useVariantSelectionStore();
+  if (
+    !initializedRef.current &&
+    (defaultVariant as string) &&
+    !selectedVariantId
+  ) {
     setSelectedVariantId(defaultVariant as string);
-    initializedRef.current = true
+    initializedRef.current = true;
   }
-  
+
+  const handleVariantChange = (newVariantId: string) => {
+    setSelectedVariantId(newVariantId);
+  };
+
   return (
     <>
       {/* <div className="hidden min-s-md:flex justify-center ">
@@ -68,12 +76,12 @@ function ProductView({ render, option ,defaultVariant}: ProductViewProps) {
                 ))
               }
       </div> */}
-      <RadioGroup
-        value={defaultVariant || ""}
-        onValueChange={(val) => setSelectedVariantId(val)}
+      {/* <RadioGroup
+        value={selectedVariantId}
+        onValueChange={handleVariantChange}
         className="space-y-4"
       >
-        <div className="flex flex-col items-center gap-6 overflow-y-auto py-space-12">
+        <div className="flex flex-col items-center gap-6 overflow-y-auto py-space-12 min-940:overflow-x-hidden">
           {render.map((item) => (
             <ProductRow
               variantInfo={item as VariantInfo}
@@ -82,6 +90,16 @@ function ProductView({ render, option ,defaultVariant}: ProductViewProps) {
             />
           ))}
         </div>
+      </RadioGroup> */}
+
+      <RadioGroup value={selectedVariantId} onValueChange={handleVariantChange} className="divide-y">
+        {render.map((item) => (
+          <ProductRow
+            key={item._id}
+            variantInfo={item}
+            role={option?.role as string}
+          />
+        ))}
       </RadioGroup>
     </>
   );

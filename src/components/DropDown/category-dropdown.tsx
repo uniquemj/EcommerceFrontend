@@ -7,7 +7,7 @@ import { Link } from "@tanstack/react-router";
 const CategoryItem = ({ category }: { category: CategoryTree }) => {
   const hasChildren = category.children!.length > 0;
   return (
-      <div className="pl-space-18 py-space-8 border-b-1 w-full last:borde-none">
+      <div className="pl-space-18 py-space-8 border-b-1 w-full last:border-none">
         <div className="flex justify-between items-center">
             <Link to={`/product/all`} search={{category: category.category.title}} className="hover:text-secondary-shade-normal">
                 <span>{upperCase(category.category.title)}</span>

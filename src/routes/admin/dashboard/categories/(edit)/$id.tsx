@@ -1,4 +1,5 @@
 import BackButton from "@/components/Button/BackButton";
+import CategoryCombobox from "@/components/Combobox/CategoryCombobox";
 import DashboardHeader from "@/components/Layout/DashboardHeader/DashboardHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -35,7 +36,7 @@ export const Route = createFileRoute("/admin/dashboard/categories/(edit)/$id")({
 function RouteComponent() {
   const { id } = Route.useParams();
   const { isPending, mutate } = useUpdateCategory();
-  const { data: categories } = useGetAllCategory({ page: 0, limit: 0 });
+  const { isLoading, data: categories } = useGetAllCategory({ page: 0, limit: 0 });
   const { data: category } = useGetCategoryById(id);
 
   const {
@@ -91,7 +92,7 @@ function RouteComponent() {
                     ""
                   )}
                 </div>
-                <Controller
+                {/* <Controller
                   name="parent_category"
                   control={control}
                   render={({ field }) => (
@@ -127,7 +128,25 @@ function RouteComponent() {
                       )}
                     </div>
                   )}
-                />
+                /> */}
+                       <Controller
+                name="parent_category"
+                control={control}
+                render={({ field }) => (
+                  <div className="flex flex-col space-y-3">
+                    <Label htmlFor="parent_category">Parent Categories</Label>
+                    <CategoryCombobox categories={categories?.data as Category[]} isLoading={isLoading} value={field.value as string} onChange={field.onChange}/> 
+                    
+                     {errors.parent_category ? (
+                      <p className="text-primary-color text-error-msg">
+                        {errors.parent_category.message}
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                )}
+              />
               </div>
             </div>
           </CardContent>

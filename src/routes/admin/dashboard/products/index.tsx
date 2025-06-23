@@ -16,7 +16,7 @@ function RouteComponent() {
   const data = sellerProducts?.data
   return (
     <DashboardHeader header ="Manage Product" buttons={[]}>
-      <DataTable columns = {adminProductColumns} data={data as ProductInfo[]}/>
+      <DataTable columns = {adminProductColumns} data={data as ProductInfo[]} filterId='name'/>
     </DashboardHeader>
   )
 }

@@ -1,3 +1,4 @@
+import LoadingScreen from '@/components/Loading/LoadingScreen'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -14,12 +15,12 @@ export const Route = createFileRoute('/customer/profile/update')({
 })
 
 function RouteComponent() {
-  const {data: customer} = useGetCustomerProfile()
+  const {isPending: isLoading ,data: customer} = useGetCustomerProfile()
   const {register, handleSubmit, formState: {errors}} = useForm<CustomerProfileUpdateType>({
     values: {
       fullname: customer?.data.fullname,
       phone_number: customer?.data.phone_number,
-      date_of_birth: customer?.data.date_of_birth.split('T')[0]
+      date_of_birth: customer?.data?.date_of_birth ?  customer.data.date_of_birth.split('T')[0] : ""
     },
     defaultValues: {
       fullname: customer?.data.fullname,
@@ -35,17 +36,17 @@ function RouteComponent() {
   }
 
   if(isPending) return <div className='w-full h-full flex items-center justify-center'><Spinner/></div>
-
+  if(isLoading) return <LoadingScreen description='Loading. . .'/>
   return  (
   <div className="">
       <div className="flex flex-col gap-3 mb-4">
         <h1 className="max-[410px]:text-2xl text-3xl font-bold">
-          Update Your Account Information
+          Your Account Information
         </h1>
         <Separator className="bg-[rgba(0,0,0,0.3)]" />
       </div>
       <form onSubmit={handleSubmit(handleUpdate)}>
-        <Card>
+        <Card className='rounded-none shadow-none border-none'>
           <CardContent className='flex justify-center items-center'>
             <div className="grid w-full items-center gap-4 ">
               <div className="grid grid-cols-1 gap-5">
@@ -71,7 +72,7 @@ function RouteComponent() {
                     type="text"
                     {...register("phone_number", {required: false})}
                     id="phone_number"
-                    placeholder="Your full name"
+                    placeholder="Your Phone Number"
                   />
                   {errors.phone_number? (
                     <p className="text-red-400 max-[600px]:text-sm">
@@ -102,8 +103,8 @@ function RouteComponent() {
 
             </div>
           </CardContent>
-          <CardFooter>
-            <Button type="submit" className="bg-red-400 hover:cursor-pointer">Submit</Button>
+          <CardFooter className='flex items-center'>
+            <Button type="submit" className="bg-secondary-color rounded-none w-1/5 hover:cursor-pointer">Submit</Button>
           </CardFooter>
         </Card>
       </form>

@@ -13,6 +13,11 @@ export const getAllProductList = async (pagination: PaginationField): Promise<Su
     const response = await api.get<SuccessResponse<ProductInfo[]>>(`/products/all`, {params: pagination})
     return response.data
 }
+
+export const getProductCount = async(): Promise<SuccessResponse<number>> => {
+    const response = await api.get<SuccessResponse<number>>(`/products/all/count`)
+    return response.data
+}
 export const getSellerProductList = async (pagination: PaginationField): Promise<SuccessResponse<ProductInfo[]>> => {
     const response = await api.get<SuccessResponse<ProductInfo[]>>(`/products/seller`, {params: pagination})
     return response.data
@@ -42,8 +47,13 @@ export const getSellerBestSellProducts = async(sellerId: string, query: SearchPr
     return response.data
 }
 
-export const getSellerTotalSale = async(sellerId: string) : Promise<SuccessResponse<{totalSale: number}>> => {
-    const response = await api.get<SuccessResponse<{totalSale: number}>>(`/products/sell/totalSale/${sellerId}`)
+export const getSellerProductCount = async():Promise<SuccessResponse<number>> => {
+    const response = await api.get<SuccessResponse<number>>(`/products/count/seller`)
+    return response.data
+}
+
+export const getSellerTotalSale = async() : Promise<SuccessResponse<{totalSale: number}>> => {
+    const response = await api.get<SuccessResponse<{totalSale: number}>>(`/products/sell/totalSale`)
     return response.data
 }
 

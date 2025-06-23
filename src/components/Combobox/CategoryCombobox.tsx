@@ -31,7 +31,7 @@ const CategoryCombobox = ({categories, isLoading, value, onChange}: CategoryComb
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="relative w-[200px] p-0 h-[250px] z-[9999]" side="bottom" align="start" sideOffset={4} alignOffset={4} asChild>
+      <PopoverContent className="relative w-[200px] p-0 h-[250px] z-[99999]" side="bottom" align="start" sideOffset={4} alignOffset={4} asChild>
         <Command>
           <CommandInput placeholder="Search Categories . . ." value={searchItem} onValueChange={setSearchItem}/>
           <CommandEmpty>No Categories found.</CommandEmpty>

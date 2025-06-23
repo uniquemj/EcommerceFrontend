@@ -29,6 +29,7 @@ const ProductCard = ({ productInfo }: ProductCardProps) => {
           </div>
         </CardContent>
       </Card>
+
     </>
   );
 };

@@ -55,7 +55,7 @@ function RouteComponent() {
           <Button
             onClick={handleVerify}
             disabled={isPending}
-            className="w-full"
+            className="w-full rounded-none bg-secondary-color hover:bg-transparent border-1 hover:border-secondary-color hover:text-secondary-color hover:cursor-pointer"
           >
             {isPending ? (
               <Loader2 className="animate-spin w-4 h-4 mr-2" />
@@ -78,7 +78,7 @@ function RouteComponent() {
                 {...register("email")}
                 placeholder="Your Email"
               />
-              <Button className="">{resendPending ? (
+              <Button className="w-full rounded-none bg-secondary-color hover:bg-transparent border-1 hover:border-secondary-color hover:text-secondary-color hover:cursor-pointer">{resendPending ? (
               <Loader2 className="animate-spin w-4 h-4 mr-2" />
             ) : (
               "Resend"

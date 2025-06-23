@@ -34,12 +34,12 @@ const UpdatePasswordForm = ({handleUpdate}: {handleUpdate: (data: UpdatePassword
     <div className="">
       <div className="flex flex-col gap-3 mb-4">
         <h1 className="max-[410px]:text-2xl text-3xl font-bold">
-          Update Your Account Password
+          Update Your Password
         </h1>
         <Separator className="bg-[rgba(0,0,0,0.3)]" />
       </div>
       <form onSubmit={handleSubmit(handleUpdate)}>
-        <Card>
+        <Card className="border-none shadow-none">
           <CardContent>
             <div className="grid min-[800px]:w-2/5 items-center gap-4">
               <div className="grid grid-cols-1 gap-5">
@@ -52,7 +52,7 @@ const UpdatePasswordForm = ({handleUpdate}: {handleUpdate: (data: UpdatePassword
                     placeholder="Old Password"
                   />
                   {errors.old_password ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.old_password.message}
                     </p>
                   ) : (
@@ -68,7 +68,7 @@ const UpdatePasswordForm = ({handleUpdate}: {handleUpdate: (data: UpdatePassword
                     placeholder="New Password"
                   />
                   {errors.new_password ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.new_password.message}
                     </p>
                   ) : (
@@ -84,7 +84,7 @@ const UpdatePasswordForm = ({handleUpdate}: {handleUpdate: (data: UpdatePassword
                     placeholder="Confirm New Password"
                   />
                   {errors.confirm_password ? (
-                    <p className="text-red-400 max-[600px]:text-sm">
+                    <p className="text-error-color text-error-msg">
                       {errors.confirm_password.message}
                     </p>
                   ) : (
@@ -95,7 +95,7 @@ const UpdatePasswordForm = ({handleUpdate}: {handleUpdate: (data: UpdatePassword
             </div>
           </CardContent>
           <CardFooter>
-            <Button type="submit" className="bg-red-400 hover:cursor-pointer">
+            <Button type="submit" className="rounded-none w-1/5 bg-secondary-color hover:cursor-pointer border-1 hover:bg-transparent hover:text-secondary-color border-secondary-color">
               Submit
             </Button>
           </CardFooter>

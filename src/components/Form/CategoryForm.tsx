@@ -34,6 +34,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {Loader2, Plus } from "lucide-react";
 import CategoryCombobox from "../Combobox/CategoryCombobox";
 import type { Category } from "@/types/category.types";
+import DashboardHeader from "../Layout/DashboardHeader/DashboardHeader";
+import { Card, CardContent, CardFooter } from "../ui/card";
 // import CategoryCombobox from "../Combobox/CategoryCombobox";
 // import type { Category } from "@/types/category.types";
 
@@ -65,13 +67,13 @@ const CategoryForm = () => {
   };
   return (
     <>
-      <Sheet>
+      {/* <Sheet>
         <SheetTrigger asChild>
           <Button className="bg-secondary-color hover:cursor-pointer">
             <Plus /> Category
           </Button>
         </SheetTrigger>
-        <SheetContent className="flex flex-col z-[999] overflow-visible">
+        <SheetContent className="flex flex-col z-[99] overflow-visible">
           <SheetHeader>
             <SheetTitle>Create Category</SheetTitle>
             <SheetDescription>Provide Category Information</SheetDescription>
@@ -100,7 +102,7 @@ const CategoryForm = () => {
                 render={({ field }) => (
                   <div className="flex flex-col space-y-3">
                     <Label htmlFor="parent_category">Parent Categories</Label>
-                    <CategoryCombobox categories={categories?.data as Category[]} isLoading={isLoading} value={field.value as string} onChange={field.onChange}/>
+                    <CategoryCombobox categories={categories?.data as Category[]} isLoading={isLoading} value={field.value as string} onChange={field.onChange}/> */}
                     {/* <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -120,7 +122,7 @@ const CategoryForm = () => {
                         </SelectGroup>
                       </SelectContent>
                     </Select> */}
-                    {errors.parent_category ? (
+                    {/* {errors.parent_category ? (
                       <p className="text-primary-color text-error-msg">
                         {errors.parent_category.message}
                       </p>
@@ -147,9 +149,9 @@ const CategoryForm = () => {
             </SheetFooter>
           </form>
         </SheetContent>
-      </Sheet>
+      </Sheet> */}
 
-      {/* <DashboardHeader header="Create Category" buttons={[]}>
+      <DashboardHeader header="Create Category" buttons={[]} backurl="/admin/dashboard/categories">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
           <CardContent>
@@ -171,10 +173,46 @@ const CategoryForm = () => {
                     ""
                   )}
                 </div>
-                <Controller name="parent_category" control={control} render={({field}) => (
+    
 
                   <div className="flex flex-col space-y-3">
-                  <Label htmlFor="parent_category">Parent Categories</Label>
+                           <Controller
+                name="parent_category"
+                control={control}
+                render={({ field }) => (
+                  <div className="flex flex-col space-y-3">
+                    <Label htmlFor="parent_category">Parent Categories</Label>
+                    <CategoryCombobox categories={categories?.data as Category[]} isLoading={isLoading} value={field.value as string} onChange={field.onChange}/>
+                    {/* <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select Category" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-[250px]">
+                        <SelectGroup>
+                          <SelectLabel>Parent Categories</SelectLabel>
+
+                          {categories?.data.map((category) => (
+                            <SelectItem value={category._id} key={category._id}>
+                              {category.title}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select> */}
+                     {errors.parent_category ? (
+                      <p className="text-primary-color text-error-msg">
+                        {errors.parent_category.message}
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                )}
+              />
+                  {/* <Label htmlFor="parent_category">Parent Categories</Label>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Select Category"/>
@@ -196,16 +234,16 @@ const CategoryForm = () => {
                     </p>
                   ) : (
                     ""
-                  )}
+                  )} */}
                 </div>
-            )}/>
+           
               </div>
             </div>
           </CardContent>
           <CardFooter>
             <Button
               type="submit"
-              className="bg-primary-color hover:cursor-pointer"
+              className=" hover:cursor-pointer rounded-none bg-secondary-color border-1 border-secondary-color hover:bg-transparent hover:text-secondary-color"
             >
               {isPending ? (
                 <Loader2 className="animate-spin w-4 h-4 mr-2" />
@@ -216,7 +254,7 @@ const CategoryForm = () => {
           </CardFooter>
         </Card>
       </form>
-    </DashboardHeader> */}
+    </DashboardHeader>
     </>
   );
 };

@@ -45,7 +45,7 @@ const SubNavbar = () => {
             </div>) :
             (<div className="flex items-center">
               <Link to='/'>
-                <h1 className="text-20 font-bold text-secondary-shade-dark">
+                <h1 className="text-24 font-bold text-secondary-shade-dark">
                   BajarHub
                 </h1>
               </Link>
@@ -56,7 +56,7 @@ const SubNavbar = () => {
           {isAuthenticated ? (
             <div className="flex items-center gap-space-24">
               <Link
-                to="/"
+                to="/customer/order"
                 className="hover:underline hover:text-secondary-shade-normal flex gap-2 justify-end items-center text-14 font-normal text-primary-300"
               >
                 <PackageSearch size={14} className="text-secondary-shade-normal"/>
@@ -101,13 +101,13 @@ const SubNavbar = () => {
       {/* Mobile */}
       <div className="hidden max-sm:flex justify-between px-space-14 py-space-24 border-b-1">
         <div>
-          <h1 className="text-20 font-bold text-secondary-shade-dark">
+          <h1 className="text-24 font-bold text-secondary-shade-dark">
             BajarHub
           </h1>
         </div>
         <div className="flex items-center gap-2">
           {isAuthenticated && (
-            <Link to="/">
+            <Link to="/cart">
               <ShoppingCart size={19} className="text-secondary-shade-normal"/>
             </Link>
           )}
@@ -129,6 +129,15 @@ const SubNavbar = () => {
                   <>
                     <DropdownMenuItem>
                       <Link
+                        to="/customer/profile"
+                        className="hover:underline flex gap-2 justify-end items-center text-14 font-normal text-secondary-shade-normal"
+                      >
+                        <User size={14} />
+                        My Account
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
                         to="/"
                         className="hover:underline flex gap-2 justify-end items-center text-14 font-normal text-secondary-shade-normal"
                       >
@@ -137,15 +146,6 @@ const SubNavbar = () => {
                       </Link>
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem>
-                      <Link
-                        to="/customer/profile"
-                        className="hover:underline flex gap-2 justify-end items-center text-14 font-normal text-secondary-shade-normal"
-                      >
-                        <User size={14} />
-                        My Account
-                      </Link>
-                    </DropdownMenuItem>
                     <DropdownMenuItem>
                       <div
                         className="hover:underline flex gap-2 justify-end items-center text-14 font-normal hover:cursor-pointer text-secondary-shade-normal"

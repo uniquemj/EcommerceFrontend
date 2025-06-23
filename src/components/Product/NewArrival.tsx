@@ -8,6 +8,7 @@ const NewArrival = () => {
 
   const {data: newArrival} = useSearchProducts({page: 1, limit: 5, sortBy: '-createdAt'})
 
+  console.log(newArrival)
   return (
     <ProductDisplay title="New Arrivals" url='/product/all/new-arrival'>
         {

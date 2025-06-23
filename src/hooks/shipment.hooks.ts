@@ -4,6 +4,7 @@ import type { ErrorResponse, SuccessResponse } from "@/types/response.types"
 import type { ShipmentInfo } from "@/types/shipment.type"
 import type { AddressType, UpdateAddressType } from "@/validations/shipment.validate"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useNavigate } from "@tanstack/react-router"
 import toast from "react-hot-toast"
 
 export const useGetAddressListOfCustomer = (pagination: PaginationField) =>{
@@ -37,11 +38,15 @@ export const useCreateAddress = () =>{
 
 export const useUpdateAddress = () =>{
     const query = useQueryClient()
+    const navigate = useNavigate()
 
     return useMutation<SuccessResponse<ShipmentInfo>, ErrorResponse, {addressId: string, updateShipmentInfo: UpdateAddressType}>({
         mutationFn: ({addressId, updateShipmentInfo}) => updateAddress(addressId, updateShipmentInfo),
         onSuccess: ()=>{
             query.invalidateQueries({queryKey: ['shipment']})
+            navigate({
+                to: "/customer/address"
+            })
             toast.success('Shipment Address updated.')
         },
         onError: (error)=>{

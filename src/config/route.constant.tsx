@@ -36,7 +36,7 @@ export const navRoute: NavRoute = {
             subItems:[
                 {
                     title: "Manage Orders",
-                    url: "#",
+                    url: "/seller/dashboard/orders",
                     include: true,
                 },
             ]
@@ -138,6 +138,18 @@ export const navRoute: NavRoute = {
             icons: (<Clipboard size={18}/>),
             url: "#",
             include: true,
+            subItems:[
+                {
+                    title: "Manage Orders",
+                    url: "/admin/dashboard/orders/all",
+                    include: true,
+                },
+                {
+                    title: "Manage Order Items",
+                    url: "/admin/dashboard/order-items/all",
+                    include: true,
+                },
+            ]
         },
         {
             title: "Account Information",

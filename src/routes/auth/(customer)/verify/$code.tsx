@@ -38,7 +38,7 @@ function RouteComponent() {
   }
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <Card className="p-6 w-[350px] md:max-w-md text-center">
+      <Card className="p-6 w-full md:max-w-md text-center">
         <CardContent>
           <h1 className="text-2xl font-bold mb-4">Verify Your Email</h1>
           <p className="mb-4">
@@ -47,7 +47,7 @@ function RouteComponent() {
           <Button
             onClick={handleVerify}
             disabled={isPending}
-            className="w-full"
+            className="w-full rounded-none bg-secondary-color hover:bg-transparent border-1 hover:border-secondary-color hover:text-secondary-color hover:cursor-pointer"
           >
             {isPending ? (
               <Loader2 className="animate-spin w-4 h-4 mr-2" />
@@ -70,7 +70,7 @@ function RouteComponent() {
                 {...register("email")}
                 placeholder="Your Email"
               />
-              <Button className="">{resendPending ? (
+              <Button className="rounded-none border-1 border-secondary-color text-secondary-color bg-transparent hover:bg-secondary-color hover:text-text-color hover:cursor-pointer">{resendPending ? (
               <Loader2 className="animate-spin w-4 h-4 mr-2" />
             ) : (
               "Resend"

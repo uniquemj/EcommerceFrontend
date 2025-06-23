@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import Container from '@/components/Layout/Container/Container'
+import  { useState } from 'react'
 import { useCreateAddress, useGetActiveAddress, useGetAddressListOfCustomer, useUpdateActiveAddress } from '@/hooks/shipment.hooks';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { Label } from '../ui/label';
 import ShipmentDisplay from './ShipmentDisplay';
 import { SheetClose } from '../ui/sheet';
 import { Button } from '../ui/button';
-import { Loader2, Plus } from 'lucide-react';
+import { ArrowLeft, Loader2, Plus } from 'lucide-react';
 import ShipmentForm from './ShipmentForm';
 import type { AddressType } from '@/validations/shipment.validate';
 
@@ -43,7 +42,7 @@ export function AddressSelectionSheet() {
           onClick={() => setShowNewForm(false)}
           className="flex items-center gap-2"
         >
-          ← Back to addresses
+          <ArrowLeft size={12}/> Back to addresses
         </Button>
         
         <ShipmentForm 
@@ -79,6 +78,7 @@ export function AddressSelectionSheet() {
             <RadioGroupItem 
               value={address._id} 
               id={`address-${address._id}`}
+              className='border-secondary-color'
             />
             <Label htmlFor={`address-${address._id}`} className="w-full cursor-pointer">
               <div className={`p-4 border rounded-lg ${

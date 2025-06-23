@@ -1,4 +1,4 @@
-import { deleteCustomer, getAllCustomers, getCustomerById, getCustomerProfile, resendVerificationEmail, updateCustomerInfo, updateCustomerPassword, verifyCustomerEmail } from "@/services/customer.api";
+import { deleteCustomer, getAllCustomers, getCustomerById, getCustomerCount, getCustomerProfile, resendVerificationEmail, updateCustomerInfo, updateCustomerPassword, verifyCustomerEmail } from "@/services/customer.api";
 import { useAuth } from "@/store/auth.store";
 import type { PaginationField } from "@/types/pagination.types";
 import type { ErrorResponse, SuccessResponse } from "@/types/response.types";
@@ -15,6 +15,12 @@ export const useGetAllCustomer = (paginationField: PaginationField) =>{
     })
 }
 
+export const useGetCustomerCount = () =>{
+    return useQuery<SuccessResponse<number>, ErrorResponse>({
+        queryKey: ['customer','count'],
+        queryFn: () => getCustomerCount()
+    })
+}
 export const useGetCustomerById = (id: string) =>{
     return useQuery<SuccessResponse<Customer>, ErrorResponse>({
         queryKey: ['customer', id],
@@ -28,6 +34,7 @@ export const useDeleteCustomer = () =>{
         mutationFn: (id: string) => deleteCustomer(id),
         onSuccess: ()=>{
             query.invalidateQueries({queryKey: ['customers']})
+            query.invalidateQueries({queryKey: ['customer']})
             toast.success("Customer Deleted.")
         },
         onError: (error) =>{
@@ -44,6 +51,7 @@ export const useVerifyCustomerEmail = () =>{
         onSuccess: (data) =>{
             query.setQueryData(['customer', data.data._id], data)
             query.invalidateQueries({queryKey: ['customers']})
+            query.invalidateQueries({queryKey: ['customer']})
             navigate({
                 to: '/auth/login'
             })
@@ -62,6 +70,7 @@ export const useResendVerificationEmail = () =>{
         onSuccess: (data) => {
             query.setQueryData(['customer', data.data._id], data)
             query.invalidateQueries({queryKey: ['customers']})
+            query.invalidateQueries({queryKey: ['customer']})
             toast.success("Resent Verification Email.")
         },
         onError: (error)=>{
@@ -94,6 +103,7 @@ export const useUpdateCustomerInfo = () =>{
             query.setQueryData(['customer', 'profile'], data)
             query.setQueryData(['customer', data.data._id], data)
             query.invalidateQueries({queryKey: ['customers']})
+            query.invalidateQueries({queryKey: ['customer']})
             navigate({
                 to: '/customer/profile'
             })

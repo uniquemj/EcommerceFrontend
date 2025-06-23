@@ -61,7 +61,8 @@ html, body{
     --color-text-color: var(--text-color);
     --color-light-tan: var(--light-tan);
     --color-success-color: var(--success-color);
-    --color-green-color: var(--color-green-400);
+    --color-green-color: var(--color-green-500);
+    --color-amber-color: var(--color-amber-500);
     --color-error-color: var(--error-color);
     --color-footer-color: var(--footer-color);
     --color-footer-dark-color: var(--shade-secondary-1100);
@@ -69,6 +70,7 @@ html, body{
 
     --color-primary-100: #F5F5F5;
     --color-primary-300: #666666;
+    --color-secondary-50: var(--secondary-50);
 
     --color-secondary-shade-lightest: var(--shade-secondary-100);
     --color-secondary-shade-light: var(--shade-secondary-300);
@@ -101,14 +103,17 @@ html, body{
     --spacing-space-50: 50px;
     --spacing-space-54: 54px;
     --spacing-space-58: 58px;
+    --spacing-space-60: 60px;
     --spacing-space-24: 24px;
     --spacing-space-32: 32px;
     --spacing-space-42: 42px;
     --spacing-space-90: 90px;
     --spacing-space-120: 120px;
     --spacing-space-140: 140px;
+    --spacing-space-160: 160px;
     --spacing-space-180: 180px;
     --spacing-space-220: 220px;
+    --spacing-space-282: 282px;
     --spacing-space-288: 288px;
     --spacing-space-320: 320px;
     --spacing-space-360: 360px;
@@ -181,6 +186,7 @@ html, body{
     /*  Custom Variables */
     --primary-color: #151515;
     --secondary-color: #C75B39;
+    --secondary-50: #C75B391A;
     --shade-secondary-100: #f9efeb;
     --shade-secondary-300: #eecec4;
     --shade-secondary-800: #d27c61;

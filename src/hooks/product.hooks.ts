@@ -1,4 +1,4 @@
-import { createProduct, deleteProduct, editProduct, editProductVariant, getAllProductList, getBestSellProducts, getFeaturedProducts, getProductByCategory, getProductById, getProductList, getSellerBestSellProducts, getSellerProductById, getSellerProductList, getSellerTotalSale, getVariantById, getVariantListOfProduct, removeVariantFromProduct, searchProduct } from "@/services/product.api"
+import { archieveProduct, createProduct, deleteProduct, editProduct, editProductVariant, getAllProductList, getBestSellProducts, getFeaturedProducts, getProductByCategory, getProductById, getProductCount, getProductList, getSellerBestSellProducts, getSellerProductById, getSellerProductCount, getSellerProductList, getSellerTotalSale, getVariantById, getVariantListOfProduct, removeVariantFromProduct, searchProduct, unarchieveProduct } from "@/services/product.api"
 import type { PaginationField } from "@/types/pagination.types"
 import { type ProductInfo, type SearchProductParams, type SearchProductResponse } from "@/types/product.types"
 import { type SuccessResponse, type ErrorResponse } from "@/types/response.types"
@@ -29,6 +29,13 @@ export const useGetSellerProductById = (id: string) =>{
     return useQuery<SuccessResponse<ProductInfo>, ErrorResponse>({
         queryKey: ['products', 'seller', id],
         queryFn: ()=> getSellerProductById(id)
+    })
+}
+
+export const useGetSellerProductCount = () =>{
+    return useQuery<SuccessResponse<number>, ErrorResponse>({
+        queryKey: ['products', 'seller', 'count'],
+        queryFn: ()=> getSellerProductCount()
     })
 }
 
@@ -213,9 +220,30 @@ export const useGetSellerBestSellProduct = (sellerId: string, query: SearchProdu
     })
 }
 
-export const useGetSellerTotalSale = (sellerId: string) => {
+export const useGetSellerTotalSale = () => {
     return useQuery<SuccessResponse<{totalSale: number}>, ErrorResponse>({
-        queryKey: ['products', 'seller', sellerId, 'totalSale'],
-        queryFn: ()=>getSellerTotalSale(sellerId)
+        queryKey: ['products', 'seller', 'totalSale'],
+        queryFn: ()=>getSellerTotalSale()
+    })
+}
+
+export const useGetProductCount = () =>{
+    return useQuery<SuccessResponse<number>, ErrorResponse>({
+        queryKey: ['products', 'count'],
+        queryFn: ()=> getProductCount()
+    })
+}
+
+export const useUpdateArchieveStatus = () =>{
+    const query = useQueryClient()
+
+    return useMutation<SuccessResponse<ProductInfo>, ErrorResponse, {archieve: boolean, productId: string}>({
+        mutationFn: ({archieve, productId}) => archieve ? archieveProduct(productId) : unarchieveProduct(productId),
+        onSuccess: () => {
+            query.invalidateQueries({queryKey: ['products']})
+        },
+        onError: (error)=>{
+            toast.error(error.response.data.message)
+        }
     })
 }

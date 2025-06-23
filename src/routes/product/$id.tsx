@@ -8,7 +8,7 @@ import {
 import { useVariantSelectionStore } from "@/store/variant.store";
 import { UserRole } from "@/types/enum.types";
 import type { ProductInfo } from "@/types/product.types";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { CircleAlert } from "lucide-react";
 import { useMemo } from "react";
 
@@ -26,6 +26,7 @@ function RouteComponent() {
 
   const { data: relatedProduct } = useGetProductByCategory(category as string, {page: 1, limit: 5})
 
+  console.log(relatedProduct)
   let colors = "";
 
   product?.data.variants
@@ -62,20 +63,23 @@ function RouteComponent() {
           <h1 className="text-24 font-medium text-secondary-shade-dark">
             Related Products
           </h1>
-          {relatedProduct?.data?.length ? 
+          {relatedProduct?.data?.length as number > 1? 
           (<div className="flex items-center gap-space-10">
             {relatedProduct?.data
               .filter((product) => product._id !== id)
               .map((product) => (
-                
+                <Link to='/product/$id' params={{id: product._id}}>
                 <ProductCard productInfo={product} key={product._id} />
+                </Link>
               ))}
           </div>)
           : 
-          <div className="flex items-center justify-center">
-            <CircleAlert/>
-            No Related Product Found.
-            </div>
+          <div className='w-full px-space-24 py-space-24'>
+              <div className='flex flex-col items-center justify-center h-full gap-space-10'>
+                <CircleAlert size = {200} className='text-ternary-color'/>
+                <h1 className='text-ternary-color'>No Product Found.</h1>
+              </div>
+          </div>
             }
         </div>
       </div>

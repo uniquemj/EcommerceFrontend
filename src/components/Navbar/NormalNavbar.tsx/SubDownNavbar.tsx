@@ -13,11 +13,12 @@ import { AlignCenter, SlidersHorizontal } from "lucide-react";
 
 const SubDownNavbar = () => {
   const route = useRouterState()
-  const isProductPage = route.location.pathname.includes('/all')
+  const isProductPage = route.location.pathname.startsWith('/product')
 
   return (
     <div className="w-full justify-between border-b-1 h-space-42 hidden max-940:flex max-sm:px-space-12 min-sm:px-space-42 items-center">
       <div>
+     {!isProductPage && 
         <Popover>
           <PopoverTrigger asChild>
             <button className="flex items-center gap-2 text-sm font-medium">
@@ -35,6 +36,7 @@ const SubDownNavbar = () => {
             </div>
           </PopoverContent>
         </Popover>
+      }
       </div>
      {isProductPage && <div>
         <Sheet>

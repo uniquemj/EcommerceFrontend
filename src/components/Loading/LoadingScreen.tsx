@@ -1,18 +1,19 @@
-import React from 'react'
-import Spinner from '../ui/spinner'
+import React from "react";
+import Spinner from "../ui/spinner";
 
-
-interface LoadingScreenProps{
-    description: string
+interface LoadingScreenProps {
+  description: string;
 }
 
-const LoadingScreen = ({description}:LoadingScreenProps) => {
+const LoadingScreen = ({ description }: LoadingScreenProps) => {
   return (
-    <div className='flex flex-col items-center justify-center'> 
-        <Spinner/>
+    <div className="h-screen-minus flex flex-col items-center justify-center">
+      <div>
+        <Spinner />
         {description}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoadingScreen
+export default LoadingScreen;

@@ -7,13 +7,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, TrashIcon } from "lucide-react";
 import { UserRole } from "@/types/enum.types";
 import { useDeleteAdmin } from "@/hooks/admin.hooks";
 import { useDeleteCustomer } from "@/hooks/customer.hooks";
 import { useDeleteSeller } from "@/hooks/seller.hooks";
 import { useDeleteCategory } from "@/hooks/category.hooks";
 import { useDeleteProduct } from "@/hooks/product.hooks";
+import { useDeleteAddress } from "@/hooks/shipment.hooks";
 
 
 const TableDropdown = ({id, menuOptions ,option}: {id: string, menuOptions: React.ReactNode[], option: string}) => {
@@ -34,6 +35,9 @@ const TableDropdown = ({id, menuOptions ,option}: {id: string, menuOptions: Reac
       break
     case "product":
       deleteHook = useDeleteProduct
+      break
+    case "address":
+      deleteHook = useDeleteAddress
       break
     default:
       throw Error("Invalid")
@@ -59,8 +63,9 @@ const TableDropdown = ({id, menuOptions ,option}: {id: string, menuOptions: Reac
         {
           menuOptions.map((option)=>(option))
         }
-          <DropdownMenuItem onClick={handleDelete} className="hover:cursor-pointer">
-            Delete
+          <DropdownMenuItem onClick={handleDelete} className="hover:cursor-pointer text-red-500 hover:bg-red-50">
+            <TrashIcon className="w-4 h-4" />
+          <span>Delete</span>
           </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
